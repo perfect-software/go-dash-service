@@ -1,10 +1,13 @@
 package com.service.godash.controller;
 
-import com.service.godash.dto.UserRegistrationRequest;
+import com.service.godash.payload.UserRegistrationRequest;
 import com.service.godash.service.UserService;
-import com.service.godash.validation.UserRegisterValidation;
+import com.service.godash.validation.UserValidation;
+import io.swagger.v3.oas.annotations.OpenAPIDefinition;
+import io.swagger.v3.oas.annotations.info.Info;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,16 +15,22 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/api/user")
+@OpenAPIDefinition(info = @Info(
+        title = "Custom API title",
+        version = "3.14"
+))
 public class EmpUserController {
     @Autowired
-    UserRegisterValidation userRegisterValidation;
+    UserValidation userValidation;
     @Autowired
     UserService userService;
 
     @PostMapping("/register")
-    public HttpStatus createUserSignUp(@RequestBody UserRegistrationRequest request) throws Exception {
-        userRegisterValidation.validateRequest(request);
-        userService.registerUser(request);
-        return HttpStatus.OK;
+    public ResponseEntity<?> createUserSignUp(@Valid @RequestBody UserRegistrationRequest request) throws Exception {
+            userValidation.validateRequest(request);
+            return userService.registerUser(request);
+
+
+
     }
 }

@@ -1,21 +1,31 @@
 package com.service.godash.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
+import lombok.Data;
 
 @Entity
-@Table(schema = "ole",name="EmpUser")
+@Data
+@Table(name="emp_user",schema = "ole")
 public class User {
 
+    @Id
+    @Column(name = "emp_id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer EmployeeID;
+
+    @Column(name = "first_name")
     private String FirstName;
 
+    @Column(name = "last_name")
     private String LastName;
 
-    private String Email;
+    @Column(name = "email")
+    private String email;
 
+    @Column(name = "phone")
     private String Phone;
 
-    private String DeptCode;
-    private String Store;
+    @Column(name = "userpass")
+    private String Password;
 
 }
