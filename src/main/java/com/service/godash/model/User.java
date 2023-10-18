@@ -13,19 +13,21 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer EmployeeID;
 
-    @Column(name = "first_name")
-    private String FirstName;
-
-    @Column(name = "last_name")
-    private String LastName;
+//    @Column(name = "first_name")
+//    private String FirstName;
+//
+//    @Column(name = "last_name")
+//    private String LastName;
+    @Column(name = "username")
+    private String username;
 
     @Column(name = "email")
     private String email;
 
     @Column(name = "phone")
-    private String Phone;
+    private String phone;
 
     @Column(name = "userpass")
-    private String Password;
+    private String password;
 
 }

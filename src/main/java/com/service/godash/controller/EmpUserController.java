@@ -25,12 +25,10 @@ public class EmpUserController {
     @Autowired
     UserService userService;
 
-    @PostMapping("/register")
+    @PostMapping("/register/")
     public ResponseEntity<?> createUserSignUp(@Valid @RequestBody UserRegistrationRequest request) throws Exception {
             userValidation.validateRequest(request);
             return userService.registerUser(request);
-
-
 
     }
 }

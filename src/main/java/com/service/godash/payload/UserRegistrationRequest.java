@@ -4,10 +4,12 @@ import lombok.NonNull;
 
 @Data
 public class UserRegistrationRequest {
+//    @NonNull
+//    private String firstName;
+//    @NonNull
+//    private String lastName;
     @NonNull
-    private String firstName;
-    @NonNull
-    private String lastName;
+    private String username;
     @NonNull
     private String email;
     @NonNull

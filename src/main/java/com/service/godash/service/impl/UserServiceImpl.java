@@ -23,10 +23,17 @@ public class UserServiceImpl implements UserService {
         if(userRepo.existsByemail(request.getEmail())){
             return ResponseEntity.badRequest().body(new MessageResponse("Email already in use"));
         }
+        else if(userRepo.existsByusername(request.getUsername())){
+            return ResponseEntity.badRequest().body(new MessageResponse("Username already in use"));
+        }
+        else if(userRepo.existsByphone(request.getPhone())){
+            return ResponseEntity.badRequest().body(new MessageResponse("Phone Number already in use"));
+        }
         else{
             User user=new User();
-            user.setFirstName(request.getFirstName());
-            user.setLastName(request.getLastName());
+            user.setUsername(request.getUsername());
+//            user.setFirstName(request.getFirstName());
+//            user.setLastName(request.getLastName());
             user.setEmail(request.getEmail());
             user.setPhone(request.getPhone());
             user.setPassword(request.getPassword());
