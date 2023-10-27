@@ -1,6 +1,7 @@
 package com.service.godash.service.impl;
 
 import com.service.godash.payload.MessageResponse;
+import com.service.godash.payload.UserLoginRequest;
 import com.service.godash.payload.UserRegistrationRequest;
 import com.service.godash.model.User;
 import com.service.godash.repository.UserRepo;
@@ -53,6 +54,11 @@ public class UserServiceImpl implements UserService {
 //
             return ResponseEntity.ok(new MessageResponse("Your account has been registered.!Please confirm your email address."));
         }
+    }
+
+    @Override
+    public ResponseEntity<?> loginUser(UserLoginRequest user) {
+        return null;
     }
 //
 //    public boolean findUserByEmail(String email){
