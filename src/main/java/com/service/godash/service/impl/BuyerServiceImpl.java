@@ -18,4 +18,9 @@ public class BuyerServiceImpl implements BuyerService {
     public List<String> getBuyerByPartialName(String partialName) {
         return  buyerRepo.findBsNameContainingIgnoreCase(partialName);
     }
+
+    @Override
+    public List<Buyer> getBuyerByName(String partialName) {
+        return buyerRepo.findByBsNameContainingIgnoreCase(partialName);
+    }
 }

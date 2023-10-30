@@ -11,4 +11,7 @@ import java.util.List;
 public interface BuyerRepo extends JpaRepository<Buyer, Integer> {
     @Query("SELECT b.bsName FROM Buyer b WHERE LOWER(b.bsName) LIKE %:partialName%")
     List<String> findBsNameContainingIgnoreCase(@Param("partialName") String partialName);
+
+//    @Query("SELECT b.* FROM Buyer b WHERE LOWER(b.bsName) LIKE %:partialName%")
+    List<Buyer> findByBsNameContainingIgnoreCase(@Param("partialName") String partialName);
 }

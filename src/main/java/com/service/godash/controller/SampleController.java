@@ -38,5 +38,14 @@ public class SampleController {
 
     }
 
+    @GetMapping("/getAllBuyer")
+    public List<Buyer> getAllBuyer(@Valid @RequestParam String input) throws Exception {
+        if (input.length() < 3) {
+            return Collections.emptyList();
+        }
+        return buyerService.getBuyerByName(input);
+
+    }
+
 
 }

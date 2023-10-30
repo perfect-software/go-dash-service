@@ -7,4 +7,6 @@ import java.util.List;
 
 public interface BuyerService {
     List<String> getBuyerByPartialName(String partialName);
+
+    List<Buyer> getBuyerByName(String partialName);
 }
