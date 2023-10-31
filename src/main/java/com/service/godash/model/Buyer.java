@@ -1,5 +1,6 @@
 package com.service.godash.model;
 
+import com.service.godash.payload.BuyerResponse;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -12,6 +13,13 @@ import java.util.Date;
 @Data
 @Table(name="Buyer",schema = "ole")
 public class Buyer {
+
+//    public Buyer(BuyerResponse response){
+//        this.bsCode=response.getBsCode();
+//        this.bsName=response.getBsName();
+//        this.deliveryAddress=response.getBsAddr();
+//    }
+
     @Id
     @Column(name = "bs_id")
     private int bsId;

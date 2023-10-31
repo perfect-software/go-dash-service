@@ -2,11 +2,8 @@ package com.service.godash.controller;
 
 import com.service.godash.model.Buyer;
 import com.service.godash.payload.SampleRequest;
-import com.service.godash.payload.UserRegistrationRequest;
 import com.service.godash.service.BuyerService;
 import com.service.godash.service.SampleService;
-import io.swagger.v3.oas.annotations.OpenAPIDefinition;
-import io.swagger.v3.oas.annotations.info.Info;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -38,14 +35,11 @@ public class SampleController {
 
     }
 
-    @GetMapping("/getAllBuyer")
-    public List<Buyer> getAllBuyer(@Valid @RequestParam String input) throws Exception {
-        if (input.length() < 3) {
-            return Collections.emptyList();
-        }
-        return buyerService.getBuyerByName(input);
-
+    @GetMapping("/getAllBuyer/{page_num}")
+    public List<Buyer> getAllBuyer(@Valid @RequestParam int page_num) throws Exception {
+       return buyerService.getBuyerByName(page_num);
     }
+
 
 
 }

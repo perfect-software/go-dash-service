@@ -7,7 +7,6 @@ import java.util.Date;
 @Data
 public class SampleRequest {
 
-
     private String season;
     private int sampleRef;
     private String sampleType;
