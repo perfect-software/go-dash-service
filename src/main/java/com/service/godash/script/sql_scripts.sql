@@ -171,11 +171,11 @@ SET
 CREATE TABLE ole.SampleRequest (
     sample_id int IDENTITY(1,1) PRIMARY KEY NOT NULL,
 	bs_id int,
-	season varchar(10),
 	sample_ref int,
 	sample_type varchar(10),
 	article_no varchar(50),
 	buyer_article varchar(50),
+	season varchar(10),
 	size varchar(5),
 	quantity varchar(5),
 	pair varchar(5),
@@ -197,6 +197,47 @@ CREATE TABLE ole.SampleRequest (
 	prod_ex_date datetime,
     entDate datetime DEFAULT getdate(),
 );
+
+-----------------------------------------
+
+select * from ole.SampleRequest
+
+delete from ole.SampleRequest
+
+drop table ole.SampleRequest
+
+CREATE TABLE ole.SampleRequest (
+    sample_id int IDENTITY(1,1) PRIMARY KEY NOT NULL,
+	season varchar(10) NOT NULL,
+	sr_no  AS season + RIGHT('00000000' + CAST(sample_id AS VARCHAR(8)), 8) PERSISTED,
+	bs_id int NOT NULL,
+	sample_ref int,
+	sample_type varchar(10),
+	article_no varchar(50),
+	buyer_article varchar(50),
+	size varchar(5),
+	quantity varchar(5),
+	pair varchar(5),
+	upperColor varchar(20),
+	liningColor varchar(20),
+	last varchar(20),
+	insole varchar(20),
+	solelable varchar(20),
+	socks varchar(20),
+	heel varchar(20),
+	pattern varchar(20),
+	buyer_ref  varchar(50),
+	in_upper_leather varchar(50),
+	in_lining varchar(50),
+	in_socks varchar(50),
+	in_quantity varchar(50),
+	comments varchar(200),
+	delivery_date date,
+	prod_ex_date date,
+	username varchar(10),
+    entDate datetime DEFAULT getdate(),
+);
+
 
 
 

@@ -11,6 +11,9 @@ import java.util.Date;
 @Table(name="SampleRequest",schema = "ole")
 public class Sample {
 
+    public Sample() {
+    }
+
     public Sample(SampleRequest request) {
         this.season = request.getSeason();
         this.sampleRef = request.getSampleRef();
