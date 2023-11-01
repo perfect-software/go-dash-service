@@ -24,7 +24,7 @@ public class BuyerServiceImpl implements BuyerService {
 
     @Override
     public List<Buyer> getBuyerByName(int page_num) {
-        Pageable pageable = PageRequest.of(page_num, 5);
+        Pageable pageable = PageRequest.of(page_num, 10);
         Page<Buyer> page = buyerRepo.findAll(pageable);
         List<Buyer> resultList = page.getContent();
         return resultList;
