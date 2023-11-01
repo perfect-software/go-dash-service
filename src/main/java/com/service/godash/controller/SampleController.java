@@ -1,6 +1,7 @@
 package com.service.godash.controller;
 
 import com.service.godash.model.Buyer;
+import com.service.godash.payload.BuyerResponse;
 import com.service.godash.payload.SampleRequest;
 import com.service.godash.service.BuyerService;
 import com.service.godash.service.SampleService;
@@ -27,7 +28,7 @@ public class SampleController {
     }
 
     @GetMapping("/getBuyer")
-    public List<String> getBuyer(@Valid @RequestParam String input) throws Exception {
+    public List<BuyerResponse> getBuyer(@Valid @RequestParam String input) throws Exception {
         if (input.length() < 3) {
             return Collections.emptyList();
         }

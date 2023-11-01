@@ -43,8 +43,6 @@ public class Sample {
     @Column(name = "sample_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int sampleId;
-    @Column(name = "bs_id")
-    private int bsId;
 
     @Column(name = "season")
     private String season;
@@ -117,5 +115,9 @@ public class Sample {
 
     @Column(name = "prod_ex_date")
     private Date prodExDate;
+
+    @ManyToOne //defines many sample id against one buyer
+    @JoinColumn(name = "bs_id")
+    private Buyer buyer;
 
 }

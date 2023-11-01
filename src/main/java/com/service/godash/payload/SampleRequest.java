@@ -8,6 +8,7 @@ import java.util.Date;
 public class SampleRequest {
 
     private String season;
+    private String bsName;
     private int sampleRef;
     private String sampleType;
     private String articleNo;
