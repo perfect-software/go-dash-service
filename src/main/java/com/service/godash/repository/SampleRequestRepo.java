@@ -8,5 +8,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface SampleRequestRepo extends JpaRepository<Sample,Integer> {
 
-    Sample findBySrNo(String SrNo);
+//    Sample findBySrNo(String SrNo);
 }
