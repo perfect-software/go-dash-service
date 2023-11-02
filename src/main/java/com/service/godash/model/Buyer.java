@@ -1,5 +1,6 @@
 package com.service.godash.model;
 
+import com.service.godash.payload.BuyerRequest;
 import com.service.godash.payload.BuyerResponse;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -14,11 +15,27 @@ import java.util.Date;
 @Table(name="Buyer",schema = "ole")
 public class Buyer {
 
-//    public Buyer(BuyerResponse response){
-//        this.bsCode=response.getBsCode();
-//        this.bsName=response.getBsName();
-//        this.deliveryAddress=response.getBsAddr();
-//    }
+    public Buyer() {
+    }
+    public Buyer(BuyerRequest request) {
+//        this.code = request.getCode();
+        this.bsName = request.getBankName();
+        this.bsAbbreviation = request.getBuyerAbbriviation();
+        this.billingAddress = request.getBuyerBillingAddress();
+        this.deliveryAddress = request.getBuyerShippingAddress();
+        this.city = request.getBankCity();
+        this.pincode = request.getBuyerPincode();
+        this.country = request.getBuyerCountry();
+        this.currency = request.getCurrency();
+//        this.bsCode = request.ge();
+        this.contactPerson = request.getBuyerContactPerson();
+//        this.mobileExt = request.getMobileExt();
+        this.mobile = request.getBuyerMobile();
+        this.phone = request.getBuyerPhone();
+        this.email = request.getBuyerEmail();
+//        this.username = request.getUsername();
+//        this.entDate = request.getEntDate();
+    }
 
     @Id
     @Column(name = "bs_id")
