@@ -64,7 +64,10 @@ public class SampleServiceImpl implements SampleService {
     }
 
     @Override
-    public List<String> getBuyerSrno(String input) {
-        return sampleRequestRepo.findBysrno(input);
+    public List<String> getBuyerSrno(String input,int bsId) {
+        if (input.length() < 2) {
+            return sampleRequestRepo.findBybuyersrno(bsId);
+        }
+        return sampleRequestRepo.findBysrno(input,bsId);
     }
 }

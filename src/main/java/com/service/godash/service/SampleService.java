@@ -18,5 +18,5 @@ public interface SampleService {
 
     List<String> getColor(String input);
 
-    List<String> getBuyerSrno(String input);
+    List<String> getBuyerSrno(String input,int bsId);
 }
