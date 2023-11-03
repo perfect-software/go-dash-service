@@ -5,6 +5,7 @@ import com.service.godash.model.Sample;
 import com.service.godash.payload.MessageResponse;
 import com.service.godash.payload.SampleRequest;
 import com.service.godash.repository.BuyerRepo;
+import com.service.godash.repository.ColorRepo;
 import com.service.godash.repository.SampleRequestRepo;
 import com.service.godash.service.SampleService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +23,8 @@ public class SampleServiceImpl implements SampleService {
     SampleRequestRepo sampleRequestRepo;
     @Autowired
     BuyerRepo buyerRepo;
+    @Autowired
+    ColorRepo colorRepo;
     @Override
     public ResponseEntity<?> createSampleRequest(SampleRequest request) {
         Sample sample=new Sample(request);
@@ -53,5 +56,15 @@ public class SampleServiceImpl implements SampleService {
         } else {
             return ResponseEntity.badRequest().body(new MessageResponse("Sample Request not found"));
         }
+    }
+
+    @Override
+    public List<String> getColor(String input) {
+        return colorRepo.findColorContainingIgnoreCase(input);
+    }
+
+    @Override
+    public List<String> getBuyerSrno(String input) {
+        return sampleRequestRepo.findBysrno(input);
     }
 }

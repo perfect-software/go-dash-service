@@ -47,6 +47,9 @@ public class Sample {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int sampleId;
 
+    @Column(name = "sr_no")
+    private String srno;
+
     @Column(name = "season")
     private String season;
 

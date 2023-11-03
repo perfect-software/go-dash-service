@@ -15,4 +15,8 @@ public interface SampleService {
 
 
     ResponseEntity<?> updateSampleRequest(SampleRequest request);
+
+    List<String> getColor(String input);
+
+    List<String> getBuyerSrno(String input);
 }

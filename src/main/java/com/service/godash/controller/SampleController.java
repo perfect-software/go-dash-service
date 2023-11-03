@@ -57,5 +57,20 @@ public class SampleController {
        return buyerService.getBuyerByName(page_num);
     }
 
+    @GetMapping("/color/{input}")
+    public List<String> getColor(@RequestParam String input){
+        if (input.length() < 2) {
+            return Collections.emptyList();
+        }
+        return sampleService.getColor(input);
+    }
+    @GetMapping("/getSRNO/{input}") //get SRNO of Same Buyer
+    public List<String> getSRNO(@RequestParam String input){
+        if (input.length() < 2) {
+            return Collections.emptyList();
+        }
+        return sampleService.getBuyerSrno(input);
+    }
+
 
 }
