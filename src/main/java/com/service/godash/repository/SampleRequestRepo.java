@@ -11,10 +11,10 @@ import java.util.List;
 
 @Repository
 public interface SampleRequestRepo extends JpaRepository<Sample,Integer> {
-
-    @Query("select b.srno from Sample b WHERE LOWER(b.srno) LIKE %:input% and b.buyer.bsId=:bsId")
-    List<String> findBysrno(@Param("input")String input,@Param("bsId")int bsId);
-
-    @Query("select b.srno from Sample b WHERE  b.buyer.bsId=:bsId")
-    List<String> findBybuyersrno(@Param("bsId")int bsId);
+//
+//    @Query("select b.srno from Sample b WHERE LOWER(b.srno) LIKE %:input% and b.buyer.bsId=:bsId")
+//    List<String> findBysrno(@Param("input")String input,@Param("bsId")int bsId);
+//
+//    @Query("select b.srno from Sample b WHERE  b.buyer.bsId=:bsId")
+//    List<String> findBybuyersrno(@Param("bsId")int bsId);
 }

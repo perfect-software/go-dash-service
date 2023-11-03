@@ -2,11 +2,13 @@ package com.service.godash.service.impl;
 
 import com.service.godash.model.Buyer;
 import com.service.godash.model.Sample;
+import com.service.godash.model.SampleType;
 import com.service.godash.payload.MessageResponse;
 import com.service.godash.payload.SampleRequest;
 import com.service.godash.repository.BuyerRepo;
 import com.service.godash.repository.ColorRepo;
 import com.service.godash.repository.SampleRequestRepo;
+import com.service.godash.repository.SampleTypeRepo;
 import com.service.godash.service.SampleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -25,6 +27,8 @@ public class SampleServiceImpl implements SampleService {
     BuyerRepo buyerRepo;
     @Autowired
     ColorRepo colorRepo;
+    @Autowired
+    SampleTypeRepo sampleTypeRepo;
     @Override
     public ResponseEntity<?> createSampleRequest(SampleRequest request) {
         Sample sample=new Sample(request);
@@ -63,11 +67,16 @@ public class SampleServiceImpl implements SampleService {
         return colorRepo.findColorContainingIgnoreCase(input);
     }
 
+//    @Override
+//    public List<String> getBuyerSrno(String input,int bsId) {
+//        if (input.length() < 2) {
+//            return sampleRequestRepo.findBybuyersrno(bsId);
+//        }
+//        return sampleRequestRepo.findBysrno(input,bsId);
+//    }
+
     @Override
-    public List<String> getBuyerSrno(String input,int bsId) {
-        if (input.length() < 2) {
-            return sampleRequestRepo.findBybuyersrno(bsId);
-        }
-        return sampleRequestRepo.findBysrno(input,bsId);
+    public List<SampleType> getSampleType() {
+        return sampleTypeRepo.findAll();
     }
 }

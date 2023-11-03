@@ -1,7 +1,7 @@
 package com.service.godash.service;
 
-import com.service.godash.model.Buyer;
 import com.service.godash.model.Sample;
+import com.service.godash.model.SampleType;
 import com.service.godash.payload.SampleRequest;
 import org.springframework.http.ResponseEntity;
 
@@ -18,5 +18,7 @@ public interface SampleService {
 
     List<String> getColor(String input);
 
-    List<String> getBuyerSrno(String input,int bsId);
+//    List<String> getBuyerSrno(String input,int bsId);
+
+    List<SampleType> getSampleType();
 }

@@ -3,7 +3,7 @@ CREATE TABLE ole.SampleRequest (
 	season varchar(10) NOT NULL,
 	sr_no  AS season + RIGHT('00000000' + CAST(sample_id AS VARCHAR(8)), 8) PERSISTED,
 	bs_id int NOT NULL,
-	sample_ref int,
+	sample_ref varchar(30),
 	sample_type varchar(10),
 	article_no varchar(50),
 	buyer_article varchar(50),

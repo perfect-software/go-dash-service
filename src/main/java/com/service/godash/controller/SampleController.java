@@ -2,6 +2,7 @@ package com.service.godash.controller;
 
 import com.service.godash.model.Buyer;
 import com.service.godash.model.Sample;
+import com.service.godash.model.SampleType;
 import com.service.godash.payload.BuyerResponse;
 import com.service.godash.payload.MessageResponse;
 import com.service.godash.payload.SampleRequest;
@@ -64,9 +65,13 @@ public class SampleController {
         }
         return sampleService.getColor(input);
     }
-    @GetMapping("/getSRNO/{bsId}/{input}") //get SRNO of Same Buyer
-    public List<String> getSRNO(@RequestParam String input,@RequestParam int bsId){
-        return sampleService.getBuyerSrno(input,bsId);
+//    @GetMapping("/getSRNO/{bsId}/{input}") //get SRNO of Same Buyer
+//    public List<String> getSRNO(@RequestParam String input,@RequestParam int bsId){
+//        return sampleService.getBuyerSrno(input,bsId);
+//    }
+    @GetMapping("/getSampleType")
+    public List<SampleType>getAllSampleType(){
+        return sampleService.getSampleType();
     }
 
 

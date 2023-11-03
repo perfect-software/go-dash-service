@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/api/user")
 @OpenAPIDefinition(info = @Info(
-        title = "Custom API title",
+        title = "GO Services",
         version = "3.14"
 ))
 public class EmpUserController {

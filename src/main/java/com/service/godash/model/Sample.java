@@ -46,15 +46,15 @@ public class Sample {
     @Column(name = "sample_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int sampleId;
-
-    @Column(name = "sr_no")
-    private String srno;
+//
+//    @Column(name = "sr_no")
+//    private String srno;
 
     @Column(name = "season")
     private String season;
 
     @Column(name = "sample_ref")
-    private int sampleRef;
+    private String sampleRef;
 
     @Column(name = "sample_type")
     private String sampleType;
