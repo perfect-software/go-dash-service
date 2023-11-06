@@ -5,10 +5,7 @@ import com.service.godash.model.Sample;
 import com.service.godash.model.SampleType;
 import com.service.godash.payload.MessageResponse;
 import com.service.godash.payload.SampleRequest;
-import com.service.godash.repository.BuyerRepo;
-import com.service.godash.repository.ColorRepo;
-import com.service.godash.repository.SampleRequestRepo;
-import com.service.godash.repository.SampleTypeRepo;
+import com.service.godash.repository.*;
 import com.service.godash.service.SampleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -17,6 +14,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.time.Year;
 import java.util.List;
 
 @Service
@@ -29,8 +27,14 @@ public class SampleServiceImpl implements SampleService {
     ColorRepo colorRepo;
     @Autowired
     SampleTypeRepo sampleTypeRepo;
+    @Autowired
+    SampleRefRepo refRepo;
+
     @Override
     public ResponseEntity<?> createSampleRequest(SampleRequest request) {
+        String season=request.getSeason();
+        String year=getYear();
+        request.setSeason(season+year);
         Sample sample=new Sample(request);
         Buyer buyer=new Buyer();
         Buyer existingBuyer = buyerRepo.findByBsName(request.getBsName());
@@ -67,16 +71,24 @@ public class SampleServiceImpl implements SampleService {
         return colorRepo.findColorContainingIgnoreCase(input);
     }
 
-//    @Override
-//    public List<String> getBuyerSrno(String input,int bsId) {
-//        if (input.length() < 2) {
-//            return sampleRequestRepo.findBybuyersrno(bsId);
-//        }
-//        return sampleRequestRepo.findBysrno(input,bsId);
-//    }
+    @Override
+    public List<String> getBuyerSrno(String input,int bsId) {
+        if (input.length() < 2) {
+            return refRepo.findBybuyersrno(bsId);
+        }
+        return refRepo.findBysrno(input,bsId);
+    }
 
     @Override
     public List<SampleType> getSampleType() {
         return sampleTypeRepo.findAll();
     }
+
+    public String getYear(){
+        Year currentYear = Year.now();
+        String currentYearAsString = currentYear.toString();
+        String year = currentYearAsString.substring(currentYearAsString.length() - 2);
+        return year;
+    }
+
 }

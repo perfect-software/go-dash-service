@@ -65,10 +65,10 @@ public class SampleController {
         }
         return sampleService.getColor(input);
     }
-//    @GetMapping("/getSRNO/{bsId}/{input}") //get SRNO of Same Buyer
-//    public List<String> getSRNO(@RequestParam String input,@RequestParam int bsId){
-//        return sampleService.getBuyerSrno(input,bsId);
-//    }
+    @GetMapping("/getSRNO/{bsId}") //get SRNO of Same Buyer
+    public List<String> getSRNO(@RequestParam String input,@RequestParam int bsId){
+        return sampleService.getBuyerSrno(input,bsId);
+    }
     @GetMapping("/getSampleType")
     public List<SampleType>getAllSampleType(){
         return sampleService.getSampleType();
