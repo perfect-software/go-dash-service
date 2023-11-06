@@ -12,7 +12,7 @@ import org.springframework.data.domain.Pageable;
 import java.util.List;
 @Repository
 public interface BuyerRepo extends JpaRepository<Buyer, Integer> {
-    @Query("SELECT NEW com.service.godash.payload.BuyerResponse(b.bsId, b.bsName , b.deliveryAddress) FROM Buyer b WHERE LOWER(b.bsName) LIKE %:partialName%")
+    @Query("SELECT NEW com.service.godash.payload.BuyerResponse(b.bs_id, b.bsName , b.deliveryAddress) FROM Buyer b WHERE LOWER(b.bsName) LIKE %:partialName%")
     List<BuyerResponse> findBsNameContainingIgnoreCase(@Param("partialName") String partialName);
 
 //    @Query("SELECT b.* FROM Buyer b WHERE LOWER(b.bsName) LIKE %:partialName%")

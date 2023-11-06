@@ -1,29 +1,33 @@
 package com.service.godash.model;
 
 import com.service.godash.payload.BuyerRequest;
-import com.service.godash.payload.BuyerResponse;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.Data;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Data
 @Table(name="Buyer",schema = "ole")
 public class Buyer {
 
-    public Buyer() {
+    public Buyer(){
+    }
+
+    public Buyer(BsAccount bsAccount) {
+        bankAccounts = new ArrayList<>();
+        bankAccounts.add(bsAccount);
+        // Initialize the bankAccounts list
     }
     public Buyer(BuyerRequest request) {
 //        this.code = request.getCode();
-        this.bsName = request.getBankName();
+        this.bsName = request.getBuyerName();
         this.bsAbbreviation = request.getBuyerAbbriviation();
         this.billingAddress = request.getBuyerBillingAddress();
         this.deliveryAddress = request.getBuyerShippingAddress();
-        this.city = request.getBankCity();
+        this.city = request.getBuyerCity();
         this.pincode = request.getBuyerPincode();
         this.country = request.getBuyerCountry();
         this.currency = request.getCurrency();
@@ -38,8 +42,9 @@ public class Buyer {
     }
 
     @Id
-    @Column(name = "bs_id")
-    private int bsId;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @JoinColumn(name = "bs_id")
+    private int bs_id;
 
     @Column(name = "Code")
     private String code;
@@ -91,4 +96,7 @@ public class Buyer {
 
     @Column(name = "entDate")
     private Date entDate;
+
+    @OneToMany(mappedBy = "buyer")
+    private List<BsAccount> bankAccounts;
 }

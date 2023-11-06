@@ -1,5 +1,6 @@
 package com.service.godash.controller;
 
+import com.service.godash.model.Buyer;
 import com.service.godash.payload.BuyerRequest;
 import com.service.godash.payload.SampleRequest;
 import com.service.godash.service.BuyerService;

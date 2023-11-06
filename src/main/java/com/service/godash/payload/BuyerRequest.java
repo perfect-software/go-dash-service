@@ -1,6 +1,9 @@
 package com.service.godash.payload;
 
+import com.service.godash.model.BsAccount;
 import lombok.Data;
+
+import java.util.Date;
 
 @Data
 public class BuyerRequest {
@@ -19,17 +22,19 @@ public class BuyerRequest {
     private String buyerContactPerson;
     private String merchendiser;
     private String currency;
-    private String bankName;
-    private String bankBranch;
-    private String bankAccountNo;
-    private String bankIFSC;
-    private String bankAccountType;
-    private String bankCity;
-    private String bankAddress;
-    private String bankSwiftCode;
-
     private String discount;
     private String paymentTerms;
     private String splDiscount;
     private String comments;
+    private Date entDate;
+    private BsAccountRequest bsAccountRequest;
+//    private String bankName;
+//    private String bankBranch;
+//    private String bankAccountNo;
+//    private String bankIFSC;
+//    private String bankAccountType;
+//    private String bankCity;
+//    private String bankAddress;
+//    private String bankSwiftCode;
+
 }

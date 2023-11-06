@@ -38,7 +38,7 @@ public class SampleServiceImpl implements SampleService {
         Sample sample=new Sample(request);
         Buyer buyer=new Buyer();
         Buyer existingBuyer = buyerRepo.findByBsName(request.getBsName());
-        buyer.setBsId(existingBuyer.getBsId());
+        buyer.setBs_id(existingBuyer.getBs_id());
         sample.setBuyer(buyer);
         sampleRequestRepo.save(sample);
         return ResponseEntity.ok(new MessageResponse("Sample Request Created"));

@@ -1,5 +1,6 @@
 package com.service.godash.service;
 
+import com.service.godash.model.BsAccount;
 import com.service.godash.model.Buyer;
 import com.service.godash.payload.BuyerRequest;
 import com.service.godash.payload.BuyerResponse;
