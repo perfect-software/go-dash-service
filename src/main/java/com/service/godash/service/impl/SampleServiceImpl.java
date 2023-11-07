@@ -80,8 +80,8 @@ public class SampleServiceImpl implements SampleService {
     }
 
     @Override
-    public List<SampleType> getSampleType() {
-        return sampleTypeRepo.findAll();
+    public List<String> getSampleType() {
+        return sampleTypeRepo.findAllType();
     }
 
     public String getYear(){

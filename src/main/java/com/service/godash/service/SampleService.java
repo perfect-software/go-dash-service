@@ -20,6 +20,6 @@ public interface SampleService {
 
     List<String> getBuyerSrno(String input,int bsId);
 
-    List<SampleType> getSampleType();
+    List<String> getSampleType();
 
 }

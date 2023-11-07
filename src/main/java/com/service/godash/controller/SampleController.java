@@ -70,7 +70,7 @@ public class SampleController {
         return sampleService.getBuyerSrno(input,bsId);
     }
     @GetMapping("/getSampleType")
-    public List<SampleType>getAllSampleType(){
+    public List<String>getAllSampleType(){
         return sampleService.getSampleType();
     }
 
