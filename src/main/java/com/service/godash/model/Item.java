@@ -1,10 +1,7 @@
 package com.service.godash.model;
 
 import com.service.godash.payload.ItemRequest;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.Data;
 
 @Entity
@@ -13,6 +10,7 @@ import lombok.Data;
 public class Item {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "item_id")
     private int item_id;
     @Column(name = "animal")
