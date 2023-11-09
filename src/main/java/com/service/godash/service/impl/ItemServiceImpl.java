@@ -1,6 +1,7 @@
 package com.service.godash.service.impl;
 
 import com.service.godash.model.Item;
+import com.service.godash.payload.ItemRequest;
 import com.service.godash.repository.ItemRepo;
 import com.service.godash.service.ItemService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +14,8 @@ public class ItemServiceImpl implements ItemService {
     @Autowired
     ItemRepo itemRepo;
     @Override
-    public ResponseEntity<?> createItem(Item request) throws Exception {
+    public ResponseEntity<?> createItem(ItemRequest request) throws Exception {
+
         itemRepo.save(request);
         return ResponseEntity.ok("Item Created");
     }

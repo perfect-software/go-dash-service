@@ -19,7 +19,7 @@ public class ItemController {
     ItemService itemService;
 
     @PostMapping("/create")
-    public ResponseEntity<?> createItem(@Valid @RequestBody Item request) throws Exception {
+    public ResponseEntity<?> createItem(@Valid @RequestBody ItemRequest request) throws Exception {
         return itemService.createItem(request);
 
     }

@@ -1,23 +1,13 @@
-package com.service.godash.model;
+package com.service.godash.payload;
 
-import com.service.godash.payload.ItemRequest;
 import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
 import lombok.Data;
 
-@Entity
 @Data
-@Table(name = "item", schema = "ole")
-public class Item {
-
-    @Id
-    @Column(name = "item_id")
-    private int item_id;
+public class ItemRequest {
     @Column(name = "animal")
     private String animal;
-    @Column (name = "season")
+    @Column(name = "season")
     private String season;
     @Column(name = "characteristics")
     private String characteristics;
@@ -41,10 +31,4 @@ public class Item {
     private String size;
     @Column(name = "itemname")
     private String itemname;
-
-    private Item(ItemRequest request){
-        this.animal=request.getAnimal();
-
-    }
-
 }
