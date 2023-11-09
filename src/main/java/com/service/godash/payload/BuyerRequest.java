@@ -1,6 +1,5 @@
 package com.service.godash.payload;
 
-import com.service.godash.model.BsAccount;
 import lombok.Data;
 
 import java.util.Date;

@@ -1,7 +1,6 @@
 package com.service.godash.service;
 
 import com.service.godash.model.Sample;
-import com.service.godash.model.SampleType;
 import com.service.godash.payload.SampleRequest;
 import org.springframework.http.ResponseEntity;
 

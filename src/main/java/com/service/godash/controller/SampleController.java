@@ -2,7 +2,6 @@ package com.service.godash.controller;
 
 import com.service.godash.model.Buyer;
 import com.service.godash.model.Sample;
-import com.service.godash.model.SampleType;
 import com.service.godash.payload.BuyerResponse;
 import com.service.godash.payload.MessageResponse;
 import com.service.godash.payload.SampleRequest;
