@@ -15,8 +15,8 @@ public class ItemServiceImpl implements ItemService {
     ItemRepo itemRepo;
     @Override
     public ResponseEntity<?> createItem(ItemRequest request) throws Exception {
-
-        itemRepo.save(request);
+        Item item = new Item(request);
+        itemRepo.save(item);
         return ResponseEntity.ok("Item Created");
     }
 }

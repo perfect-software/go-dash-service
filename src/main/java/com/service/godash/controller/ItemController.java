@@ -1,6 +1,7 @@
 package com.service.godash.controller;
 
 import com.service.godash.model.Item;
+import com.service.godash.payload.ItemRequest;
 import com.service.godash.payload.SampleRequest;
 import com.service.godash.service.ItemService;
 import jakarta.validation.Valid;

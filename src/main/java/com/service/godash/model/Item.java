@@ -42,9 +42,20 @@ public class Item {
     @Column(name = "itemname")
     private String itemname;
 
-    private Item(ItemRequest request){
+    public Item(ItemRequest request){
         this.animal=request.getAnimal();
-
+        this.season=request.getSeason();
+        this.characteristics=request.getCharacteristics();
+        this.texture=request.getTexture();
+        this.substance=request.getSubstance();
+        this.tanning=request.getTanning();
+        this.origin=request.getOrigin();
+        this.tannery=request.getTannery();
+        this.color=request.getColor();
+        this.uniquecode=request.getUniquecode();
+        this.skintype=request.getSkintype();
+        this.size=request.getSize();
+        this.itemname=request.getItemname();
     }
 
 }
