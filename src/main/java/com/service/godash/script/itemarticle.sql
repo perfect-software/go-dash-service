@@ -1,0 +1,16 @@
+CREATE TABLE ole.Item (
+    item_id int IDENTITY(1,1) PRIMARY KEY NOT NULL,
+	animal varchar(10),
+	season varchar(10),
+	characteristics varchar(100),
+	texture varchar(50),
+	substance varchar(50),
+	tanning varchar(50),
+	origin varchar(50),
+	tannery varchar(50),
+	color varchar(50),
+	uniquecode varchar(50),
+	skintype varchar(50),
+	size varchar(50),
+	itemname varchar (200),
+	);
