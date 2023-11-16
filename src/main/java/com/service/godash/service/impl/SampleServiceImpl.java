@@ -37,11 +37,16 @@ public class SampleServiceImpl implements SampleService {
         request.setSeason(season+year);
         Sample sample=new Sample(request);
         Buyer buyer=new Buyer();
-        Buyer existingBuyer = buyerRepo.findByBsName(request.getBsName());
-        buyer.setBs_id(existingBuyer.getBs_id());
-        sample.setBuyer(buyer);
-        sampleRequestRepo.save(sample);
-        return ResponseEntity.ok(new MessageResponse("Sample Request Created"));
+//        if(buyerRepo.findByBsName(request.getBsName())==null) {
+            Buyer existingBuyer = buyerRepo.findByBsName(request.getBsName());
+            if(existingBuyer!=null){
+            buyer.setBs_id(existingBuyer.getBs_id());
+            sample.setBuyer(buyer);
+            sampleRequestRepo.save(sample);
+            return ResponseEntity.ok(new MessageResponse("Sample Request Created"));
+        }
+        else
+            return ResponseEntity.ok(new MessageResponse(("Enter existing buyer only")));
     }
 
     @Override
