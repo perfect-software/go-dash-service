@@ -14,4 +14,17 @@ public class ArticleServiceImpl implements ArticleService {
         articleRepo.save(request);
         return ResponseEntity.ok("Article Created");
     }
+
+    @Override
+    public ResponseEntity<?> getArticleNo() {
+        articleRepo.findAllArticleNo();
+        return ResponseEntity.ok("Article Found");
+    }
+
+    @Override
+    public ResponseEntity<?> getArticleName() {
+        articleRepo.findAllArticleName();
+        return ResponseEntity.ok("Article Found");
+    }
+
 }
