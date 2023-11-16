@@ -5,6 +5,8 @@ import lombok.Data;
 
 @Data
 public class ItemRequest {
+    private String itemgrp;
+    private String itemsubgrp;
     private String animal;
     private String season;
     private String characteristics;

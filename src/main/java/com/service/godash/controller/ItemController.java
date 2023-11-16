@@ -1,7 +1,9 @@
 package com.service.godash.controller;
 
 import com.service.godash.model.Item;
+import com.service.godash.model.ItemGrp;
 import com.service.godash.model.ItemHead;
+import com.service.godash.payload.ItemGrpAndSubGrp;
 import com.service.godash.payload.ItemRequest;
 import com.service.godash.payload.SampleRequest;
 import com.service.godash.service.ItemService;
@@ -34,6 +36,10 @@ public class ItemController {
     @GetMapping("/getItemHead")
     public List<ItemHead> getItemHead() throws Exception {
         return itemService.getItemHead();
+    }
+    @GetMapping("/getItemGrpAndSubGrp")
+    public List<ItemGrp> getItemGrpAndSubGrp() throws Exception {
+        return itemService.getItemGrpAndSubGrp();
     }
     
 }

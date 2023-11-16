@@ -13,6 +13,10 @@ public class Item {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "item_id")
     private int item_id;
+    @Column(name="item_grp")
+    private String itemgrp;
+    @Column(name = "item_sub_grp")
+    private String itemsubgrp;
     @Column(name = "animal")
     private String animal;
     @Column (name = "season")
@@ -41,6 +45,8 @@ public class Item {
     private String itemname;
 
     public Item(ItemRequest request){
+        this.itemgrp=request.getItemgrp();
+        this.itemsubgrp=request.getItemsubgrp();
         this.animal=request.getAnimal();
         this.season=request.getSeason();
         this.characteristics=request.getCharacteristics();

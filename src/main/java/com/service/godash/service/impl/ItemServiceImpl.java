@@ -1,8 +1,11 @@
 package com.service.godash.service.impl;
 
 import com.service.godash.model.Item;
+import com.service.godash.model.ItemGrp;
 import com.service.godash.model.ItemHead;
+import com.service.godash.payload.ItemGrpAndSubGrp;
 import com.service.godash.payload.ItemRequest;
+import com.service.godash.repository.ItemGrpRepo;
 import com.service.godash.repository.ItemHeadRepo;
 import com.service.godash.repository.ItemRepo;
 import com.service.godash.service.ItemService;
@@ -20,6 +23,8 @@ public class ItemServiceImpl implements ItemService {
 
     @Autowired
     ItemHeadRepo itemHeadRepo;
+    @Autowired
+    ItemGrpRepo itemGrpRepo;
     @Override
     public ResponseEntity<?> createItem(ItemRequest request) throws Exception {
         Item item = new Item(request);
@@ -36,5 +41,10 @@ public class ItemServiceImpl implements ItemService {
     @Override
     public List<ItemHead> getItemHead() {
         return itemHeadRepo.findAll();
+    }
+
+    @Override
+    public List<ItemGrp> getItemGrpAndSubGrp() {
+        return itemGrpRepo.findAll();
     }
 }
