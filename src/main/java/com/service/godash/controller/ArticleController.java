@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/article")
 public class ArticleController {
@@ -20,13 +22,13 @@ public class ArticleController {
     }
 
     @GetMapping("/getArticleNo")
-    public ResponseEntity<?> getArticleNo() throws Exception {
+    public List<Integer> getArticleNo() throws Exception {
         return articleService.getArticleNo();
 
     }
 
     @GetMapping("/getArticleName")
-    public ResponseEntity<?> getArticleName() throws Exception {
+    public List<String> getArticleName() throws Exception {
         return articleService.getArticleName();
 
     }

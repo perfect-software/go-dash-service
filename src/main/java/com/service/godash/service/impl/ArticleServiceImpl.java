@@ -1,11 +1,14 @@
 package com.service.godash.service.impl;
 
 import com.service.godash.model.Article;
+import com.service.godash.model.Sample;
 import com.service.godash.repository.ArticleRepo;
 import com.service.godash.service.ArticleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class ArticleServiceImpl implements ArticleService {
@@ -18,15 +21,14 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     @Override
-    public ResponseEntity<?> getArticleNo() {
-        articleRepo.findAllArticleNo();
-        return ResponseEntity.ok("Article Found");
+    public List<Integer> getArticleNo() {
+        return articleRepo.findAllArticleNo();
+
     }
 
     @Override
-    public ResponseEntity<?> getArticleName() {
-        articleRepo.findAllArticleName();
-        return ResponseEntity.ok("Article Found");
+    public List<String> getArticleName() {
+       return articleRepo.findAllArticleName();
     }
 
 }
