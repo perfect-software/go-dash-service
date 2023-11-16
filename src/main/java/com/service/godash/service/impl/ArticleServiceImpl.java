@@ -5,7 +5,9 @@ import com.service.godash.repository.ArticleRepo;
 import com.service.godash.service.ArticleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Service;
 
+@Service
 public class ArticleServiceImpl implements ArticleService {
     @Autowired
     ArticleRepo articleRepo;
