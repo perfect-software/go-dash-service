@@ -13,4 +13,8 @@ public interface ArticleService {
     List<Integer> getArticleNo();
 
     List<String> getArticleName();
+
+    List<Article> getArticle();
+
+    List<Article> viewArticle(Integer page_num);
 }

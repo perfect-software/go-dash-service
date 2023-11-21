@@ -1,6 +1,7 @@
 package com.service.godash.controller;
 
 import com.service.godash.model.Article;
+import com.service.godash.model.Sample;
 import com.service.godash.service.ArticleService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,5 +32,15 @@ public class ArticleController {
     public List<String> getArticleName() throws Exception {
         return articleService.getArticleName();
 
+    }
+    @GetMapping("/getArticle")
+    public List<Article> getArticle() throws Exception {
+        return articleService.getArticle();
+
+    }
+
+    @GetMapping("/view")
+    public List<Article> viewArticle(@Valid @RequestParam int page_num) throws Exception {
+        return articleService.viewArticle(page_num);
     }
 }
