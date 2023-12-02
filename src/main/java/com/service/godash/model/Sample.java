@@ -18,6 +18,7 @@ public class Sample {
 
     public Sample(SampleRequest request) {
         this.season = request.getSeason();
+        this.srno=request.getSr_no();
         this.sampleRef = request.getSampleRef();
         this.sampleType = request.getSampleType();
         this.articleNo = request.getArticleNo();
@@ -41,6 +42,8 @@ public class Sample {
         this.comments = request.getComments();
         this.deliveryDate = request.getDeliveryDate();
         this.prodExDate = request.getProdExDate();
+        this.dateOfOrder=request.getDateOfOrder();
+
     }
 
 
@@ -48,9 +51,9 @@ public class Sample {
     @Column(name = "sample_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int sampleId;
-//
-//    @Column(name = "sr_no")
-//    private String srno;
+
+    @Column(name = "sr_no")
+    private String srno;
 
     @Column(name = "season")
     private String season;
@@ -62,7 +65,7 @@ public class Sample {
     private String sampleType;
 
     @Column(name = "article_no")
-    private String articleNo;
+    private Integer articleNo;
 
     @Column(name = "buyer_article")
     private String buyerArticle;
@@ -123,6 +126,9 @@ public class Sample {
 
     @Column(name = "prod_ex_date")
     private Date prodExDate;
+
+    @Column(name ="dateOfOrder")
+    private Date dateOfOrder;
 
     @ManyToOne //defines many sample id against one buyer
     @JoinColumn(name = "bs_id")

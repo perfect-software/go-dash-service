@@ -12,7 +12,7 @@ public class SampleRequest {
     private String bsName;
     private String sampleRef;
     private String sampleType;
-    private String articleNo;
+    private Integer articleNo;
     private String buyerArticle;
     private String size;
     private String quantity;
@@ -34,5 +34,6 @@ public class SampleRequest {
     private Date deliveryDate;
     private Date prodExDate;
     private Date entDate;
+    private Date dateOfOrder;
 
 }

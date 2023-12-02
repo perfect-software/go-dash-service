@@ -34,6 +34,11 @@ public class SampleController {
         return sampleService.viewSampleRequest(page_num);
     }
 
+    @GetMapping("/viewAllSample")
+    public List<Sample> viewAllSample() throws Exception {
+        return sampleService.viewAllSampleRequest();
+    }
+
     @PutMapping("/update")
     public ResponseEntity<?> updateSampleRequest(@RequestBody SampleRequest request) {
         try {

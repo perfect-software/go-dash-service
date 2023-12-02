@@ -32,12 +32,8 @@ public class SampleServiceImpl implements SampleService {
 
     @Override
     public ResponseEntity<?> createSampleRequest(SampleRequest request) {
-        String season=request.getSeason();
-        String year=getYear();
-        request.setSeason(season+year);
         Sample sample=new Sample(request);
         Buyer buyer=new Buyer();
-//        if(buyerRepo.findByBsName(request.getBsName())==null) {
             Buyer existingBuyer = buyerRepo.findByBsName(request.getBsName());
             if(existingBuyer!=null){
             buyer.setBs_id(existingBuyer.getBs_id());
@@ -54,6 +50,12 @@ public class SampleServiceImpl implements SampleService {
         Pageable pageable = PageRequest.of(page_num, 12);
         Page<Sample> page = sampleRequestRepo.findAll(pageable);
         List<Sample> resultList = page.getContent();
+        return resultList;
+    }
+
+    @Override
+    public List<Sample> viewAllSampleRequest() {
+        List<Sample> resultList=sampleRequestRepo.findAll();
         return resultList;
     }
 
@@ -88,6 +90,8 @@ public class SampleServiceImpl implements SampleService {
     public List<String> getSampleType() {
         return sampleTypeRepo.findAllType();
     }
+
+
 
     public String getYear(){
         Year currentYear = Year.now();
