@@ -5,6 +5,7 @@ import com.service.godash.model.Sample;
 import com.service.godash.model.SampleType;
 import com.service.godash.payload.MessageResponse;
 import com.service.godash.payload.SampleRequest;
+import com.service.godash.payload.SampleResponse;
 import com.service.godash.repository.*;
 import com.service.godash.service.SampleService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +22,9 @@ import java.util.List;
 public class SampleServiceImpl implements SampleService {
     @Autowired
     SampleRequestRepo sampleRequestRepo;
+
+    @Autowired
+    SampleResponseRepo sampleResponseRepo;
     @Autowired
     BuyerRepo buyerRepo;
     @Autowired
@@ -54,8 +58,8 @@ public class SampleServiceImpl implements SampleService {
     }
 
     @Override
-    public List<Sample> viewAllSampleRequest() {
-        List<Sample> resultList=sampleRequestRepo.findAll();
+    public List<SampleResponse> viewAllSampleRequest() {
+        List<SampleResponse> resultList=sampleResponseRepo.findAll();
         return resultList;
     }
 

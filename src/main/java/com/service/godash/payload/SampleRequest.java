@@ -7,7 +7,6 @@ import java.util.Date;
 @Data
 public class SampleRequest {
     private int sample_id;
-    private String sr_no;
     private String season;
     private String bsName;
     private String sampleRef;

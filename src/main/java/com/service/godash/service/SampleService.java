@@ -2,6 +2,7 @@ package com.service.godash.service;
 
 import com.service.godash.model.Sample;
 import com.service.godash.payload.SampleRequest;
+import com.service.godash.payload.SampleResponse;
 import org.springframework.http.ResponseEntity;
 
 import java.util.List;
@@ -21,6 +22,6 @@ public interface SampleService {
 
     List<String> getSampleType();
 
-    List<Sample> viewAllSampleRequest();
+    List<SampleResponse> viewAllSampleRequest();
 
 }

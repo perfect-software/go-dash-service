@@ -1,56 +1,20 @@
-package com.service.godash.model;
+package com.service.godash.payload;
 
-import com.service.godash.payload.SampleRequest;
 import jakarta.persistence.*;
 import lombok.Data;
-import org.apache.commons.lang3.StringUtils;
 
-import java.time.Year;
 import java.util.Date;
-
-@Entity
 @Data
+@Entity
 @Table(name="SampleRequest",schema = "ole")
-public class Sample {
-
-    public Sample() {
-    }
-
-    public Sample(SampleRequest request) {
-        this.season = request.getSeason();
-        this.sampleRef = request.getSampleRef();
-        this.sampleType = request.getSampleType();
-        this.articleNo = request.getArticleNo();
-        this.buyerArticle = request.getBuyerArticle();
-        this.size = request.getSize();
-        this.quantity = request.getQuantity();
-        this.pair = request.getPair();
-        this.upperColor = request.getUpperColor();
-        this.liningColor = request.getLiningColor();
-        this.last = request.getLast();
-        this.insole = request.getInsole();
-        this.soleLabel = request.getSoleLabel();
-        this.socks = request.getSocks();
-        this.heel = request.getHeel();
-        this.pattern = request.getPattern();
-        this.buyerRef = request.getBuyerRef();
-        this.inUpperLeather = request.getInUpperLeather();
-        this.inLining = request.getInLining();
-        this.inSocks = request.getInSocks();
-        this.inQuantity = request.getInQuantity();
-        this.comments = request.getComments();
-        this.deliveryDate = request.getDeliveryDate();
-        this.prodExDate = request.getProdExDate();
-        this.dateOfOrder=request.getDateOfOrder();
-
-    }
-
-
+public class SampleResponse {
     @Id
     @Column(name = "sample_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int sampleId;
 
+    @Column(name = "sr_no")
+    private String sr_no;
 
     @Column(name = "season")
     private String season;
@@ -126,9 +90,5 @@ public class Sample {
 
     @Column(name ="dateOfOrder")
     private Date dateOfOrder;
-
-    @ManyToOne //defines many sample id against one buyer
-    @JoinColumn(name = "bs_id")
-    private Buyer buyer;
 
 }

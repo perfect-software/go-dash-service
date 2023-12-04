@@ -5,6 +5,7 @@ import com.service.godash.model.Sample;
 import com.service.godash.payload.BuyerResponse;
 import com.service.godash.payload.MessageResponse;
 import com.service.godash.payload.SampleRequest;
+import com.service.godash.payload.SampleResponse;
 import com.service.godash.service.BuyerService;
 import com.service.godash.service.SampleService;
 import jakarta.validation.Valid;
@@ -35,7 +36,7 @@ public class SampleController {
     }
 
     @GetMapping("/viewAllSample")
-    public List<Sample> viewAllSample() throws Exception {
+    public List<SampleResponse> viewAllSample() throws Exception {
         return sampleService.viewAllSampleRequest();
     }
 
