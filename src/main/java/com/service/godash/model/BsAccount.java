@@ -51,4 +51,7 @@ public class BsAccount {
         this.bankCity=request.getBsAccountRequest().getBankCity();
         this.bankSwiftCode=request.getBsAccountRequest().getBankSwiftCode();
     }
+
+    public BsAccount() {
+    }
 }

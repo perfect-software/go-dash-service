@@ -58,9 +58,14 @@ public class SampleController {
 
     }
 
-    @GetMapping("/getAllBuyer/{page_num}")
+    @GetMapping("/getAllBuyerByPage/{page_num}")
     public List<Buyer> getAllBuyer(@Valid @RequestParam int page_num) throws Exception {
        return buyerService.getBuyerByName(page_num);
+    }
+
+    @GetMapping("/getAllBuyer")
+    public List<Buyer> getAllBuyer() throws Exception {
+        return buyerService.getAllBuyer();
     }
 
     @GetMapping("/color/{input}")

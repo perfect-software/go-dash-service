@@ -10,7 +10,9 @@ import com.service.godash.payload.SampleRequest;
 import com.service.godash.repository.BsAccountRepo;
 import com.service.godash.repository.BuyerRepo;
 import com.service.godash.service.BuyerService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -20,6 +22,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
+@Slf4j
 public class BuyerServiceImpl implements BuyerService {
 
     @Autowired
@@ -49,6 +52,16 @@ public class BuyerServiceImpl implements BuyerService {
         buyerRepo.save(buyer);
         bsAccountRepo.save(bankAccount);
         return ResponseEntity.ok(new MessageResponse("Buyer Created"));
+    }
+
+    @Override
+    public List<Buyer> getAllBuyer() {
+        try {
+            return buyerRepo.findAll();
+        } catch (DataAccessException ex) {
+            log.error("Error while retrieving buyers from the repository", ex);
+            throw new RuntimeException("Error retrieving buyers from the repository", ex);
+        }
     }
 
 }

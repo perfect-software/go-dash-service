@@ -1,5 +1,6 @@
 package com.service.godash.payload;
 
+import com.service.godash.model.Buyer;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -90,5 +91,9 @@ public class SampleResponse {
 
     @Column(name ="dateOfOrder")
     private Date dateOfOrder;
+
+    @ManyToOne //defines many sample id against one buyer
+    @JoinColumn(name = "bs_id")
+    private Buyer buyer;
 
 }
