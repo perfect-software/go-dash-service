@@ -1,5 +1,6 @@
 package com.service.godash.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.service.godash.payload.BuyerRequest;
 import jakarta.persistence.*;
 import lombok.Data;
@@ -98,5 +99,6 @@ public class Buyer {
     private Date entDate;
 
     @OneToMany(mappedBy = "buyer")
+    @JsonIgnore
     private List<BsAccount> bankAccounts;
 }
