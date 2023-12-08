@@ -48,16 +48,16 @@ public class ItemController {
     public List<String> getItemName(String input) throws Exception {
         return itemService.getItemName(input);
     }
-    @PostMapping("/createSampleBOM")
-    public ResponseEntity<?> createSampleBOM (List<BillOfMaterial> request) throws Exception {
-      try {
-          request.forEach(billOfMaterial -> {
-              itemService.createSampleBOM(billOfMaterial);
-          });
-          return ResponseEntity.ok("BOM Created");
-      } catch (Exception ex) {
-          return ResponseEntity.badRequest().body("Error while creating BOM: " + ex.getMessage());
-      }
-    }
+//    @PostMapping("/createSampleBOM")
+//    public ResponseEntity<?> createSampleBOM (List<BillOfMaterial> request) throws Exception {
+//      try {
+//          request.forEach(billOfMaterial -> {
+//              itemService.createSampleBOM(billOfMaterial);
+//          });
+//          return ResponseEntity.ok("BOM Created");
+//      } catch (Exception ex) {
+//          return ResponseEntity.badRequest().body("Error while creating BOM: " + ex.getMessage());
+//      }
+//    }
     
 }

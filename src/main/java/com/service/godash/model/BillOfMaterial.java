@@ -1,7 +1,6 @@
 package com.service.godash.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.Data;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
@@ -11,6 +10,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Data
 @Table(name="BOM",schema = "ole")
 public class BillOfMaterial {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer bomId;
     private Integer bsId;//Buyer ID
     private Integer articleId;//Article Number
