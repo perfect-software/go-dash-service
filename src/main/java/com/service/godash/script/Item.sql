@@ -2,8 +2,8 @@ drop table ole.item
 
 CREATE TABLE ole.Item (
     item_id int IDENTITY(1,1) PRIMARY KEY NOT NULL,
-	item_grp varchar(5),
-	item_sub_grp varchar(5),
+	item_grp varchar(7),
+	item_sub_grp varchar(7),
 	animal varchar(10),
 	season varchar(10),
 	characteristics varchar(100),

@@ -11,6 +11,6 @@ public interface ItemRepo extends JpaRepository<Item, Integer> {
 
 //    @Query("SELECT NEW com.service.godash.payload.BuyerResponse(b.bs_id, b.bsName , b.deliveryAddress) FROM Buyer b WHERE LOWER(b.bsName) LIKE %:partialName%")
 //    List<BuyerResponse> findBsNameContainingIgnoreCase(@Param("partialName") String partialName);
-    @Query("SELECT i.ItemName FROM Item i WHERE LOWER(i.itemName) LIKE %:input%")
+    @Query("SELECT i.itemname FROM Item i WHERE LOWER(i.itemname) LIKE %:input%")
     List<String> findItemNameContainingIgnoreCase(@Param("input") String input);
 }
