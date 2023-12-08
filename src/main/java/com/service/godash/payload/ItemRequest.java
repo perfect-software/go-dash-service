@@ -19,5 +19,4 @@ public class ItemRequest {
     private String uniquecode;
     private String skintype;
     private String size;
-    private String itemname;
 }

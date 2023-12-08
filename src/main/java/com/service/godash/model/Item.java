@@ -59,7 +59,9 @@ public class Item {
         this.uniquecode=request.getUniquecode();
         this.skintype=request.getSkintype();
         this.size=request.getSize();
-        this.itemname=request.getItemname();
+        this.itemname=this.animal+" "+this.characteristics+" "+this.texture+" "+
+        this.substance+" "+this.tanning+" " +this.origin+" "+this.tannery+" "+
+        this.color+" "+this.skintype+" "+this.uniquecode;
     }
 
 }
