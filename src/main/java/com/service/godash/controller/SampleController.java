@@ -1,5 +1,6 @@
 package com.service.godash.controller;
 
+import com.service.godash.Exception.GenericException;
 import com.service.godash.model.Buyer;
 import com.service.godash.model.Sample;
 import com.service.godash.payload.BuyerResponse;
@@ -26,18 +27,30 @@ public class SampleController {
 
     @PostMapping("/create")
     public ResponseEntity<?> createSample(@Valid @RequestBody SampleRequest request) throws Exception {
-        return sampleService.createSampleRequest(request);
-
+        try {
+            sampleService.createSampleRequest(request);
+            return ResponseEntity.ok(new MessageResponse("Sample Created"));
+        } catch (Exception ex) {
+            return ResponseEntity.badRequest().body(new MessageResponse("Error while creating sample: " + ex.getMessage()));
+        }
     }
 
     @GetMapping("/view/{page_num}")
     public List<Sample> viewSample(@Valid @RequestParam int page_num) throws Exception {
-        return sampleService.viewSampleRequest(page_num);
+        try {
+            return sampleService.viewSampleRequest(page_num);
+        } catch (Exception ex) {
+            throw new Exception("Error while viewing sample");
+        }
     }
 
     @GetMapping("/viewAllSample")
     public List<SampleResponse> viewAllSample() throws Exception {
-        return sampleService.viewAllSampleRequest();
+        try {
+            return sampleService.viewAllSampleRequest();
+        } catch (Exception ex) {
+            throw new Exception("Error while viewing sample");
+        }
     }
 
     @PutMapping("/update")
@@ -45,7 +58,8 @@ public class SampleController {
         try {
             return sampleService.updateSampleRequest(request);
         } catch (Exception e) {
-            return ResponseEntity.badRequest().body(new MessageResponse("Update failed: " + e.getMessage()));
+            new GenericException("Error while updating sample", 500);
+            return ResponseEntity.badRequest().body(new MessageResponse("Error while updating sample: " + e.getMessage()));
         }
     }
 

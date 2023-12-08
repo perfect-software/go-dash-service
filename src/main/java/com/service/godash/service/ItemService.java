@@ -1,5 +1,6 @@
 package com.service.godash.service;
 
+import com.service.godash.model.BillOfMaterial;
 import com.service.godash.model.Item;
 import com.service.godash.model.ItemGrp;
 import com.service.godash.model.ItemHead;
@@ -18,4 +19,8 @@ public interface ItemService {
     List<ItemHead>  getItemHead();
 
     List<ItemGrp> getItemGrpAndSubGrp();
+
+    List<String> getItemName(String input);
+
+    ResponseEntity<?>createSampleBOM (BillOfMaterial request);
 }
