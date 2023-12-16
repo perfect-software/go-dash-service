@@ -96,4 +96,5 @@ public class SampleResponse {
     @JoinColumn(name = "bs_id")
     private Buyer buyer;
 
+
 }

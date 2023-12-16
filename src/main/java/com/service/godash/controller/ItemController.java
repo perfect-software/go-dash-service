@@ -28,7 +28,8 @@ public class ItemController {
     @PostMapping("/create")
     public ResponseEntity<?> createItem(@Valid @RequestBody ItemRequest request) throws Exception {
         try {
-            return itemService.createItem(request);
+            itemService.createItem(request);
+            return ResponseEntity.ok().body(new MessageResponse("Item Created"));
         }
         catch(Exception ex) {
             return ResponseEntity.badRequest().body(new MessageResponse("Error while creating item: " + ex.getMessage()));

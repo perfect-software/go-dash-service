@@ -3,10 +3,7 @@ package com.service.godash.controller;
 import com.service.godash.Exception.GenericException;
 import com.service.godash.model.Buyer;
 import com.service.godash.model.Sample;
-import com.service.godash.payload.BuyerResponse;
-import com.service.godash.payload.MessageResponse;
-import com.service.godash.payload.SampleRequest;
-import com.service.godash.payload.SampleResponse;
+import com.service.godash.payload.*;
 import com.service.godash.service.BuyerService;
 import com.service.godash.service.SampleService;
 import jakarta.validation.Valid;
@@ -97,6 +94,12 @@ public class SampleController {
     public List<String>getAllSampleType(){
         return sampleService.getSampleType();
     }
+
+//    @GetMapping("/getAllSRNO")
+//    public List<BomResponse> getAllSRNO(){
+//        return sampleService.viewAllSampleRequest();
+//    }
+
 
 
 }

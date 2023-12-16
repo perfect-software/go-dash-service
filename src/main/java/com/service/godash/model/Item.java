@@ -3,6 +3,7 @@ package com.service.godash.model;
 import com.service.godash.payload.ItemRequest;
 import jakarta.persistence.*;
 import lombok.Data;
+import org.apache.commons.lang3.ObjectUtils;
 
 @Entity
 @Data
@@ -45,7 +46,7 @@ public class Item {
     private String itemname;
 
     public Item(ItemRequest request){
-        this.itemgrp=request.getItemgrp();
+        this.itemgrp= request.getItemgrp();
         this.itemsubgrp=request.getItemsubgrp();
         this.animal=request.getAnimal();
         this.season=request.getSeason();
