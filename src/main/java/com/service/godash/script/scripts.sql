@@ -28,6 +28,7 @@ CREATE TABLE ole.SampleRequest (
 	comments varchar(200),
 	delivery_date date,
 	prod_ex_date date,
+	order_date date,
 	username varchar(10),
     entDate datetime DEFAULT getdate(),
 );
@@ -195,3 +196,51 @@ bom_qty decimal(18,2),
 req_qty decimal(18,2),
 entDate datetime DEFAULT getdate()
 );
+
+create table ole.SampleType(
+sampletype_id int identity(1,1),
+type varchar(50)
+);
+
+select * from ole.SampleType
+
+insert into GPL.ole.SampleType(type)
+select Name from GPLTEST.dbo.TblSrType order by Name Asc
+
+create table ole.ItemHead(
+item_header_id int identity(1,1),
+head varchar(50),
+value varchar(50)
+);
+
+select * from ole.ItemHead
+
+CREATE TABLE ole.Color (
+    color_id INT IDENTITY(1,1) PRIMARY KEY,
+    color VARCHAR(50) NOT NULL
+);
+
+INSERT INTO ole.Color (color)
+VALUES
+    ('Red'), ('Blue'), ('Green'), ('Yellow'), ('Purple'),
+    ('Orange'), ('Pink'), ('Brown'), ('Black'), ('White'),
+    ('Gray'), ('Cyan'), ('Magenta'), ('Lime'), ('Teal'),
+    ('Indigo'), ('Violet'), ('Maroon'), ('Olive'), ('Navy'),
+    ('Aquamarine'), ('Turquoise'), ('Silver'), ('Gold'), ('Coral'),
+    ('Beige'), ('Khaki'), ('Lavender'), ('Plum'), ('Slate'),
+    ('Sky Blue'), ('Forest Green'), ('Tan'), ('Salmon'), ('Sienna'),
+    ('Periwinkle'), ('Tomato'), ('Chocolate'), ('Auburn'), ('Turmeric'),
+    ('Saffron'), ('Emerald'), ('Ruby'), ('Pearl'), ('Amethyst'),
+    ('Topaz'), ('Citrus'), ('Steel Blue'), ('Crimson'), ('Mauve'),
+    ('Chartreuse'), ('Sapphire'), ('Cerulean'), ('Burgundy'), ('Tangerine'),
+    ('Peach'), ('Cobalt'), ('Charcoal'), ('Azure'), ('Mustard'),
+    ('Platinum'), ('Rose Gold'), ('Copper'), ('Mint Green'), ('Tiffany Blue'),
+    ('Champagne'), ('Bronze'), ('Denim'), ('Rust'), ('Forest Brown'),
+    ('Olive Drab'), ('Turquoise Blue'), ('Caramel'), ('Honey'), ('Graphite'),
+    ('Melon'), ('Peachpuff'), ('Powder Blue'), ('Cornflower Blue'), ('Thistle'),
+    ('Lavender Blush'), ('Slate Gray'), ('Honeydew'), ('Aqua'), ('Medium Orchid'),
+    ('Medium Slate Blue'), ('Navajo White'), ('Pale Goldenrod'), ('Light Salmon'), ('Papaya Whip'),
+    ('Lemon Chiffon'), ('Antique White'), ('Pale Turquoise'), ('Powder Blue'), ('Light Steel Blue');
+
+-- Verify the data
+SELECT * FROM ole.Color;
