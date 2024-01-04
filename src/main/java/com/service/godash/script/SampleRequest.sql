@@ -1,7 +1,7 @@
 CREATE TABLE ole.SampleRequest (
     sample_id int IDENTITY(1,1) PRIMARY KEY NOT NULL,
 	season varchar(10) NOT NULL,
-	sr_no  AS season + RIGHT('00000000' + CAST(sample_id AS VARCHAR(8)), 8) PERSISTED,
+	sr_no  varchar(12) NOT NULL,
 	bs_id int NOT NULL,
 	sample_ref varchar(30),
 	sample_type varchar(10),

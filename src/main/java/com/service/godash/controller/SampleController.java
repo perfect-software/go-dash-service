@@ -42,7 +42,7 @@ public class SampleController {
     }
 
     @GetMapping("/viewAllSample")
-    public List<SampleResponse> viewAllSample() throws Exception {
+    public List<Sample> viewAllSample() throws Exception {
         try {
             return sampleService.viewAllSampleRequest();
         } catch (Exception ex) {

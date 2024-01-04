@@ -89,7 +89,7 @@ public class SampleResponse {
     @Column(name = "prod_ex_date")
     private Date prodExDate;
 
-    @Column(name ="dateOfOrder")
+    @Column(name ="order_date")
     private Date dateOfOrder;
 
     @ManyToOne //defines many sample id against one buyer

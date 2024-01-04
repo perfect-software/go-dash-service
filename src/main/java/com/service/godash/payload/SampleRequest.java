@@ -11,7 +11,7 @@ public class SampleRequest {
     private String bsName;
     private String sampleRef;
     private String sampleType;
-    private Integer articleNo;
+    private String articleNo;
     private String buyerArticle;
     private String size;
     private String quantity;

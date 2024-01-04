@@ -10,7 +10,7 @@ import lombok.Data;
 public class ItemGrp {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "item_id")
+    @Column(name = "id")
     private int item_id;
     @Column(name = "item_grp")
     private String itemGrp;

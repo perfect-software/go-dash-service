@@ -1,10 +1,8 @@
 package com.service.godash.model;
 
+import com.service.godash.payload.BomRequest;
 import jakarta.persistence.*;
 import lombok.Data;
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
-import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.Date;
 
@@ -12,22 +10,28 @@ import java.util.Date;
 @Data
 @Table(name="SR_BOM",schema = "ole")
 public class BillOfMaterial {
+
+    public BillOfMaterial(BomRequest bomRequest) {
+        this.sample_id = bomRequest.getSampleId();
+        this.article_id = bomRequest.getArticleNo();
+    }
+
+    public BillOfMaterial() {
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "bom_id")
     private Integer bomId;
 
-    @ManyToOne
-    @JoinColumn(name = "sample_id")
-    private Sample sample;
+    @Column(name = "sample_id")
+    private Integer sample_id;
 
-    @ManyToOne
-    @JoinColumn(name = "article_id")
-    private Article article;
+    @Column(name = "article_id")
+    private Integer article_id;
 
-    @ManyToOne
-    @JoinColumn(name = "item_id")
-    private Item item;
+    @Column(name = "item_id")
+    private Integer item_id;
 
     @Column(name = "inv_id")
     private Integer invId;

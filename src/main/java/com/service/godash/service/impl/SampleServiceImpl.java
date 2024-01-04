@@ -8,15 +8,16 @@ import com.service.godash.payload.SampleRequest;
 import com.service.godash.payload.SampleResponse;
 import com.service.godash.repository.*;
 import com.service.godash.service.SampleService;
+import com.service.godash.util.Utility;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-
 import java.time.Year;
 import java.util.List;
+
 
 @Service
 public class SampleServiceImpl implements SampleService {
@@ -34,9 +35,15 @@ public class SampleServiceImpl implements SampleService {
     @Autowired
     SampleRefRepo refRepo;
 
+    @Autowired
+    Utility utility;
+
+
     @Override
     public ResponseEntity<?> createSampleRequest(SampleRequest request) {
         Sample sample=new Sample(request);
+        String srno=utility.generateShortUUID();
+        sample.setSr_no(srno);
         Buyer buyer=new Buyer();
             Buyer existingBuyer = buyerRepo.findByBsName(request.getBsName());
             if(existingBuyer!=null){
@@ -58,8 +65,8 @@ public class SampleServiceImpl implements SampleService {
     }
 
     @Override
-    public List<SampleResponse> viewAllSampleRequest() {
-        List<SampleResponse> resultList=sampleResponseRepo.findAll();
+    public List<Sample> viewAllSampleRequest() {
+        List<Sample> resultList=sampleRequestRepo.findAll();
         return resultList;
     }
 

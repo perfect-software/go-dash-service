@@ -4,7 +4,7 @@ select * from ole.bsAccount
 
 	CREATE TABLE ole.bsAccount (
     buyeraccount_id int IDENTITY(1,1) PRIMARY KEY NOT NULL,
-	bs_id int NOT NULL,
+	bs_id int FOREIGN KEY REFERENCES ole.Buyer(bs_id),
 	bankName varchar(100),
 	bankBranch varchar(100),
 	bankAccountNo varchar(100),
