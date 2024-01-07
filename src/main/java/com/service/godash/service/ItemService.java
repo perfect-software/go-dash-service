@@ -1,10 +1,8 @@
 package com.service.godash.service;
 
-import com.service.godash.model.BillOfMaterial;
-import com.service.godash.model.Item;
+import com.service.godash.model.SrBom;
 import com.service.godash.model.ItemGrp;
 import com.service.godash.model.ItemHead;
-import com.service.godash.payload.ItemGrpAndSubGrp;
 import com.service.godash.payload.ItemRequest;
 import org.springframework.http.ResponseEntity;
 
@@ -22,5 +20,5 @@ public interface ItemService {
 
     List<String> getItemName(String input);
 
-    ResponseEntity<?>createSampleBOM (BillOfMaterial request);
+    ResponseEntity<?>createSampleBOM (SrBom request);
 }

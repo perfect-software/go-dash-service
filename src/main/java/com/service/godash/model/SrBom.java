@@ -1,6 +1,5 @@
 package com.service.godash.model;
 
-import com.service.godash.payload.BomRequest;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -9,14 +8,10 @@ import java.util.Date;
 @Entity
 @Data
 @Table(name="SR_BOM",schema = "ole")
-public class BillOfMaterial {
+public class SrBom {
 
-    public BillOfMaterial(BomRequest bomRequest) {
-        this.sample_id = bomRequest.getSampleId();
-        this.article_id = bomRequest.getArticleNo();
-    }
 
-    public BillOfMaterial() {
+    public SrBom() {
     }
 
     @Id
@@ -27,14 +22,14 @@ public class BillOfMaterial {
     @Column(name = "sample_id")
     private Integer sample_id;
 
-    @Column(name = "article_id")
-    private Integer article_id;
-
     @Column(name = "item_id")
     private Integer item_id;
 
-    @Column(name = "inv_id")
-    private Integer invId;
+    @Column(name = "item_grp")
+    private String itemGrp;
+
+    @Column(name = "item_sub_grp")
+    private String itemSubGrp;
 
     @Column(name = "used_in")
     private String usedIn;
@@ -45,17 +40,26 @@ public class BillOfMaterial {
     @Column(name = "bom_qty")
     private Double bomQty;
 
+    @Column(name = "stock_consumed_qty")
+    private Double stockConsumedQty;
+
     @Column(name = "req_qty")
     private Double reqQty;
 
-    @Column(name = "bomType")
+    @Column(name = "rate")
+    private Double rate;
+
+    @Column(name = "unit")
+    private String unit;
+
+    @Column(name = "bom_type")
     private String bomType;
 
-    @Column(name = "bomStatus")
+    @Column(name = "bom_status")
     private String bomStatus;
 
-    @Column(name = "bomVersion")
-    private String bomVersion;
+    @Column(name = "supplier_id")
+    private Integer supplier_id;
 
     @Column(name = "username")
     private String username;

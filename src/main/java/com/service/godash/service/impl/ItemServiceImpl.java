@@ -1,11 +1,9 @@
 package com.service.godash.service.impl;
 
-import com.service.godash.model.BillOfMaterial;
+import com.service.godash.model.SrBom;
 import com.service.godash.model.Item;
 import com.service.godash.model.ItemGrp;
 import com.service.godash.model.ItemHead;
-import com.service.godash.payload.BuyerResponse;
-import com.service.godash.payload.ItemGrpAndSubGrp;
 import com.service.godash.payload.ItemRequest;
 import com.service.godash.repository.BOMRepo;
 import com.service.godash.repository.ItemGrpRepo;
@@ -13,8 +11,6 @@ import com.service.godash.repository.ItemHeadRepo;
 import com.service.godash.repository.ItemRepo;
 import com.service.godash.service.ItemService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
@@ -62,7 +58,7 @@ public class ItemServiceImpl implements ItemService {
     }
 
     @Override
-    public ResponseEntity<?> createSampleBOM(BillOfMaterial request) {
+    public ResponseEntity<?> createSampleBOM(SrBom request) {
         try {
             bomRepo.save(request);
             return ResponseEntity.ok("BOM Created");
