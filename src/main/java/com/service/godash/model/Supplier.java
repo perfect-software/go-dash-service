@@ -2,10 +2,13 @@ package com.service.godash.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import lombok.Data;
 
 import java.util.Date;
 import java.util.List;
-
+@Entity
+@Table(name = "supplier",schema = "ole")
+@Data
 public class Supplier {
 
     @Id
@@ -52,10 +55,20 @@ public class Supplier {
     @Column(name = "email")
     private String email;
 
-    @Column(name = "username")
-    private String username;
 
-    @Column(name = "entDate")
-    private Date entDate;
-
+    public Supplier(Supplier supplierRequest) {
+        this.code = supplierRequest.getCode();
+        this.supplierName = supplierRequest.getSupplierName();
+        this.billingAddress = supplierRequest.getBillingAddress();
+        this.deliveryAddress = supplierRequest.getDeliveryAddress();
+        this.city = supplierRequest.getCity();
+        this.pincode = supplierRequest.getPincode();
+        this.country = supplierRequest.getCountry();
+        this.currency = supplierRequest.getCurrency();
+        this.contactPerson = supplierRequest.getContactPerson();
+        this.mobileExt = supplierRequest.getMobileExt();
+        this.mobile = supplierRequest.getMobile();
+        this.phone = supplierRequest.getPhone();
+        this.email = supplierRequest.getEmail();
+    }
 }

@@ -4,6 +4,7 @@ import com.service.godash.payload.ItemRequest;
 import jakarta.persistence.*;
 import lombok.Data;
 import org.apache.commons.lang3.ObjectUtils;
+import org.apache.commons.lang3.StringUtils;
 
 @Entity
 @Data
@@ -60,9 +61,8 @@ public class Item {
         this.uniquecode=request.getUniquecode();
         this.skintype=request.getSkintype();
         this.size=request.getSize();
-        this.itemname=this.animal+" "+this.characteristics+" "+this.texture+" "+
-        this.substance+" "+this.tanning+" " +this.origin+" "+this.tannery+" "+
-        this.color+" "+this.skintype+" "+this.uniquecode;
+        this.itemname= StringUtils.joinWith(" ",this.animal,this.characteristics,this.texture,this.substance,this.tanning,this.origin,this.tannery,this.color,this.skintype,this.uniquecode);
+        this.itemname=StringUtils.remove(this.itemname,"null").trim();
     }
 
 

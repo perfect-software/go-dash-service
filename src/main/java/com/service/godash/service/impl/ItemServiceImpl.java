@@ -32,7 +32,10 @@ public class ItemServiceImpl implements ItemService {
     @Override
     public ResponseEntity<?> createItem(ItemRequest request) throws Exception {
         Item item = new Item(request);
-        itemRepo.save(item);
+        if(itemRepo.existsByitemname(item.getItemname())) {
+            throw new Exception("Item already exists");
+        }
+            itemRepo.save(item);
         return ResponseEntity.ok("Item Created");
     }
 

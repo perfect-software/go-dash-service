@@ -74,9 +74,33 @@ public class SampleServiceImpl implements SampleService {
         Sample existingRequest = sampleRequestRepo.findById(request.getSample_id()).orElse(null);
         if (existingRequest != null) {
             // Update the fields as needed
+            //cannot update buyer
             existingRequest.setSeason(request.getSeason());
             existingRequest.setSampleRef(request.getSampleRef());
             existingRequest.setSampleType(request.getSampleType());
+            existingRequest.setSampleRef(request.getSampleRef());
+            existingRequest.setArticle_no(request.getArticleNo());
+            existingRequest.setComments(request.getComments());
+            existingRequest.setBuyerArticle(request.getBuyerArticle());
+            existingRequest.setSize(request.getSize());
+            existingRequest.setQuantity(request.getQuantity());
+            existingRequest.setPair(request.getPair());
+            existingRequest.setUpperColor(request.getUpperColor());
+            existingRequest.setLiningColor(request.getLiningColor());
+            existingRequest.setLast(request.getLast());
+            existingRequest.setInsole(request.getInsole());
+            existingRequest.setSoleLabel(request.getSoleLabel());
+            existingRequest.setSocks(request.getSocks());
+            existingRequest.setHeel(request.getHeel());
+            existingRequest.setPattern(request.getPattern());
+            existingRequest.setBuyerRef(request.getBuyerRef());
+            existingRequest.setInUpperLeather(request.getInUpperLeather());
+            existingRequest.setInLining(request.getInLining());
+            existingRequest.setInSocks(request.getInSocks());
+            existingRequest.setInQuantity(request.getInQuantity());
+            existingRequest.setDeliveryDate(request.getDeliveryDate());
+            existingRequest.setProdExDate(request.getProdExDate());
+            existingRequest.setDateOfOrder(request.getDateOfOrder());
             sampleRequestRepo.save(existingRequest);
             return ResponseEntity.ok(new MessageResponse("Sample Request Updated"));
         } else {

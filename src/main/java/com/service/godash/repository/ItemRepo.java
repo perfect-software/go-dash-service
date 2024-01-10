@@ -13,4 +13,6 @@ public interface ItemRepo extends JpaRepository<Item, Integer> {
 //    List<BuyerResponse> findBsNameContainingIgnoreCase(@Param("partialName") String partialName);
     @Query("SELECT i.itemname FROM Item i WHERE LOWER(i.itemname) LIKE %:input%")
     List<String> findItemNameContainingIgnoreCase(@Param("input") String input);
+
+    boolean existsByitemname(String itemname);
 }
