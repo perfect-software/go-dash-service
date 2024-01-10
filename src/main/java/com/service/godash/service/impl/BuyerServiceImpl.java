@@ -1,12 +1,11 @@
 package com.service.godash.service.impl;
 
-import com.service.godash.model.BsAccount;
+import com.service.godash.constants.IConstants;
+import com.service.godash.model.BankAccount;
 import com.service.godash.model.Buyer;
-import com.service.godash.model.Sample;
 import com.service.godash.payload.BuyerRequest;
 import com.service.godash.payload.BuyerResponse;
 import com.service.godash.payload.MessageResponse;
-import com.service.godash.payload.SampleRequest;
 import com.service.godash.repository.BsAccountRepo;
 import com.service.godash.repository.BuyerRepo;
 import com.service.godash.service.BuyerService;
@@ -44,14 +43,25 @@ public class BuyerServiceImpl implements BuyerService {
 
     @Override
     public ResponseEntity<?> createBuyer(BuyerRequest request) {
-        BsAccount bankAccount=new BsAccount(request);
         Buyer buyer=new Buyer(request);
-        new Buyer(bankAccount);
-        bankAccount.setBuyer(buyer);
+
+//        BankAccount bankAccount=new BankAccount(request);
+//
+//        new Buyer(bankAccount);
+//        bankAccount.setBuyer(buyer);
 //        buyer.getBankAccounts().add(bankAccount);
+
         buyerRepo.save(buyer);
-        bsAccountRepo.save(bankAccount);
+//        bsAccountRepo.save(bankAccount);
+        createBankAccount(request,buyer);
         return ResponseEntity.ok(new MessageResponse("Buyer Created"));
+    }
+
+    private void createBankAccount(BuyerRequest request,Buyer buyer){
+        BankAccount bankAccount=new BankAccount(request);
+        bankAccount.setBusinessInd(IConstants.BUYER);
+        bankAccount.setBusinessId(buyer.getBs_id());
+        bsAccountRepo.save(bankAccount);
     }
 
     @Override

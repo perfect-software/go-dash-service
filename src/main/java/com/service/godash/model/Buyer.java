@@ -17,11 +17,11 @@ public class Buyer {
     public Buyer(){
     }
 
-    public Buyer(BsAccount bsAccount) {
-        bankAccounts = new ArrayList<>();
-        bankAccounts.add(bsAccount);
-        // Initialize the bankAccounts list
-    }
+//    public Buyer(BankAccount bsAccount) {
+//        bankAccounts = new ArrayList<>();
+//        bankAccounts.add(bsAccount);
+//        // Initialize the bankAccounts list
+//    }
     public Buyer(BuyerRequest request) {
 //        this.code = request.getCode();
         this.bsName = request.getBuyerName();
@@ -44,7 +44,7 @@ public class Buyer {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @JoinColumn(name = "bs_id")
+    @Column(name = "bs_id")
     private int bs_id;
 
     @Column(name = "Code")
@@ -98,7 +98,7 @@ public class Buyer {
     @Column(name = "entDate")
     private Date entDate;
 
-    @OneToMany(mappedBy = "buyer")
-    @JsonIgnore
-    private List<BsAccount> bankAccounts;
+//    @OneToMany(mappedBy = "buyer")
+//    @JsonIgnore
+//    private List<BankAccount> bankAccounts;
 }

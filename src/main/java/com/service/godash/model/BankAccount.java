@@ -6,16 +6,15 @@ import lombok.Data;
 
 @Entity
 @Data
-@Table(name="BsAccount",schema = "ole")
-public class BsAccount {
+@Table(name="BankAccount",schema = "ole")
+public class BankAccount {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "buyeraccount_id")
-    private int buyerAccountId;
+    @Column(name = "id")
+    private int BankAccountId;
 
-    @ManyToOne
-    @JoinColumn(name = "bs_id")
-    private Buyer buyer;
+    @Column(name = "business_id")
+    private int businessId;
 
     @Column(name = "bankName", length = 100)
     private String bankName;
@@ -41,7 +40,10 @@ public class BsAccount {
     @Column(name = "bankSwiftCode", length = 100)
     private String bankSwiftCode;
 
-    public BsAccount(BuyerRequest request) {
+    @Column(name = "businessInd", length = 100)
+    private String businessInd;
+
+    public BankAccount(BuyerRequest request) {
         this.bankName=request.getBsAccountRequest().getBankName();
         this.bankBranch=request.getBsAccountRequest().getBankBranch();
         this.bankAccountNo=request.getBsAccountRequest().getBankAccountNo();
@@ -52,6 +54,6 @@ public class BsAccount {
         this.bankSwiftCode=request.getBsAccountRequest().getBankSwiftCode();
     }
 
-    public BsAccount() {
+    public BankAccount() {
     }
 }

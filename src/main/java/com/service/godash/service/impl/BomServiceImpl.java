@@ -38,10 +38,11 @@ public class BomServiceImpl implements BomService {
                     srBom.setRate(item.getRate());
                     srBom.setUnit(item.getUnit());
                     srBom.setSupplier_id(item.getSupplierId());
+                    bomRepo.save(srBom);
                 }
             }
         }
-        bomRepo.save(srBom);
+
         return ResponseEntity.ok("BOM Created");
     }
 }

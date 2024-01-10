@@ -9,5 +9,9 @@ public class IConstants {
 
     public static final String ERR_PHONE_LENGTH="Invalid Phone Number";
 
+    public static final String BUYER="BUYER";
+
+    public static final String SUPPLIER="SUPPLIER";
+
 
 }
