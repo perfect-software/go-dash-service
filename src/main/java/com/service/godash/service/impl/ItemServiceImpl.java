@@ -1,14 +1,9 @@
 package com.service.godash.service.impl;
 
-import com.service.godash.model.SrBom;
-import com.service.godash.model.Item;
-import com.service.godash.model.ItemGrp;
-import com.service.godash.model.ItemHead;
+import com.service.godash.model.*;
 import com.service.godash.payload.ItemRequest;
-import com.service.godash.repository.BOMRepo;
-import com.service.godash.repository.ItemGrpRepo;
-import com.service.godash.repository.ItemHeadRepo;
-import com.service.godash.repository.ItemRepo;
+import com.service.godash.payload.ItemResponse;
+import com.service.godash.repository.*;
 import com.service.godash.service.ItemService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -24,6 +19,9 @@ public class ItemServiceImpl implements ItemService {
 
     @Autowired
     BOMRepo bomRepo;
+
+    @Autowired
+    ItemQuotationRepo itemQuotationRepo;
 
     @Autowired
     ItemHeadRepo itemHeadRepo;
@@ -56,18 +54,24 @@ public class ItemServiceImpl implements ItemService {
     }
 
     @Override
-    public List<String> getItemName(String input) {
+    public List<ItemResponse> getItemName(String input) {
         return itemRepo.findItemNameContainingIgnoreCase(input);
     }
 
     @Override
-    public ResponseEntity<?> createSampleBOM(SrBom request) {
+    public ResponseEntity<?> createItemQuotation(ItemQuo request) throws Exception {
         try {
-            bomRepo.save(request);
-            return ResponseEntity.ok("BOM Created");
+            itemQuotationRepo.save(request);
+            return ResponseEntity.ok("Item Created");
         } catch (Exception e) {
-            return ResponseEntity.badRequest().body("Error while creating BOM");
+            return ResponseEntity.badRequest().body("Error while creating item");
         }
     }
+
+    @Override
+    public List<ItemQuo> getItemQuotation() throws Exception {
+        return itemQuotationRepo.findAll();
+    }
+
 
 }

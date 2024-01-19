@@ -2,7 +2,9 @@ package com.service.godash.controller;
 
 import com.service.godash.model.ItemGrp;
 import com.service.godash.model.ItemHead;
+import com.service.godash.model.ItemQuo;
 import com.service.godash.payload.ItemRequest;
+import com.service.godash.payload.ItemResponse;
 import com.service.godash.payload.MessageResponse;
 import com.service.godash.service.ItemService;
 import jakarta.validation.Valid;
@@ -47,19 +49,24 @@ public class ItemController {
     }
 
     @GetMapping("/getItemName")
-    public List<String> getItemName(String input) throws Exception {
+    public List<ItemResponse> getItemName(String input) throws Exception {
         return itemService.getItemName(input);
     }
-//    @PostMapping("/createSampleBOM")
-//    public ResponseEntity<?> createSampleBOM (List<BillOfMaterial> request) throws Exception {
-//      try {
-//          request.forEach(billOfMaterial -> {
-//              itemService.createSampleBOM(billOfMaterial);
-//          });
-//          return ResponseEntity.ok("BOM Created");
-//      } catch (Exception ex) {
-//          return ResponseEntity.badRequest().body("Error while creating BOM: " + ex.getMessage());
-//      }
-//    }
-    
+
+    @PostMapping("/createItemQuotation")
+    public ResponseEntity<?> createItemQuotation(@Valid @RequestBody ItemQuo request) throws Exception {
+        try {
+            itemService.createItemQuotation(request);
+            return ResponseEntity.ok().body(new MessageResponse("Item Created"));
+        }
+        catch(Exception ex) {
+            return ResponseEntity.badRequest().body(new MessageResponse("Error while creating item: " + ex.getMessage()));
+        }
+
+    }
+
+    @GetMapping("/getItemQuotation")
+    public List<ItemQuo> getItemQuotation() throws Exception {
+        return itemService.getItemQuotation();
+    }
 }
