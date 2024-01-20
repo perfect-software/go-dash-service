@@ -3,6 +3,7 @@ package com.service.godash.controller;
 import com.service.godash.model.ItemGrp;
 import com.service.godash.model.ItemHead;
 import com.service.godash.model.ItemQuo;
+import com.service.godash.payload.ItemQuotationResponse;
 import com.service.godash.payload.ItemRequest;
 import com.service.godash.payload.ItemResponse;
 import com.service.godash.payload.MessageResponse;
@@ -66,7 +67,7 @@ public class ItemController {
     }
 
     @GetMapping("/getItemQuotation")
-    public List<ItemQuo> getItemQuotation() throws Exception {
+    public List<ItemQuotationResponse> getItemQuotation() throws Exception {
         return itemService.getItemQuotation();
     }
 }

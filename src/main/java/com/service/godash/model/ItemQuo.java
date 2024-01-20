@@ -16,11 +16,13 @@ public class ItemQuo {
     @JsonIgnore
     private Integer item_quotation_id;
 
-    @Column(name = "item_id")
-    private Integer ItemId;
+    @JoinColumn(name = "item_id")
+    @ManyToOne(cascade = CascadeType.ALL)
+    private Item item;
 
-    @Column(name = "supplier_id")
-    private Integer SupplierId;
+    @JoinColumn(name = "supplier_id")
+    @ManyToOne(cascade = CascadeType.ALL)
+    private Supplier supplier;
 
     @Column(name = "rate")
     private Double Rate;

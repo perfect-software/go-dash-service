@@ -1,6 +1,7 @@
 package com.service.godash.service.impl;
 
 import com.service.godash.model.*;
+import com.service.godash.payload.ItemQuotationResponse;
 import com.service.godash.payload.ItemRequest;
 import com.service.godash.payload.ItemResponse;
 import com.service.godash.repository.*;
@@ -9,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -27,13 +29,14 @@ public class ItemServiceImpl implements ItemService {
     ItemHeadRepo itemHeadRepo;
     @Autowired
     ItemGrpRepo itemGrpRepo;
+
     @Override
     public ResponseEntity<?> createItem(ItemRequest request) throws Exception {
         Item item = new Item(request);
-        if(itemRepo.existsByitemname(item.getItemname())) {
+        if (itemRepo.existsByitemname(item.getItemname())) {
             throw new Exception("Item already exists");
         }
-            itemRepo.save(item);
+        itemRepo.save(item);
         return ResponseEntity.ok("Item Created");
     }
 
@@ -70,9 +73,20 @@ public class ItemServiceImpl implements ItemService {
     }
 
     @Override
-    public List<ItemQuo> getItemQuotation() throws Exception {
-        return itemQuotationRepo.findAll();
+    public List<ItemQuotationResponse> getItemQuotation() throws Exception {
+        List<ItemQuo> itemQuos = itemQuotationRepo.findAll();
+        List<ItemQuotationResponse> itemQuotationResponses = new ArrayList<>();
+        ItemQuotationResponse itemQuotationResponse = new ItemQuotationResponse();
+        for (ItemQuo itemQuo : itemQuos) {
+            itemQuotationResponse.setItem_quotation_id(itemQuo.getItem_quotation_id());
+            itemQuotationResponse.setItemName(itemQuo.getItem().getItemname());
+            itemQuotationResponse.setSupplierName(itemQuo.getSupplier().getSupplierName());
+            itemQuotationResponse.setRate(itemQuo.getRate());
+            itemQuotationResponse.setUnit(itemQuo.getUnit());
+            itemQuotationResponse.setValidUntil(itemQuo.getValidUntil());
+            itemQuotationResponses.add(itemQuotationResponse);
+
+        }
+        return itemQuotationResponses;
     }
-
-
 }
