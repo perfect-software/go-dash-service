@@ -3,7 +3,6 @@ package com.service.godash.model;
 import com.service.godash.payload.ItemRequest;
 import jakarta.persistence.*;
 import lombok.Data;
-import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
 
 @Entity
@@ -14,7 +13,7 @@ public class Item {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "item_id")
-    private int item_id;
+    private int itemId;
     @Column(name="item_grp")
     private String itemgrp;
     @Column(name = "item_sub_grp")
@@ -63,6 +62,9 @@ public class Item {
         this.size=request.getSize();
         this.itemname= StringUtils.joinWith(" ",this.animal,this.characteristics,this.texture,this.substance,this.tanning,this.origin,this.tannery,this.color,this.skintype,this.uniquecode);
         this.itemname=StringUtils.remove(this.itemname,"null").trim();
+    }
+
+    public Item() {
     }
 
 

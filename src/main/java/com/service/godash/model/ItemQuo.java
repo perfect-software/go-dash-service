@@ -1,6 +1,7 @@
 package com.service.godash.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.service.godash.payload.ItemQuotationRequest;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -32,5 +33,16 @@ public class ItemQuo {
 
     @Column(name = "validUntil")
     private Date ValidUntil;
+
+    public ItemQuo(ItemQuotationRequest request,Item item,Supplier supplier) {
+        this.item = item;
+        this.supplier = supplier;
+        this.Rate = request.getRate();
+        this.Unit = request.getUnit();
+        this.ValidUntil = request.getValidUntil();
+    }
+
+    public ItemQuo() {
+    }
 
 }

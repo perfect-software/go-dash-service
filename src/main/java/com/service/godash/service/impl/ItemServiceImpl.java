@@ -1,9 +1,7 @@
 package com.service.godash.service.impl;
 
 import com.service.godash.model.*;
-import com.service.godash.payload.ItemQuotationResponse;
-import com.service.godash.payload.ItemRequest;
-import com.service.godash.payload.ItemResponse;
+import com.service.godash.payload.*;
 import com.service.godash.repository.*;
 import com.service.godash.service.ItemService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +19,9 @@ public class ItemServiceImpl implements ItemService {
 
     @Autowired
     BOMRepo bomRepo;
+
+    @Autowired
+    SupplierRepo supplierRepo;
 
     @Autowired
     ItemQuotationRepo itemQuotationRepo;
@@ -63,9 +64,12 @@ public class ItemServiceImpl implements ItemService {
     }
 
     @Override
-    public ResponseEntity<?> createItemQuotation(ItemQuo request) throws Exception {
+    public ResponseEntity<?> createItemQuotation(ItemQuotationRequest request) throws Exception {
         try {
-            itemQuotationRepo.save(request);
+            Item item = itemRepo.findByItemId(request.getItemId());
+            Supplier supplier = supplierRepo.findBySupplierId(request.getSupplierId());
+            ItemQuo itemQuo = new ItemQuo(request,item,supplier);
+            itemQuotationRepo.save(itemQuo);
             return ResponseEntity.ok("Item Created");
         } catch (Exception e) {
             return ResponseEntity.badRequest().body("Error while creating item");
@@ -79,7 +83,9 @@ public class ItemServiceImpl implements ItemService {
         ItemQuotationResponse itemQuotationResponse = new ItemQuotationResponse();
         for (ItemQuo itemQuo : itemQuos) {
             itemQuotationResponse.setItem_quotation_id(itemQuo.getItem_quotation_id());
+            itemQuotationResponse.setItemId(itemQuo.getItem().getItemId());
             itemQuotationResponse.setItemName(itemQuo.getItem().getItemname());
+            itemQuotationResponse.setSupplierId(itemQuo.getSupplier().getSupplierId());
             itemQuotationResponse.setSupplierName(itemQuo.getSupplier().getSupplierName());
             itemQuotationResponse.setRate(itemQuo.getRate());
             itemQuotationResponse.setUnit(itemQuo.getUnit());

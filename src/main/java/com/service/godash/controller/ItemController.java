@@ -3,10 +3,7 @@ package com.service.godash.controller;
 import com.service.godash.model.ItemGrp;
 import com.service.godash.model.ItemHead;
 import com.service.godash.model.ItemQuo;
-import com.service.godash.payload.ItemQuotationResponse;
-import com.service.godash.payload.ItemRequest;
-import com.service.godash.payload.ItemResponse;
-import com.service.godash.payload.MessageResponse;
+import com.service.godash.payload.*;
 import com.service.godash.service.ItemService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -55,13 +52,13 @@ public class ItemController {
     }
 
     @PostMapping("/createItemQuotation")
-    public ResponseEntity<?> createItemQuotation(@Valid @RequestBody ItemQuo request) throws Exception {
+    public ResponseEntity<?> createItemQuotation(@Valid @RequestBody ItemQuotationRequest request) throws Exception {
         try {
             itemService.createItemQuotation(request);
-            return ResponseEntity.ok().body(new MessageResponse("Item Created"));
+            return ResponseEntity.ok().body(new MessageResponse("Item Created Quotation"));
         }
         catch(Exception ex) {
-            return ResponseEntity.badRequest().body(new MessageResponse("Error while creating item: " + ex.getMessage()));
+            return ResponseEntity.badRequest().body(new MessageResponse("Error while creating item quotation: " + ex.getMessage()));
         }
 
     }

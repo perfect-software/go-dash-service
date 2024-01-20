@@ -4,6 +4,7 @@ import com.service.godash.model.ItemQuo;
 import com.service.godash.model.SrBom;
 import com.service.godash.model.ItemGrp;
 import com.service.godash.model.ItemHead;
+import com.service.godash.payload.ItemQuotationRequest;
 import com.service.godash.payload.ItemQuotationResponse;
 import com.service.godash.payload.ItemRequest;
 import com.service.godash.payload.ItemResponse;
@@ -23,7 +24,7 @@ public interface ItemService {
 
     List<ItemResponse> getItemName();
 
-    ResponseEntity<?> createItemQuotation(ItemQuo request) throws Exception;
+    ResponseEntity<?> createItemQuotation(ItemQuotationRequest request) throws Exception;
 
     List<ItemQuotationResponse> getItemQuotation() throws Exception;
 }

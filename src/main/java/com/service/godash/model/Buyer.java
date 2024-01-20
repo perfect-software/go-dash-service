@@ -17,13 +17,7 @@ public class Buyer {
     public Buyer(){
     }
 
-//    public Buyer(BankAccount bsAccount) {
-//        bankAccounts = new ArrayList<>();
-//        bankAccounts.add(bsAccount);
-//        // Initialize the bankAccounts list
-//    }
     public Buyer(BuyerRequest request) {
-//        this.code = request.getCode();
         this.bsName = request.getBuyerName();
         this.bsAbbreviation = request.getBuyerAbbriviation();
         this.billingAddress = request.getBuyerBillingAddress();
@@ -32,14 +26,10 @@ public class Buyer {
         this.pincode = request.getBuyerPincode();
         this.country = request.getBuyerCountry();
         this.currency = request.getCurrency();
-//        this.bsCode = request.ge();
         this.contactPerson = request.getBuyerContactPerson();
-//        this.mobileExt = request.getMobileExt();
         this.mobile = request.getBuyerMobile();
         this.phone = request.getBuyerPhone();
         this.email = request.getBuyerEmail();
-//        this.username = request.getUsername();
-//        this.entDate = request.getEntDate();
     }
 
     @Id
@@ -98,7 +88,4 @@ public class Buyer {
     @Column(name = "entDate")
     private Date entDate;
 
-//    @OneToMany(mappedBy = "buyer")
-//    @JsonIgnore
-//    private List<BankAccount> bankAccounts;
 }

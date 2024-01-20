@@ -1,12 +1,9 @@
 package com.service.godash.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.service.godash.payload.SupplierResponse;
 import jakarta.persistence.*;
 import lombok.Data;
 
-import java.util.Date;
-import java.util.List;
 @Entity
 @Table(name = "supplier",schema = "ole")
 @Data
@@ -14,9 +11,9 @@ public class Supplier {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @JoinColumn(name = "supplier_id")
+    @Column(name = "supplier_id")
     @JsonIgnore
-    private int supplier_id;
+    private int supplierId;
 
     @Column(name = "Code")
     private String code;

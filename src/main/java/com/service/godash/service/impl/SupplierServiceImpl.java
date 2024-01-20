@@ -1,13 +1,11 @@
 package com.service.godash.service.impl;
 
-import com.service.godash.model.Buyer;
 import com.service.godash.model.Supplier;
 import com.service.godash.payload.MessageResponse;
 import com.service.godash.payload.SupplierResponse;
 import com.service.godash.repository.SupplierRepo;
 import com.service.godash.service.SupplierService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataAccessException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -44,7 +42,7 @@ public class SupplierServiceImpl implements SupplierService {
             List<SupplierResponse> supplierResponses = new ArrayList<>();
             for (Supplier supplier : suppliers) {
                 SupplierResponse response = new SupplierResponse();
-                response.setSupplier_id(supplier.getSupplier_id());
+                response.setSupplier_id(supplier.getSupplierId());
                 response.setSupplierName(supplier.getSupplierName());
                 supplierResponses.add(response);
             }
