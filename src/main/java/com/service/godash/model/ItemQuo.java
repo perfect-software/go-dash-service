@@ -4,6 +4,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.util.Date;
+
 @Entity
 @Data
 @Table(name = "ItemQuotation",schema = "ole")
@@ -22,5 +24,11 @@ public class ItemQuo {
 
     @Column(name = "rate")
     private Double Rate;
+
+    @Column(name = "unit")
+    private String Unit;
+
+    @Column(name = "validUntil")
+    private Date ValidUntil;
 
 }
