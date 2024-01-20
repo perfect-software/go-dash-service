@@ -21,7 +21,7 @@ public interface ItemService {
 
     List<ItemGrp> getItemGrpAndSubGrp();
 
-    List<ItemResponse> getItemName(String input);
+    List<ItemResponse> getItemName();
 
     ResponseEntity<?> createItemQuotation(ItemQuo request) throws Exception;
 

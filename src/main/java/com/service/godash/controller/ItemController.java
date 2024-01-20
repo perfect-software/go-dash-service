@@ -50,8 +50,8 @@ public class ItemController {
     }
 
     @GetMapping("/getItemName")
-    public List<ItemResponse> getItemName(String input) throws Exception {
-        return itemService.getItemName(input);
+    public List<ItemResponse> getItemName() throws Exception {
+        return itemService.getItemName();
     }
 
     @PostMapping("/createItemQuotation")

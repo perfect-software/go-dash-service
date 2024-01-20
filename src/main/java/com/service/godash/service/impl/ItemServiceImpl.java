@@ -57,9 +57,9 @@ public class ItemServiceImpl implements ItemService {
     }
 
     @Override
-    public List<ItemResponse> getItemName(String input) {
+    public List<ItemResponse> getItemName() {
 
-        return itemRepo.findItemNameContainingIgnoreCase(input);
+        return itemRepo.findItemName();
     }
 
     @Override
