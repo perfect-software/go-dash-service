@@ -3,6 +3,7 @@ package com.service.godash.service.impl;
 import com.service.godash.model.Buyer;
 import com.service.godash.model.Supplier;
 import com.service.godash.payload.MessageResponse;
+import com.service.godash.payload.SupplierResponse;
 import com.service.godash.repository.SupplierRepo;
 import com.service.godash.service.SupplierService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -36,9 +38,17 @@ public class SupplierServiceImpl implements SupplierService {
     }
 
     @Override
-    public List<Supplier> getAllSupplier() throws Exception {
+    public List<SupplierResponse> getAllSupplier() throws Exception {
         try {
-            return supplierRepo.findAll();
+            List<Supplier> suppliers = supplierRepo.findAll();
+            List<SupplierResponse> supplierResponses = new ArrayList<>();
+            for (Supplier supplier : suppliers) {
+                SupplierResponse response = new SupplierResponse();
+                response.setSupplier_id(supplier.getSupplier_id());
+                response.setSupplierName(supplier.getSupplierName());
+                supplierResponses.add(response);
+            }
+            return supplierResponses;
         } catch (Exception ex) {
             throw new Exception("Error retrieving buyers from the repository", ex);
         }
