@@ -26,13 +26,22 @@ CREATE TABLE ole.SampleRequest (
 	comments varchar(200),
 	delivery_date date,
 	prod_ex_date date,
+	order_date date,
 	username varchar(10),
     entDate datetime DEFAULT getdate(),
 );
 
-Insert into ole.SampleRequest (bs_id, sample_ref, sample_type, article_no, buyer_article, season, size, quantity, pair, upperColor, liningColor,
-last, insole, solelable, socks, heel, pattern, buyer_ref, in_upper_leather, in_lining, in_socks, in_quantity, comments, delivery_date,
-prod_ex_date, username) values (1, 1, 'PP', 'PP-001', 'PP-001', 'SS-2017', '39', '1', '1', 'Black', 'Black',
-'L-1', 'L-1', 'L-1', 'L-1', 'L-1', 'L-1', 'PP-001', 'L-1', 'L-1', 'L-1', 'L-1', 'L-1', '2017-01-01', '2017-01-01', 'admin')
+ALTER TABLE OLE.SampleRequest
+DROP COLUMN sr_no;
+
+ALTER TABLE OLE.SampleRequest
+ADD sr_no varchar(20);
+
+DELETE FROM ole.SampleRequest;
+
+DBCC CHECKIDENT('ole.SampleRequest', RESEED, 0);
+
+ALTER TABLE ole.SampleRequest
+ALTER COLUMN article_no INT;
 
 select * from ole.SampleRequest

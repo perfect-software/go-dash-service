@@ -21,7 +21,6 @@ public class Sample {
         this.sampleRef = request.getSampleRef();
         this.sampleType = request.getSampleType();
         this.article_no = request.getArticleNo();
-//        this.article= getArticle();
         this.buyerArticle = request.getBuyerArticle();
         this.size = request.getSize();
         this.quantity = request.getQuantity();
@@ -52,7 +51,7 @@ public class Sample {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int sampleId;
 
-    @Column(name = "sr_no")
+    @Column(name = "sr_no",length = 20)
     private String sr_no;
 
     @Column(name = "season")
@@ -64,7 +63,6 @@ public class Sample {
     @Column(name = "sample_type")
     private String sampleType;
 
-//    @ManyToOne //defines many sample id against one article
     @Column(name = "article_no")
     private String article_no;
 
