@@ -51,7 +51,7 @@ public class ArticleController {
         try {
             return articleService.getArticle();
         } catch (Exception ex) {
-            throw new GenericException("Error while getting article", 500);
+            throw new Exception("Error while getting article");
         }
     }
 

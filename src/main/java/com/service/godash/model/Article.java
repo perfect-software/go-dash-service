@@ -73,4 +73,7 @@ public class Article {
         this.username=StringUtils.upperCase(request.getUsername());
     }
 
+    public Article() {
+    }
+
 }

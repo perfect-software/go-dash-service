@@ -42,7 +42,6 @@ public class ArticleServiceImpl implements ArticleService {
     @Override
     public List<Article> getArticle() {
         List<Article> articleList = articleRepo.findAll();
-//        Collections.sort(articleList);
         return articleList;
     }
 
