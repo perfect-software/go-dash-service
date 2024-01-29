@@ -70,6 +70,7 @@ public class Article {
         this.liningMaterial=StringUtils.upperCase(request.getLiningMaterial());
         this.socksMaterial=StringUtils.upperCase(request.getSocksMaterial());
         this.comment=StringUtils.upperCase(request.getComment());
+        this.username=StringUtils.upperCase(request.getUsername());
     }
 
 }

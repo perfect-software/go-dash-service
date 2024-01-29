@@ -21,5 +21,6 @@ public class ArticleRequest {
     private String liningMaterial;
     private String socksMaterial;
     private String comment;
+    private String username;
 
 }
