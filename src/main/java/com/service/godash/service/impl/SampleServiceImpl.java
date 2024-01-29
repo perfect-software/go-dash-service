@@ -2,10 +2,8 @@ package com.service.godash.service.impl;
 
 import com.service.godash.model.Buyer;
 import com.service.godash.model.Sample;
-import com.service.godash.model.SampleType;
 import com.service.godash.payload.MessageResponse;
 import com.service.godash.payload.SampleRequest;
-import com.service.godash.payload.SampleResponse;
 import com.service.godash.repository.*;
 import com.service.godash.service.SampleService;
 import com.service.godash.util.Utility;
@@ -42,7 +40,7 @@ public class SampleServiceImpl implements SampleService {
     @Override
     public ResponseEntity<?> createSampleRequest(SampleRequest request) {
         Sample sample=new Sample(request);
-        String srno=utility.generateShortUUID();
+        String srno=utility.generateSeqSRNO(sample.getSeason(),sample.getFinYear());
         sample.setSr_no(srno);
         Buyer buyer=new Buyer();
             Buyer existingBuyer = buyerRepo.findByBsName(request.getBsName());

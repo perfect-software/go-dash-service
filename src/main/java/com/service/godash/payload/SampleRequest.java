@@ -34,5 +34,6 @@ public class SampleRequest {
     private Date prodExDate;
     private Date entDate;
     private Date dateOfOrder;
+    private String finYear="2024";
 
 }

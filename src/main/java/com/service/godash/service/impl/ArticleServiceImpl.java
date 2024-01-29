@@ -2,6 +2,7 @@ package com.service.godash.service.impl;
 
 import com.service.godash.model.Article;
 import com.service.godash.model.Sample;
+import com.service.godash.payload.ArticleRequest;
 import com.service.godash.repository.ArticleRepo;
 import com.service.godash.service.ArticleService;
 import jakarta.validation.Valid;
@@ -21,8 +22,9 @@ public class ArticleServiceImpl implements ArticleService {
     @Autowired
     ArticleRepo articleRepo;
     @Override
-    public ResponseEntity<?> createArticle(Article request) {
-        articleRepo.save(request);
+    public ResponseEntity<?> createArticle(ArticleRequest request) {
+        Article article=new Article(request);
+        articleRepo.save(article);
         return ResponseEntity.ok("Article Created");
     }
 

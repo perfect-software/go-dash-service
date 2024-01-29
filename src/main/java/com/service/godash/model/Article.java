@@ -1,7 +1,9 @@
 package com.service.godash.model;
 
+import com.service.godash.payload.ArticleRequest;
 import jakarta.persistence.*;
 import lombok.Data;
+import org.apache.commons.lang3.StringUtils;
 
 import java.util.Date;
 
@@ -50,5 +52,24 @@ public class Article {
     private String username;
     @Column(name = "entDate")
     private Date entDate;
+
+    public Article(ArticleRequest request){
+        this.articleName= StringUtils.upperCase(request.getArticleName());
+        this.animal=StringUtils.upperCase(request.getAnimal());
+        this.color=StringUtils.upperCase(request.getColor());
+        this.category=StringUtils.upperCase(request.getCategory());
+        this.gender=StringUtils.upperCase(request.getGender());
+        this.soleType=StringUtils.upperCase(request.getSoleType());
+        this.toeShape=StringUtils.upperCase(request.getToeShape());
+        this.platformType=StringUtils.upperCase(request.getPlatformType());
+        this.platformNo=StringUtils.upperCase(request.getPlatformNo());
+        this.heelHeight=StringUtils.upperCase(request.getHeelHeight());
+        this.heelNo=StringUtils.upperCase(request.getHeelNo());
+        this.heelType=StringUtils.upperCase(request.getHeelType());
+        this.lastNo=StringUtils.upperCase(request.getLastNo());
+        this.liningMaterial=StringUtils.upperCase(request.getLiningMaterial());
+        this.socksMaterial=StringUtils.upperCase(request.getSocksMaterial());
+        this.comment=StringUtils.upperCase(request.getComment());
+    }
 
 }

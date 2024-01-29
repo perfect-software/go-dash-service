@@ -3,6 +3,7 @@ package com.service.godash.controller;
 import com.service.godash.Exception.GenericException;
 import com.service.godash.model.Article;
 import com.service.godash.model.Sample;
+import com.service.godash.payload.ArticleRequest;
 import com.service.godash.payload.MessageResponse;
 import com.service.godash.service.ArticleService;
 import jakarta.validation.Valid;
@@ -19,7 +20,7 @@ public class ArticleController {
     ArticleService articleService;
 
     @PostMapping("/create")
-    public ResponseEntity<?> createArticle(@Valid @RequestBody Article request) throws Exception {
+    public ResponseEntity<?> createArticle(@Valid @RequestBody ArticleRequest request) throws Exception {
         try {
             articleService.createArticle(request);
             return ResponseEntity.ok(new MessageResponse("Article Created"));
