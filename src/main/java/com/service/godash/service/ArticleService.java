@@ -1,6 +1,7 @@
 package com.service.godash.service;
 
 import com.service.godash.model.Article;
+import com.service.godash.payload.ArticleRequest;
 import org.springframework.data.relational.core.sql.In;
 import org.springframework.http.ResponseEntity;
 
@@ -8,7 +9,7 @@ import java.util.List;
 
 public interface ArticleService {
 
-    ResponseEntity<?> createArticle(Article request);
+    ResponseEntity<?> createArticle(ArticleRequest request);
 
     List<Integer> getArticleNo();
 

@@ -1,17 +1,22 @@
 package com.service.godash.util;
 
+import com.service.godash.repository.FinYearRepo;
+import com.service.godash.repository.SampleRequestRepo;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.util.UUID;
 @Component
 public class Utility {
 
-    public String generateShortUUID() {
-        String uuid = UUID.randomUUID().toString();
-        // Extracting 12 characters from the middle of the UUID
-        String shortUUID = uuid.substring(9, 21);
+    @Autowired
+    FinYearRepo finYearRepo;
 
-        return shortUUID;
+    @Autowired
+    SampleRequestRepo sampleRequestRepo;
+
+    public String generateSeqSRNO(String Season,String Year){
+       Integer srno=(sampleRequestRepo.findCountSRNO(Year))+1;
+        return String.format("%07d",srno)+"/"+Season+Year.substring(2,4);
     }
 
 }

@@ -1,11 +1,11 @@
 CREATE TABLE ole.SampleRequest (
     sample_id int IDENTITY(1,1) PRIMARY KEY NOT NULL,
 	season varchar(10) NOT NULL,
-	sr_no  varchar(12) NOT NULL,
+	sr_no varchar(20) not null,
 	bs_id int NOT NULL,
 	sample_ref varchar(30),
-	sample_type varchar(10),
-	article_no varchar(50),
+	sample_type varchar(10) not null,
+	article_no varchar(50) not null,
 	buyer_article varchar(50),
 	size varchar(5),
 	quantity varchar(5),
@@ -27,9 +27,11 @@ CREATE TABLE ole.SampleRequest (
 	delivery_date date,
 	prod_ex_date date,
 	order_date date,
+	fin_year varchar(5),
 	username varchar(10),
     entDate datetime DEFAULT getdate(),
 );
+
 
 ALTER TABLE OLE.SampleRequest
 DROP COLUMN sr_no;
