@@ -10,7 +10,10 @@ import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.Collections;
 import java.util.List;
 
@@ -95,10 +98,23 @@ public class SampleController {
         return sampleService.getSampleType();
     }
 
-//    @GetMapping("/getAllSRNO")
-//    public List<BomResponse> getAllSRNO(){
-//        return sampleService.viewAllSampleRequest();
-//    }
+    @PostMapping("/upload")
+    public String handleImageUpload(@RequestParam("image") MultipartFile file) {
+        if (!file.isEmpty()) {
+            try {
+                String fileName = file.getOriginalFilename();
+                String filePath = "D:/service/go-dash-images" + fileName;
+                File dest = new File(filePath);
+                file.transferTo(dest);
+                return "Image uploaded successfully!";
+            } catch (IOException e) {
+                return "Failed to upload image.";
+            }
+        } else {
+            return "No image uploaded.";
+        }
+    }
+
 
 
 
