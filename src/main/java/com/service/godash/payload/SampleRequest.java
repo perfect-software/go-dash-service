@@ -35,5 +35,6 @@ public class SampleRequest {
     private Date entDate;
     private Date dateOfOrder;
     private String finYear;
+    private String image_nm;
 
 }

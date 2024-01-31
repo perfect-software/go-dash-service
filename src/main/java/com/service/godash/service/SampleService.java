@@ -22,6 +22,6 @@ public interface SampleService {
 
     List<String> getSampleType();
 
-    List<Sample> viewAllSampleRequest();
+    List<SampleResponse> viewAllSampleRequest();
 
 }

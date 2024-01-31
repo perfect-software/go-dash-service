@@ -43,7 +43,7 @@ public class Sample {
         this.prodExDate = request.getProdExDate();
         this.dateOfOrder=request.getDateOfOrder();
         this.finYear = request.getFinYear();
-
+        this.image_nm=request.getImage_nm();
     }
 
 
@@ -133,6 +133,9 @@ public class Sample {
 
     @Column(name = "fin_year")
     private String finYear;
+
+    @Column(name = "image_nm")
+    private String image_nm;
 
     @ManyToOne //defines many sample id against one buyer
     @JoinColumn(name = "bs_id")

@@ -64,6 +64,8 @@ public class SampleResponse {
 
     private String finYear;
 
+    private String image_nm;
+
 //    @ManyToOne //defines many sample id against one buyer
 //    @JoinColumn(name = "bs_id")
     private Buyer buyer;

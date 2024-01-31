@@ -33,6 +33,8 @@ public class SampleController {
 
     private final Path rootLocation = Paths.get("E:/service/go-dash-images/");
 
+    private final String imagePath="E:/service/go-dash-images";
+
 
     @PostMapping("/create")
     public ResponseEntity<?> createSample(@Valid @RequestBody SampleRequest request) throws Exception {
@@ -54,7 +56,7 @@ public class SampleController {
     }
 
     @GetMapping("/viewAllSample")
-    public List<Sample> viewAllSample() throws Exception {
+    public List<SampleResponse> viewAllSample() throws Exception {
         try {
             return sampleService.viewAllSampleRequest();
         } catch (Exception ex) {
@@ -115,12 +117,12 @@ public class SampleController {
         try {
             String originalName = file.getOriginalFilename();
             String extension = originalName.substring(originalName.lastIndexOf("."));
-            String fileName = UUID.randomUUID().toString() + extension;
-            String filePath = rootLocation + fileName;
+            String fileName = UUID.randomUUID().toString().substring(0,20) + extension;
+            String filePath = imagePath + fileName;
             File dest = new File(filePath);
             file.transferTo(dest);
 
-            return ResponseEntity.ok(new MessageResponse(filePath));
+            return ResponseEntity.ok(new MessageResponse(filePath+fileName));
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(new MessageResponse("Error while uploading image: " + e.getMessage()));
         }

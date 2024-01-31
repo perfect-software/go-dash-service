@@ -65,7 +65,7 @@ public class SampleServiceImpl implements SampleService {
     }
 
     @Override
-    public List<Sample> viewAllSampleRequest() {
+    public List<SampleResponse> viewAllSampleRequest() {
         SampleResponse sampleResponse=new SampleResponse();
         List<SampleResponse> sampleResponseList=new ArrayList<>();
         List<Sample> resultList=sampleRequestRepo.findAll();
@@ -98,6 +98,7 @@ public class SampleServiceImpl implements SampleService {
             sampleResponse.setUpperColor(item.getUpperColor());
             sampleResponse.setSize(item.getSize());
             sampleResponse.setFinYear(item.getFinYear());
+            sampleResponse.setImage_nm(item.getImage_nm());
             if (item.getBuyer() != null) {
                 Buyer buyer = item.getBuyer();
                 Buyer buyerDto = new Buyer();
@@ -122,7 +123,7 @@ public class SampleServiceImpl implements SampleService {
             }
             sampleResponseList.add(sampleResponse);
         }
-        return resultList;
+        return sampleResponseList;
     }
 
     public ResponseEntity<?> updateSampleRequest(SampleRequest request) {
