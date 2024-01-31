@@ -138,29 +138,6 @@ public class Sample {
     @JoinColumn(name = "bs_id")
     private Buyer buyer;
 
-//    public static void toUpperCase(){
-//        this.season= StringUtils.upperCase(season);
-//        this.sampleRef=StringUtils.upperCase(this.sampleRef);
-//        this.sampleType=StringUtils.upperCase(this.sampleType);
-//        this.article_no=StringUtils.upperCase(this.article_no);
-//        this.buyerArticle=StringUtils.upperCase(this.buyerArticle);
-//        this.size=StringUtils.upperCase(this.size);
-//        this.quantity=StringUtils.upperCase(this.quantity);
-//        this.pair=StringUtils.upperCase(this.pair);
-//        this.upperColor=StringUtils.upperCase(this.upperColor);
-//        this.liningColor=StringUtils.upperCase(this.liningColor);
-//        this.last=StringUtils.upperCase(this.last);
-//        this.insole=StringUtils.upperCase(this.insole);
-//        this.soleLabel=StringUtils.upperCase(this.soleLabel);
-//        this.socks=StringUtils.upperCase(this.socks);
-//        this.heel=StringUtils.upperCase(this.heel);
-//        this.pattern=StringUtils.upperCase(this.pattern);
-//        this.buyerRef=StringUtils.upperCase(this.buyerRef);
-//        this.inUpperLeather=StringUtils.upperCase(this.inUpperLeather);
-//        this.inLining=StringUtils.upperCase(this.inLining);
-//        this.inSocks=StringUtils.upperCase(this.inSocks);
-//        this.inQuantity=StringUtils.upperCase(this.inQuantity);
-//        this.comments=StringUtils.upperCase(this.comments);
-//    }
+
 
 }

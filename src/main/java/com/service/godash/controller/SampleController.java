@@ -8,14 +8,19 @@ import com.service.godash.service.BuyerService;
 import com.service.godash.service.SampleService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.UrlResource;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
-import java.io.IOException;
+
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Collections;
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/sample")
@@ -24,6 +29,10 @@ public class SampleController {
     SampleService sampleService;
     @Autowired
     BuyerService buyerService;
+
+
+    private final Path rootLocation = Paths.get("E:/service/go-dash-images/");
+
 
     @PostMapping("/create")
     public ResponseEntity<?> createSample(@Valid @RequestBody SampleRequest request) throws Exception {
@@ -99,23 +108,42 @@ public class SampleController {
     }
 
     @PostMapping("/upload")
-    public String handleImageUpload(@RequestParam("image") MultipartFile file) {
-        if (!file.isEmpty()) {
-            try {
-                String fileName = file.getOriginalFilename();
-                String filePath = "D:/service/go-dash-images" + fileName;
-                File dest = new File(filePath);
-                file.transferTo(dest);
-                return "Image uploaded successfully!";
-            } catch (IOException e) {
-                return "Failed to upload image.";
-            }
-        } else {
-            return "No image uploaded.";
+    public ResponseEntity<?> handleImageUpload(@RequestParam("image") MultipartFile file) {
+        if (file.isEmpty()) {
+            return ResponseEntity.badRequest().body(new MessageResponse("No file uploaded."));
+        }
+        try {
+            String originalName = file.getOriginalFilename();
+            String extension = originalName.substring(originalName.lastIndexOf("."));
+            String fileName = UUID.randomUUID().toString() + extension;
+            String filePath = rootLocation + fileName;
+            File dest = new File(filePath);
+            file.transferTo(dest);
+
+            return ResponseEntity.ok(new MessageResponse(filePath));
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(new MessageResponse("Error while uploading image: " + e.getMessage()));
         }
     }
 
 
+    @GetMapping("/images/{filename:.+}")
+    public ResponseEntity<Resource> getImage(@PathVariable String filename) {
+        try {
+            Path file = rootLocation.resolve(filename).normalize().toAbsolutePath();
+            if (!file.toFile().exists()) {
+                return ResponseEntity.notFound().build();
+            }
+            Resource resource = new UrlResource(file.toUri());
+            if (!resource.exists() || !resource.isReadable()) {
+                return ResponseEntity.notFound().build();
+            }
+            return ResponseEntity.ok().body(resource);
+        } catch (Exception e) {
+            return ResponseEntity.internalServerError().build();
+        }
+
+    }
 
 
 }

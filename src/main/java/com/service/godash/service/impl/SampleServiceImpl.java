@@ -4,6 +4,7 @@ import com.service.godash.model.Buyer;
 import com.service.godash.model.Sample;
 import com.service.godash.payload.MessageResponse;
 import com.service.godash.payload.SampleRequest;
+import com.service.godash.payload.SampleResponse;
 import com.service.godash.repository.*;
 import com.service.godash.service.SampleService;
 import com.service.godash.util.Utility;
@@ -14,6 +15,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import java.time.Year;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -23,8 +25,6 @@ public class SampleServiceImpl implements SampleService {
     SampleRequestRepo sampleRequestRepo;
 
     @Autowired
-    SampleResponseRepo sampleResponseRepo;
-    @Autowired
     BuyerRepo buyerRepo;
     @Autowired
     ColorRepo colorRepo;
@@ -33,6 +33,8 @@ public class SampleServiceImpl implements SampleService {
     @Autowired
     SampleRefRepo refRepo;
 
+    @Autowired
+    ArticleRepo articleRepo;
     @Autowired
     Utility utility;
 
@@ -64,7 +66,62 @@ public class SampleServiceImpl implements SampleService {
 
     @Override
     public List<Sample> viewAllSampleRequest() {
+        SampleResponse sampleResponse=new SampleResponse();
+        List<SampleResponse> sampleResponseList=new ArrayList<>();
         List<Sample> resultList=sampleRequestRepo.findAll();
+        for(Sample item: resultList){
+            String articleName=articleRepo.findArticleName(Integer.parseInt(item.getArticle_no()));
+            sampleResponse.setSampleId(item.getSampleId());
+            sampleResponse.setSampleRef(item.getSampleRef());
+            sampleResponse.setArticleNo(item.getArticle_no());
+            sampleResponse.setArticleName(articleName);
+            sampleResponse.setBuyerArticle(item.getBuyerArticle());
+            sampleResponse.setBuyerRef(item.getBuyerRef());
+            sampleResponse.setHeel(item.getHeel());
+            sampleResponse.setInSocks(item.getInSocks());
+            sampleResponse.setComments(item.getComments());
+            sampleResponse.setDateOfOrder(item.getDateOfOrder());
+            sampleResponse.setLast(item.getLast());
+            sampleResponse.setInQuantity(item.getInQuantity());
+            sampleResponse.setInsole(item.getInsole());
+            sampleResponse.setDeliveryDate(item.getDeliveryDate());
+            sampleResponse.setInUpperLeather(item.getInUpperLeather());
+            sampleResponse.setSampleType(item.getSampleType());
+            sampleResponse.setSr_no(item.getSr_no());
+            sampleResponse.setPair(item.getPair());
+            sampleResponse.setLiningColor(item.getLiningColor());
+            sampleResponse.setProdExDate(item.getProdExDate());
+            sampleResponse.setQuantity(item.getQuantity());
+            sampleResponse.setPattern(item.getPattern());
+            sampleResponse.setSeason(item.getSeason());
+            sampleResponse.setSoleLabel(item.getSoleLabel());
+            sampleResponse.setUpperColor(item.getUpperColor());
+            sampleResponse.setSize(item.getSize());
+            sampleResponse.setFinYear(item.getFinYear());
+            if (item.getBuyer() != null) {
+                Buyer buyer = item.getBuyer();
+                Buyer buyerDto = new Buyer();
+                buyerDto.setBs_id(buyer.getBs_id());
+                buyerDto.setCode(buyer.getCode());
+                buyerDto.setBsName(buyer.getBsName());
+                buyerDto.setBsAbbreviation(buyer.getBsAbbreviation());
+                buyerDto.setCity(buyer.getCity());
+                buyerDto.setPincode(buyer.getPincode());
+                buyerDto.setCountry(buyer.getCountry());
+                buyerDto.setBsCode(buyer.getBsCode());
+                buyerDto.setContactPerson(buyer.getContactPerson());
+                buyerDto.setMobileExt(buyer.getMobileExt());
+                buyerDto.setMobile(buyer.getMobile());
+                buyerDto.setPhone(buyer.getPhone());
+                buyerDto.setEmail(buyer.getEmail());
+                buyerDto.setUsername(buyer.getUsername());
+                buyerDto.setEntDate(buyer.getEntDate());
+                buyerDto.setBillingAddress(buyer.getBillingAddress());
+                buyerDto.setDeliveryAddress(buyer.getDeliveryAddress());
+                sampleResponse.setBuyer(buyerDto);
+            }
+            sampleResponseList.add(sampleResponse);
+        }
         return resultList;
     }
 
