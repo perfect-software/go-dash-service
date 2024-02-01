@@ -14,9 +14,9 @@ public class Utility {
     @Autowired
     SampleRequestRepo sampleRequestRepo;
 
-    public String generateSeqSRNO(String Season,String Year){
+    public String generateSeqSRNO(String Year){
        Integer srno=(sampleRequestRepo.findCountSRNO(Year))+1;
-        return String.format("%07d",srno)+"/"+Season+Year.substring(2,4);
+        return String.format("%07d",srno)+"/"+Year;
     }
 
 }

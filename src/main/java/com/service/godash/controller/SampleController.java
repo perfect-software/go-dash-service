@@ -11,16 +11,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/sample")
@@ -31,18 +34,25 @@ public class SampleController {
     BuyerService buyerService;
 
 
-    private final Path rootLocation = Paths.get("E:/service/go-dash-images/");
+    private final Path rootLocation = Paths.get("D:/service/go-dash-images/");
 
-    private final String imagePath="E:/service/go-dash-images";
+    private final String imagePath="D:/service/go-dash-images/";
 
 
     @PostMapping("/create")
-    public ResponseEntity<?> createSample(@Valid @RequestBody SampleRequest request) throws Exception {
+    public ResponseEntity<?> createSample(@Valid @RequestBody SampleRequest request, BindingResult result) throws Exception {
+        if (result.hasErrors()) {
+            // Construct error messages from binding result and return
+            String errorMessage = result.getAllErrors().stream()
+                    .map(error -> error.getDefaultMessage())
+                    .collect(Collectors.joining(", "));
+            return ResponseEntity.badRequest().body(new MessageResponse(errorMessage));
+        }
         try {
             sampleService.createSampleRequest(request);
             return ResponseEntity.ok(new MessageResponse("Sample Created"));
         } catch (Exception ex) {
-            return ResponseEntity.badRequest().body(new MessageResponse("Error while creating sample: " + ex.getMessage()));
+            return ResponseEntity.badRequest().body(new MessageResponse("Error while creating sample"));
         }
     }
 
@@ -118,11 +128,14 @@ public class SampleController {
             String originalName = file.getOriginalFilename();
             String extension = originalName.substring(originalName.lastIndexOf("."));
             String fileName = UUID.randomUUID().toString().substring(0,20) + extension;
+            Path directory = Paths.get(imagePath);
+            if (!Files.exists(directory)) {
+                Files.createDirectories(directory);
+            }
             String filePath = imagePath + fileName;
             File dest = new File(filePath);
             file.transferTo(dest);
-
-            return ResponseEntity.ok(new MessageResponse(filePath+fileName));
+            return ResponseEntity.ok(new MessageResponse(fileName));
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(new MessageResponse("Error while uploading image: " + e.getMessage()));
         }

@@ -5,6 +5,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
 public interface FinYearRepo extends JpaRepository<FinYear,Integer> {
-    @Query("SELECT MAX(s.year) FROM FinYear s")
-    Integer findyear();
+    @Query("SELECT s.year FROM FinYear s where s.Status='A'")
+    String findyear();
 }

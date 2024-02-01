@@ -52,6 +52,7 @@ public class SampleResponse {
     private String inLining;
 
     private String inSocks;
+
     private String inQuantity;
 
     private String comments;

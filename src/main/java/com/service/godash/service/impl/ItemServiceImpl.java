@@ -80,8 +80,8 @@ public class ItemServiceImpl implements ItemService {
     public List<ItemQuotationResponse> getItemQuotation() throws Exception {
         List<ItemQuo> itemQuos = itemQuotationRepo.findAll();
         List<ItemQuotationResponse> itemQuotationResponses = new ArrayList<>();
-        ItemQuotationResponse itemQuotationResponse = new ItemQuotationResponse();
         for (ItemQuo itemQuo : itemQuos) {
+            ItemQuotationResponse itemQuotationResponse = new ItemQuotationResponse();
             itemQuotationResponse.setItem_quotation_id(itemQuo.getItem_quotation_id());
             itemQuotationResponse.setItemId(itemQuo.getItem().getItemId());
             itemQuotationResponse.setItemName(itemQuo.getItem().getItemname());

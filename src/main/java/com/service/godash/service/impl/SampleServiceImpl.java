@@ -42,7 +42,8 @@ public class SampleServiceImpl implements SampleService {
     @Override
     public ResponseEntity<?> createSampleRequest(SampleRequest request) {
         Sample sample=new Sample(request);
-        String srno=utility.generateSeqSRNO(sample.getSeason(),sample.getFinYear());
+        String finYear=getYear().substring(0,2);
+        String srno=utility.generateSeqSRNO(finYear);
         sample.setSr_no(srno);
         Buyer buyer=new Buyer();
             Buyer existingBuyer = buyerRepo.findByBsName(request.getBsName());
@@ -66,10 +67,10 @@ public class SampleServiceImpl implements SampleService {
 
     @Override
     public List<SampleResponse> viewAllSampleRequest() {
-        SampleResponse sampleResponse=new SampleResponse();
         List<SampleResponse> sampleResponseList=new ArrayList<>();
-        List<Sample> resultList=sampleRequestRepo.findAll();
+        List<Sample> resultList=sampleRequestRepo.findAllByOrderByentDateDesc();
         for(Sample item: resultList){
+            SampleResponse sampleResponse=new SampleResponse();
             String articleName=articleRepo.findArticleName(Integer.parseInt(item.getArticle_no()));
             sampleResponse.setSampleId(item.getSampleId());
             sampleResponse.setSampleRef(item.getSampleRef());
@@ -79,6 +80,7 @@ public class SampleServiceImpl implements SampleService {
             sampleResponse.setBuyerRef(item.getBuyerRef());
             sampleResponse.setHeel(item.getHeel());
             sampleResponse.setInSocks(item.getInSocks());
+            sampleResponse.setInLining(item.getInLining());
             sampleResponse.setComments(item.getComments());
             sampleResponse.setDateOfOrder(item.getDateOfOrder());
             sampleResponse.setLast(item.getLast());
@@ -99,6 +101,7 @@ public class SampleServiceImpl implements SampleService {
             sampleResponse.setSize(item.getSize());
             sampleResponse.setFinYear(item.getFinYear());
             sampleResponse.setImage_nm(item.getImage_nm());
+            sampleResponse.setSocks(item.getSocks());
             if (item.getBuyer() != null) {
                 Buyer buyer = item.getBuyer();
                 Buyer buyerDto = new Buyer();
@@ -182,12 +185,11 @@ public class SampleServiceImpl implements SampleService {
         return sampleTypeRepo.findAllType();
     }
 
-
+    @Autowired
+    FinYearRepo finYearRepo;
 
     public String getYear(){
-        Year currentYear = Year.now();
-        String currentYearAsString = currentYear.toString();
-        String year = currentYearAsString.substring(currentYearAsString.length() - 2);
+        String year=finYearRepo.findyear();
         return year;
     }
 

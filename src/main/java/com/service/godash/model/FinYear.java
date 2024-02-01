@@ -11,6 +11,10 @@ public class FinYear {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private int id;
+
     @Column(name="year")
-    private int year;
+    private String year;
+
+    @Column(name="Status")
+    private String Status;
 }
