@@ -1,6 +1,8 @@
 package com.service.godash.payload;
 
 import jakarta.persistence.Column;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
 import lombok.NonNull;
@@ -18,8 +20,12 @@ public class SampleRequest {
     private String season;
     @Size(max=30,message = "sample ref exceeding char limit")
     private String sampleRef;
+
     @Size(max=10,message = "article no exceeding char limit")
+    @NotBlank(message = "article cannot be blank")
+    @NotNull(message = "article cannot be empty")
     private String articleNo;
+
     private Date entDate;
     @Size(max=50,message = "buyer article exceeding char limit")
     private String buyerArticle;
