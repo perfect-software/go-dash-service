@@ -160,6 +160,8 @@ public class SampleServiceImpl implements SampleService {
             existingRequest.setDeliveryDate(request.getDeliveryDate());
             existingRequest.setProdExDate(request.getProdExDate());
             existingRequest.setDateOfOrder(request.getDateOfOrder());
+            existingRequest.setImage_nm(request.getImage_nm());
+            existingRequest.setFinYear(request.getFinYear());
             sampleRequestRepo.save(existingRequest);
             return ResponseEntity.ok(new MessageResponse("Sample Request Updated"));
         } else {
