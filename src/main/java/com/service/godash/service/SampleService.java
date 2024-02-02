@@ -9,7 +9,7 @@ import java.util.List;
 
 public interface SampleService {
 
-    ResponseEntity<?> createSampleRequest(SampleRequest request);
+    String createSampleRequest(SampleRequest request) throws Exception;
 
     List<Sample> viewSampleRequest(int page_num);
 

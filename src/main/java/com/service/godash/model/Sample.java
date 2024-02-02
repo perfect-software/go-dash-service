@@ -137,8 +137,6 @@ public class Sample {
     @Column(name = "image_nm")
     private String image_nm;
 
-    @Column(name="entDate")
-    private Date entDate;
 
     @ManyToOne //defines many sample id against one buyer
     @JoinColumn(name = "bs_id")

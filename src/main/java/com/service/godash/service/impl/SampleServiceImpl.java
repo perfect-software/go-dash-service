@@ -14,7 +14,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import java.time.Year;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -40,7 +40,7 @@ public class SampleServiceImpl implements SampleService {
 
 
     @Override
-    public ResponseEntity<?> createSampleRequest(SampleRequest request) {
+    public String createSampleRequest(SampleRequest request) throws Exception {
         Sample sample=new Sample(request);
         String finYear=getYear().substring(0,2);
         String srno=utility.generateSeqSRNO(finYear);
@@ -51,10 +51,10 @@ public class SampleServiceImpl implements SampleService {
             buyer.setBs_id(existingBuyer.getBs_id());
             sample.setBuyer(buyer);
             sampleRequestRepo.save(sample);
-            return ResponseEntity.ok(new MessageResponse("Sample Request Created"));
+            return srno;
         }
         else
-            return ResponseEntity.ok(new MessageResponse(("Enter existing buyer only")));
+            throw new Exception("Buyer does not exist. Enter existing buyer only.");
     }
 
     @Override
@@ -68,7 +68,7 @@ public class SampleServiceImpl implements SampleService {
     @Override
     public List<SampleResponse> viewAllSampleRequest() {
         List<SampleResponse> sampleResponseList=new ArrayList<>();
-        List<Sample> resultList=sampleRequestRepo.findAllByOrderByentDateDesc();
+        List<Sample> resultList=sampleRequestRepo.findAllByOrderBySampleIdDesc();
         for(Sample item: resultList){
             SampleResponse sampleResponse=new SampleResponse();
             String articleName=articleRepo.findArticleName(Integer.parseInt(item.getArticle_no()));

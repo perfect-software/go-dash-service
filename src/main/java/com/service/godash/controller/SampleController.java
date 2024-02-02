@@ -6,10 +6,12 @@ import com.service.godash.model.Sample;
 import com.service.godash.payload.*;
 import com.service.godash.service.BuyerService;
 import com.service.godash.service.SampleService;
+import com.service.godash.util.Utility;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
@@ -20,6 +22,7 @@ import java.io.File;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.security.Provider;
 import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
@@ -32,6 +35,8 @@ public class SampleController {
     SampleService sampleService;
     @Autowired
     BuyerService buyerService;
+    @Autowired
+    Utility utility;
 
 
     private final Path rootLocation = Paths.get("D:/service/go-dash-images/");
@@ -40,19 +45,24 @@ public class SampleController {
 
 
     @PostMapping("/create")
-    public ResponseEntity<?> createSample(@Valid @RequestBody SampleRequest request, BindingResult result) throws Exception {
+    public ResponseEntity<ServiceResponse> createSample(@Valid @RequestBody SampleRequest request, BindingResult result) throws Exception {
         if (result.hasErrors()) {
-            // Construct error messages from binding result and return
             String errorMessage = result.getAllErrors().stream()
                     .map(error -> error.getDefaultMessage())
                     .collect(Collectors.joining(", "));
-            return ResponseEntity.badRequest().body(new MessageResponse(errorMessage));
+            ServiceResponse serviceResponse=ServiceResponse.builder()
+                    .responseStatus(this.utility.getServiceResponse(errorMessage, HttpStatus.BAD_REQUEST.value())).build();
+            return ResponseEntity.badRequest().body(serviceResponse);
         }
         try {
-            sampleService.createSampleRequest(request);
-            return ResponseEntity.ok(new MessageResponse("Sample Created"));
+            String srno=sampleService.createSampleRequest(request);
+            ServiceResponse serviceResponse= ServiceResponse.builder()
+                    .responseStatus(this.utility.getServiceResponse("Sample Request Created", HttpStatus.CREATED.value())).response(srno).build();
+            return ResponseEntity.ok().body(serviceResponse);
         } catch (Exception ex) {
-            return ResponseEntity.badRequest().body(new MessageResponse("Error while creating sample"));
+            ServiceResponse serviceResponse=ServiceResponse.builder()
+                    .responseStatus(this.utility.getServiceResponse("Error while creating Sample Resquest", HttpStatus.BAD_REQUEST.value())).build();
+            return ResponseEntity.badRequest().body(serviceResponse);
         }
     }
 

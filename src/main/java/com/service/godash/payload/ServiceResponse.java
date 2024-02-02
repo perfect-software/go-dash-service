@@ -1,11 +1,18 @@
 package com.service.godash.payload;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.ToString;
+
 
 @Data
-public class ServiceResponse {
+@Builder
+@AllArgsConstructor
+@ToString
+public class ServiceResponse<T> {
 
-    private int responseCode;
-    private String serviceStatus;
-    private String responseMessage;
+    private ResponseStatus responseStatus;
+
+    private T response;
 }
