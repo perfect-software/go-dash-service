@@ -67,5 +67,8 @@ public class SampleRequest {
     private String finYear;
     @Size(max=200,message = "image exceeding char limit")
     private String image_nm;
-
+    @Size(max=50,message = "internal ref exceeding char limit")
+    private String internal_ref;
+    @Size(max=200,message = "leather remark exceeding char limit")
+    private String leather_remark;
 }
