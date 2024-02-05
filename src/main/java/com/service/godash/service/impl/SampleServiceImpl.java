@@ -102,6 +102,8 @@ public class SampleServiceImpl implements SampleService {
             sampleResponse.setFinYear(item.getFinYear());
             sampleResponse.setImage_nm(item.getImage_nm());
             sampleResponse.setSocks(item.getSocks());
+            sampleResponse.setInternal_ref(item.getInternal_ref());
+            sampleResponse.setLeather_remark(item.getLeather_remark());
             if (item.getBuyer() != null) {
                 Buyer buyer = item.getBuyer();
                 Buyer buyerDto = new Buyer();
@@ -162,6 +164,8 @@ public class SampleServiceImpl implements SampleService {
             existingRequest.setDateOfOrder(request.getDateOfOrder());
             existingRequest.setImage_nm(request.getImage_nm());
             existingRequest.setFinYear(request.getFinYear());
+            existingRequest.setInternal_ref(request.getInternal_ref());
+            existingRequest.setLeather_remark(request.getLeather_remark());
             sampleRequestRepo.save(existingRequest);
             return ResponseEntity.ok(new MessageResponse("Sample Request Updated"));
         } else {
