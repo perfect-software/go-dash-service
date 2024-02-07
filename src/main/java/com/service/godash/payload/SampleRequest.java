@@ -71,4 +71,6 @@ public class SampleRequest {
     private String internal_ref;
     @Size(max=200,message = "leather remark exceeding char limit")
     private String leather_remark;
+    @Size(max=200,message = "sole remark exceeding char limit")
+    private String sole_remark;
 }

@@ -71,6 +71,8 @@ public class SampleResponse {
 
     private String leather_remark;
 
+    private String sole_remark;
+
 //    @ManyToOne //defines many sample id against one buyer
 //    @JoinColumn(name = "bs_id")
     private Buyer buyer;

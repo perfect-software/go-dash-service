@@ -46,6 +46,7 @@ public class Sample {
         this.image_nm=request.getImage_nm();
         this.internal_ref=request.getInternal_ref();
         this.leather_remark=request.getLeather_remark();
+        this.sole_remark=request.getSole_remark();
     }
 
 
@@ -144,6 +145,9 @@ public class Sample {
 
     @Column(name = "leather_remark")
     private String leather_remark;
+
+    @Column(name = "sole_remark")
+    private String sole_remark;
 
     @ManyToOne //defines many sample id against one buyer
     @JoinColumn(name = "bs_id")

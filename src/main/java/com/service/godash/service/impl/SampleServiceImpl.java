@@ -104,6 +104,7 @@ public class SampleServiceImpl implements SampleService {
             sampleResponse.setSocks(item.getSocks());
             sampleResponse.setInternal_ref(item.getInternal_ref());
             sampleResponse.setLeather_remark(item.getLeather_remark());
+            sampleResponse.setSole_remark(item.getSole_remark());
             if (item.getBuyer() != null) {
                 Buyer buyer = item.getBuyer();
                 Buyer buyerDto = new Buyer();
@@ -132,41 +133,10 @@ public class SampleServiceImpl implements SampleService {
     }
 
     public ResponseEntity<?> updateSampleRequest(SampleRequest request) {
-        Sample existingRequest = sampleRequestRepo.findById(request.getSample_id()).orElse(null);
-        if (existingRequest != null) {
-            // Update the fields as needed
-            //cannot update buyer
-            existingRequest.setSeason(request.getSeason());
-            existingRequest.setSampleRef(request.getSampleRef());
-            existingRequest.setSampleType(request.getSampleType());
-            existingRequest.setSampleRef(request.getSampleRef());
-            existingRequest.setArticle_no(request.getArticleNo());
-            existingRequest.setComments(request.getComments());
-            existingRequest.setBuyerArticle(request.getBuyerArticle());
-            existingRequest.setSize(request.getSize());
-            existingRequest.setQuantity(request.getQuantity());
-            existingRequest.setPair(request.getPair());
-            existingRequest.setUpperColor(request.getUpperColor());
-            existingRequest.setLiningColor(request.getLiningColor());
-            existingRequest.setLast(request.getLast());
-            existingRequest.setInsole(request.getInsole());
-            existingRequest.setSoleLabel(request.getSoleLabel());
-            existingRequest.setSocks(request.getSocks());
-            existingRequest.setHeel(request.getHeel());
-            existingRequest.setPattern(request.getPattern());
-            existingRequest.setBuyerRef(request.getBuyerRef());
-            existingRequest.setInUpperLeather(request.getInUpperLeather());
-            existingRequest.setInLining(request.getInLining());
-            existingRequest.setInSocks(request.getInSocks());
-            existingRequest.setInQuantity(request.getInQuantity());
-            existingRequest.setDeliveryDate(request.getDeliveryDate());
-            existingRequest.setProdExDate(request.getProdExDate());
-            existingRequest.setDateOfOrder(request.getDateOfOrder());
-            existingRequest.setImage_nm(request.getImage_nm());
-            existingRequest.setFinYear(request.getFinYear());
-            existingRequest.setInternal_ref(request.getInternal_ref());
-            existingRequest.setLeather_remark(request.getLeather_remark());
-            sampleRequestRepo.save(existingRequest);
+        Sample existingRequest= sampleRequestRepo.findById(request.getSample_id()).orElse(null);
+        if (existingRequest!= null) {
+            Sample sample=convertSampleToDTO(existingRequest,request);
+            sampleRequestRepo.save(sample);
             return ResponseEntity.ok(new MessageResponse("Sample Request Updated"));
         } else {
             return ResponseEntity.badRequest().body(new MessageResponse("Sample Request not found"));
@@ -197,6 +167,41 @@ public class SampleServiceImpl implements SampleService {
     public String getYear(){
         String year=finYearRepo.findyear();
         return year;
+    }
+
+    private Sample convertSampleToDTO(Sample sample,SampleRequest request){
+        sample.setSeason(request.getSeason());
+        sample.setSampleRef(request.getSampleRef());
+        sample.setSampleType(request.getSampleType());
+        sample.setSampleRef(request.getSampleRef());
+        sample.setArticle_no(request.getArticleNo());
+        sample.setComments(request.getComments());
+        sample.setBuyerArticle(request.getBuyerArticle());
+        sample.setSize(request.getSize());
+        sample.setQuantity(request.getQuantity());
+        sample.setPair(request.getPair());
+        sample.setUpperColor(request.getUpperColor());
+        sample.setLiningColor(request.getLiningColor());
+        sample.setLast(request.getLast());
+        sample.setInsole(request.getInsole());
+        sample.setSoleLabel(request.getSoleLabel());
+        sample.setSocks(request.getSocks());
+        sample.setHeel(request.getHeel());
+        sample.setPattern(request.getPattern());
+        sample.setBuyerRef(request.getBuyerRef());
+        sample.setInUpperLeather(request.getInUpperLeather());
+        sample.setInLining(request.getInLining());
+        sample.setInSocks(request.getInSocks());
+        sample.setInQuantity(request.getInQuantity());
+        sample.setDeliveryDate(request.getDeliveryDate());
+        sample.setProdExDate(request.getProdExDate());
+        sample.setDateOfOrder(request.getDateOfOrder());
+        sample.setImage_nm(request.getImage_nm());
+        sample.setFinYear(request.getFinYear());
+        sample.setInternal_ref(request.getInternal_ref());
+        sample.setLeather_remark(request.getLeather_remark());
+        sample.setSole_remark(request.getSole_remark());
+        return sample;
     }
 
 }
