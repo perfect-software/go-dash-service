@@ -1,7 +1,9 @@
 package com.service.godash.controller;
 
+import com.service.godash.model.Sample;
 import com.service.godash.payload.MessageResponse;
 import com.service.godash.payload.ServiceResponse;
+import com.service.godash.repository.SampleRequestRepo;
 import com.service.godash.util.Utility;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
@@ -28,6 +30,9 @@ import java.util.UUID;
 public class GenericController {
     @Autowired
     private Utility utility;
+
+    @Autowired
+    private SampleRequestRepo sampleRequestRepo;
 
     @PostMapping("/upload")
     public ResponseEntity<ServiceResponse> handleImageUpload(@RequestParam("image") MultipartFile file, @RequestParam("fileName") String fileName, @RequestParam("type") String type) {
@@ -56,6 +61,9 @@ public class GenericController {
             String filePath = imagePath + fileNameWithExtention;
             File dest = new File(filePath);
             file.transferTo(dest);
+            Sample sample=sampleRequestRepo.findBySrno(fileName);
+                sample.setImage_nm(fileNameWithExtention);
+                sampleRequestRepo.save(sample);
             ServiceResponse serviceResponse=ServiceResponse.builder()
                     .responseStatus(this.utility.getServiceResponse("Image uploaded successfully", HttpStatus.CREATED.value())).response(fileNameWithExtention).build();
         } catch (Exception e) {
@@ -70,7 +78,12 @@ public class GenericController {
     @GetMapping("/images/{filename:.+}")
     public ResponseEntity<Resource> getImage(@PathVariable String filename) {
         try {
+
+            System.out.println("Received filename: " + filename);
+            String extension = filename.substring(filename.lastIndexOf("."));
             Path file = rootLocation.resolve(filename).normalize().toAbsolutePath();
+            System.out.println("Resolved file path: " + file.toString());
+
             if (!file.toFile().exists()) {
                 return ResponseEntity.notFound().build();
             }
@@ -80,10 +93,13 @@ public class GenericController {
             }
             return ResponseEntity.ok().body(resource);
         } catch (Exception e) {
+            // Log any exceptions that occur
+            e.printStackTrace();
             return ResponseEntity.internalServerError().build();
         }
-
     }
+
+
 
 
 }

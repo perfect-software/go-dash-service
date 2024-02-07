@@ -10,9 +10,11 @@ import java.util.List;
 @Repository
 public interface SampleRequestRepo extends JpaRepository<Sample,Integer> {
 
-    @Query("SELECT COUNT(s.sr_no) FROM Sample s WHERE SUBSTRING(s.sr_no, CHARINDEX('/', s.sr_no) + 1, LEN(s.sr_no) - CHARINDEX('/', REVERSE(s.sr_no))) =:finYear")
+    @Query("SELECT COUNT(s.srno) FROM Sample s WHERE SUBSTRING(s.srno, CHARINDEX('/', s.srno) + 1, LEN(s.srno) - CHARINDEX('/', REVERSE(s.srno))) =:finYear")
     Integer findCountSRNO(String finYear);
 
     @Query("SELECT s FROM Sample s ORDER BY s.sampleId DESC")
     List<Sample> findAllByOrderBySampleIdDesc();
+
+    Sample findBySrno(String sr_no);
 }

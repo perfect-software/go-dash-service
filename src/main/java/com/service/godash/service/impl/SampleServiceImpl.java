@@ -43,7 +43,7 @@ public class SampleServiceImpl implements SampleService {
         Sample sample=new Sample(request);
         String finYear=getYear().substring(0,2);
         String srno=utility.generateSeqSRNO(finYear);
-        sample.setSr_no(srno);
+        sample.setSrno(srno);
         Buyer buyer=new Buyer();
             Buyer existingBuyer = buyerRepo.findByBsName(request.getBsName());
             if(existingBuyer!=null){
@@ -88,7 +88,7 @@ public class SampleServiceImpl implements SampleService {
             sampleResponse.setDeliveryDate(item.getDeliveryDate());
             sampleResponse.setInUpperLeather(item.getInUpperLeather());
             sampleResponse.setSampleType(item.getSampleType());
-            sampleResponse.setSr_no(item.getSr_no());
+            sampleResponse.setSr_no(item.getSrno());
             sampleResponse.setPair(item.getPair());
             sampleResponse.setLiningColor(item.getLiningColor());
             sampleResponse.setProdExDate(item.getProdExDate());
@@ -136,7 +136,7 @@ public class SampleServiceImpl implements SampleService {
         if (existingRequest!= null) {
             Sample sample=convertSampleToDTO(existingRequest,request);
             sampleRequestRepo.save(sample);
-            return sample.getSr_no();
+            return sample.getSrno();
         } else {
             throw new DuplicationException("Sample Request does not exist");
         }

@@ -5,7 +5,6 @@ import jakarta.persistence.*;
 import lombok.Data;
 import org.apache.commons.lang3.StringUtils;
 
-import java.time.Year;
 import java.util.Date;
 
 @Entity
@@ -56,7 +55,7 @@ public class Sample {
     private int sampleId;
 
     @Column(name = "sr_no",length = 20)
-    private String sr_no;
+    private String srno;
 
 
     @Column(name = "season")
