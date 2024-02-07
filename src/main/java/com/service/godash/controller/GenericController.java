@@ -1,7 +1,6 @@
 package com.service.godash.controller;
 
 import com.service.godash.model.Sample;
-import com.service.godash.payload.MessageResponse;
 import com.service.godash.payload.ServiceResponse;
 import com.service.godash.repository.SampleRequestRepo;
 import com.service.godash.util.Utility;
@@ -17,13 +16,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
-import static com.service.godash.constants.IConstants.imagePath;
-import static com.service.godash.constants.IConstants.rootLocation;
+import static com.service.godash.constants.IConstants.imagePathArticleDir;
+import static com.service.godash.constants.IConstants.imagePathSampleRequestDir;
 import java.io.File;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/generic")
@@ -36,6 +34,7 @@ public class GenericController {
 
     @PostMapping("/upload")
     public ResponseEntity<ServiceResponse> handleImageUpload(@RequestParam("image") MultipartFile file, @RequestParam("fileName") String fileName, @RequestParam("type") String type) {
+        String imagePath="";
         if (file.isEmpty()) {
             ServiceResponse serviceResponse=ServiceResponse.builder()
                     .responseStatus(this.utility.getServiceResponse("No file uploaded", HttpStatus.BAD_REQUEST.value())).build();
@@ -47,12 +46,13 @@ public class GenericController {
         }
         try {
             String originalName = file.getOriginalFilename();
+            originalName= originalName.replaceAll("\\s", "_");
             String extension = originalName.substring(originalName.lastIndexOf("."));
             String fileNameWithExtention = fileName + extension;
             if(type.equalsIgnoreCase("article")){
-                imagePath=imagePath+"article/";
+                imagePath=imagePathArticleDir;
             }else if(type.equalsIgnoreCase("sample")) {
-                imagePath=imagePath+"sample/";
+                imagePath=imagePathSampleRequestDir;
             }
             Path directory = Paths.get(imagePath);
             if (!Files.exists(directory)) {
@@ -76,11 +76,15 @@ public class GenericController {
 
 
     @GetMapping("/images/{filename:.+}")
-    public ResponseEntity<Resource> getImage(@PathVariable String filename) {
+    public ResponseEntity<Resource> getImage(@PathVariable String filename, @RequestParam("type") String type) {
         try {
-
-            System.out.println("Received filename: " + filename);
-            String extension = filename.substring(filename.lastIndexOf("."));
+            Path rootLocation = null;
+            if(type.equalsIgnoreCase("article")) {
+                rootLocation = Paths.get(imagePathArticleDir);
+            }
+            else if(type.equalsIgnoreCase("sample")) {
+                rootLocation = Paths.get(imagePathSampleRequestDir);
+            }
             Path file = rootLocation.resolve(filename).normalize().toAbsolutePath();
             System.out.println("Resolved file path: " + file.toString());
 

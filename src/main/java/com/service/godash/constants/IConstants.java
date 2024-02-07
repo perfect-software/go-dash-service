@@ -16,8 +16,12 @@ public class IConstants {
 
     public static final String SUPPLIER="SUPPLIER";
 
-    public static final Path rootLocation = Paths.get("D:/service/go-dash-images/");
+    public static final Path rootLocationArticleDir = Paths.get("D:/service/go-dash-images/article/");
 
-    public static String imagePath="D:/service/go-dash-images/";
+    public static final Path rootLocationSampleRequestDir = Paths.get("D:/service/go-dash-images/sample_request/");
+
+    public static String imagePathArticleDir="D:/service/go-dash-images/article/";
+
+    public static String imagePathSampleRequestDir="D:/service/go-dash-images/sample_request/";
 
 }
