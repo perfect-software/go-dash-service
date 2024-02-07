@@ -14,7 +14,7 @@ public interface SampleService {
     List<Sample> viewSampleRequest(int page_num);
 
 
-    ResponseEntity<?> updateSampleRequest(SampleRequest request);
+    String updateSampleRequest(SampleRequest request) throws Exception;
 
     List<String> getColor(String input);
 

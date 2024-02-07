@@ -1,8 +1,8 @@
 package com.service.godash.service.impl;
 
+import com.service.godash.Exception.DuplicationException;
 import com.service.godash.model.Buyer;
 import com.service.godash.model.Sample;
-import com.service.godash.payload.MessageResponse;
 import com.service.godash.payload.SampleRequest;
 import com.service.godash.payload.SampleResponse;
 import com.service.godash.repository.*;
@@ -12,7 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -132,14 +131,14 @@ public class SampleServiceImpl implements SampleService {
         return sampleResponseList;
     }
 
-    public ResponseEntity<?> updateSampleRequest(SampleRequest request) {
+    public String updateSampleRequest(SampleRequest request) {
         Sample existingRequest= sampleRequestRepo.findById(request.getSample_id()).orElse(null);
         if (existingRequest!= null) {
             Sample sample=convertSampleToDTO(existingRequest,request);
             sampleRequestRepo.save(sample);
-            return ResponseEntity.ok(new MessageResponse("Sample Request Updated"));
+            return sample.getSr_no();
         } else {
-            return ResponseEntity.badRequest().body(new MessageResponse("Sample Request not found"));
+            throw new DuplicationException("Sample Request does not exist");
         }
     }
 

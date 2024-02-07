@@ -1,6 +1,6 @@
 package com.service.godash.controller;
 
-import com.service.godash.Exception.GenericException;
+import com.service.godash.Exception.DuplicationException;
 import com.service.godash.model.Buyer;
 import com.service.godash.model.Sample;
 import com.service.godash.payload.*;
@@ -9,23 +9,13 @@ import com.service.godash.service.SampleService;
 import com.service.godash.util.Utility;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.Resource;
-import org.springframework.core.io.UrlResource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
-
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.security.Provider;
 import java.util.Collections;
 import java.util.List;
-import java.util.UUID;
 import java.util.stream.Collectors;
 
 @RestController
@@ -37,12 +27,6 @@ public class SampleController {
     BuyerService buyerService;
     @Autowired
     Utility utility;
-
-
-    private final Path rootLocation = Paths.get("D:/service/go-dash-images/");
-
-    private final String imagePath="D:/service/go-dash-images/";
-
 
     @PostMapping("/create")
     public ResponseEntity<ServiceResponse> createSample(@Valid @RequestBody SampleRequest request, BindingResult result) throws Exception {
@@ -66,14 +50,14 @@ public class SampleController {
         }
     }
 
-    @GetMapping("/view/{page_num}")
-    public List<Sample> viewSample(@Valid @RequestParam int page_num) throws Exception {
-        try {
-            return sampleService.viewSampleRequest(page_num);
-        } catch (Exception ex) {
-            throw new Exception("Error while viewing sample");
-        }
-    }
+//    @GetMapping("/view/{page_num}")
+//    public List<Sample> viewSample(@Valid @RequestParam int pageNum) throws Exception {
+//        try {
+//            return sampleService.viewSampleRequest(pageNum);
+//        } catch (Exception ex) {
+//            throw new Exception("Error while viewing sample");
+//        }
+//    }
 
     @GetMapping("/viewAllSample")
     public List<SampleResponse> viewAllSample() throws Exception {
@@ -85,17 +69,35 @@ public class SampleController {
     }
 
     @PutMapping("/update")
-    public ResponseEntity<?> updateSampleRequest(@RequestBody SampleRequest request) {
+    public ResponseEntity<ServiceResponse> updateSampleRequest(@RequestBody SampleRequest request,BindingResult result) throws Exception {
+        if (result.hasErrors()) {
+            String errorMessage = result.getAllErrors().stream()
+                    .map(error -> error.getDefaultMessage())
+                    .collect(Collectors.joining(", "));
+            ServiceResponse serviceResponse=ServiceResponse.builder()
+                    .responseStatus(this.utility.getServiceResponse(errorMessage, HttpStatus.BAD_REQUEST.value())).build();
+            return ResponseEntity.badRequest().body(serviceResponse);
+        }
         try {
-            return sampleService.updateSampleRequest(request);
-        } catch (Exception e) {
-            new GenericException("Error while updating sample", 500);
-            return ResponseEntity.badRequest().body(new MessageResponse("Error while updating sample: " + e.getMessage()));
+            String srno= sampleService.updateSampleRequest(request);
+            ServiceResponse serviceResponse= ServiceResponse.builder()
+                    .responseStatus(this.utility.getServiceResponse("Sample Request Updated", HttpStatus.CREATED.value())).response(srno).build();
+            return ResponseEntity.ok().body(serviceResponse);
+        }
+        catch (DuplicationException ex){
+            ServiceResponse serviceResponse=ServiceResponse.builder()
+                    .responseStatus(this.utility.getServiceResponse(ex.getMessage(), HttpStatus.BAD_REQUEST.value())).build();
+            return ResponseEntity.badRequest().body(serviceResponse);
+        }
+        catch (Exception ex) {
+            ServiceResponse serviceResponse=ServiceResponse.builder()
+                    .responseStatus(this.utility.getServiceResponse("Error while updating Sample Resquest", HttpStatus.BAD_REQUEST.value())).build();
+            return ResponseEntity.badRequest().body(serviceResponse);
         }
     }
 
     @GetMapping("/getBuyer")
-    public List<BuyerResponse> getBuyer(@Valid @RequestParam String input) throws Exception {
+    public List<BuyerResponse> getBuyer(@Valid @RequestParam String input){
         if (input.length() < 3) {
             return Collections.emptyList();
         }
@@ -104,12 +106,12 @@ public class SampleController {
     }
 
     @GetMapping("/getAllBuyerByPage/{page_num}")
-    public List<Buyer> getAllBuyer(@Valid @RequestParam int page_num) throws Exception {
-       return buyerService.getBuyerByName(page_num);
+    public List<Buyer> getAllBuyer(@Valid @RequestParam int pageNum) {
+       return buyerService.getBuyerByName(pageNum);
     }
 
     @GetMapping("/getAllBuyer")
-    public List<Buyer> getAllBuyer() throws Exception {
+    public List<Buyer> getAllBuyer() {
         return buyerService.getAllBuyer();
     }
 
@@ -127,47 +129,6 @@ public class SampleController {
     @GetMapping("/getSampleType")
     public List<String>getAllSampleType(){
         return sampleService.getSampleType();
-    }
-
-    @PostMapping("/upload")
-    public ResponseEntity<?> handleImageUpload(@RequestParam("image") MultipartFile file) {
-        if (file.isEmpty()) {
-            return ResponseEntity.badRequest().body(new MessageResponse("No file uploaded."));
-        }
-        try {
-            String originalName = file.getOriginalFilename();
-            String extension = originalName.substring(originalName.lastIndexOf("."));
-            String fileName = UUID.randomUUID().toString().substring(0,20) + extension;
-            Path directory = Paths.get(imagePath);
-            if (!Files.exists(directory)) {
-                Files.createDirectories(directory);
-            }
-            String filePath = imagePath + fileName;
-            File dest = new File(filePath);
-            file.transferTo(dest);
-            return ResponseEntity.ok(new MessageResponse(fileName));
-        } catch (Exception e) {
-            return ResponseEntity.badRequest().body(new MessageResponse("Error while uploading image: " + e.getMessage()));
-        }
-    }
-
-
-    @GetMapping("/images/{filename:.+}")
-    public ResponseEntity<Resource> getImage(@PathVariable String filename) {
-        try {
-            Path file = rootLocation.resolve(filename).normalize().toAbsolutePath();
-            if (!file.toFile().exists()) {
-                return ResponseEntity.notFound().build();
-            }
-            Resource resource = new UrlResource(file.toUri());
-            if (!resource.exists() || !resource.isReadable()) {
-                return ResponseEntity.notFound().build();
-            }
-            return ResponseEntity.ok().body(resource);
-        } catch (Exception e) {
-            return ResponseEntity.internalServerError().build();
-        }
-
     }
 
 
