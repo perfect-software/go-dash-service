@@ -22,5 +22,6 @@ public class ArticleRequest {
     private String socksMaterial;
     private String comment;
     private String username;
+    private String image_nm;
 
 }

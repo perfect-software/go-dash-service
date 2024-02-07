@@ -9,7 +9,7 @@ import java.util.List;
 
 public interface ArticleService {
 
-    ResponseEntity<?> createArticle(ArticleRequest request);
+    String createArticle(ArticleRequest request) throws Exception;
 
     List<Integer> getArticleNo();
 

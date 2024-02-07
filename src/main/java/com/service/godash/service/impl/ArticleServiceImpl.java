@@ -22,10 +22,16 @@ public class ArticleServiceImpl implements ArticleService {
     @Autowired
     ArticleRepo articleRepo;
     @Override
-    public ResponseEntity<?> createArticle(ArticleRequest request) {
-        Article article=new Article(request);
-        articleRepo.save(article);
-        return ResponseEntity.ok("Article Created");
+    public String createArticle(ArticleRequest request) throws Exception {
+        try {
+            Article article=new Article(request);
+            articleRepo.save(article);
+            return article.getArticleName();
+        }
+        catch (Exception ex){
+            throw new Exception(ex.getMessage());
+        }
+
     }
 
     @Override

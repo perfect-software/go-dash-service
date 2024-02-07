@@ -18,6 +18,8 @@ public class Article {
     private int articleId;
     @Column(name = "article_nm")
     private String articleName;
+    @Column(name ="image_nm")
+    private String image_nm;
     @Column(name = "animal")
     private String animal;
     @Column(name = "color")
@@ -71,6 +73,7 @@ public class Article {
         this.socksMaterial=StringUtils.upperCase(request.getSocksMaterial());
         this.comment=StringUtils.upperCase(request.getComment());
         this.username=StringUtils.upperCase(request.getUsername());
+        this.image_nm=request.getImage_nm();
     }
 
     public Article() {

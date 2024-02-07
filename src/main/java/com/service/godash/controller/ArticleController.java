@@ -5,9 +5,12 @@ import com.service.godash.model.Article;
 import com.service.godash.model.Sample;
 import com.service.godash.payload.ArticleRequest;
 import com.service.godash.payload.MessageResponse;
+import com.service.godash.payload.ServiceResponse;
 import com.service.godash.service.ArticleService;
+import com.service.godash.util.Utility;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,13 +22,20 @@ public class ArticleController {
     @Autowired
     ArticleService articleService;
 
+    @Autowired
+    Utility utility;
+
     @PostMapping("/create")
-    public ResponseEntity<?> createArticle(@Valid @RequestBody ArticleRequest request) throws Exception {
+    public ResponseEntity<ServiceResponse> createArticle(@Valid @RequestBody ArticleRequest request) throws Exception {
         try {
-            articleService.createArticle(request);
-            return ResponseEntity.ok(new MessageResponse("Article Created"));
+            String article_no=articleService.createArticle(request);
+            ServiceResponse serviceResponse= ServiceResponse.builder()
+                    .responseStatus(this.utility.getServiceResponse("Article Created", HttpStatus.CREATED.value())).response(article_no).build();
+            return ResponseEntity.ok().body(serviceResponse);
         } catch (Exception ex) {
-            throw new GenericException("Error while creating article", 500);
+            ServiceResponse serviceResponse=ServiceResponse.builder()
+                    .responseStatus(this.utility.getServiceResponse("Error while creating Article", HttpStatus.BAD_REQUEST.value())).build();
+            return ResponseEntity.badRequest().body(serviceResponse);
         }
     }
 
