@@ -40,19 +40,20 @@ public class GenericController {
                     .responseStatus(this.utility.getServiceResponse("No file uploaded", HttpStatus.BAD_REQUEST.value())).build();
             return ResponseEntity.badRequest().body(serviceResponse);
         } else if (file.getSize() > 1000000) {
-            ServiceResponse serviceResponse=ServiceResponse.builder()
-                    .responseStatus(this.utility.getServiceResponse("File size should be less than 1MB", HttpStatus.BAD_REQUEST.value())).build();
+            ServiceResponse serviceResponse = ServiceResponse.builder()
+                    .responseStatus(this.utility.getServiceResponse("File size should be less than 1MB", HttpStatus.BAD_REQUEST.value()))
+                    .build();
             return ResponseEntity.badRequest().body(serviceResponse);
         }
         try {
             String originalName = file.getOriginalFilename();
-            originalName= originalName.replaceAll("\\s", "_");
             String extension = originalName.substring(originalName.lastIndexOf("."));
-            String fileNameWithExtention = fileName + extension;
-            if(type.equalsIgnoreCase("article")){
-                imagePath=imagePathArticleDir;
-            }else if(type.equalsIgnoreCase("sample")) {
-                imagePath=imagePathSampleRequestDir;
+            String newFileName = fileName.replaceAll("/", "_");
+            String fileNameWithExtention = newFileName + extension;
+            if (type.equalsIgnoreCase("article")) {
+                imagePath = imagePathArticleDir;
+            } else if (type.equalsIgnoreCase("sample")) {
+                imagePath = imagePathSampleRequestDir;
             }
             Path directory = Paths.get(imagePath);
             if (!Files.exists(directory)) {
@@ -61,17 +62,22 @@ public class GenericController {
             String filePath = imagePath + fileNameWithExtention;
             File dest = new File(filePath);
             file.transferTo(dest);
-            Sample sample=sampleRequestRepo.findBySrno(fileName);
+            if (type.equalsIgnoreCase("sample")) {
+                Sample sample = sampleRequestRepo.findBySrno(fileName);
                 sample.setImage_nm(fileNameWithExtention);
                 sampleRequestRepo.save(sample);
-            ServiceResponse serviceResponse=ServiceResponse.builder()
-                    .responseStatus(this.utility.getServiceResponse("Image uploaded successfully", HttpStatus.CREATED.value())).response(fileNameWithExtention).build();
+            }
+            ServiceResponse serviceResponse = ServiceResponse.builder()
+                    .responseStatus(this.utility.getServiceResponse("Image uploaded successfully", HttpStatus.CREATED.value()))
+                    .response(fileNameWithExtention)
+                    .build();
+            return ResponseEntity.status(HttpStatus.CREATED).body(serviceResponse);
         } catch (Exception e) {
-            ServiceResponse serviceResponse=ServiceResponse.builder()
-                    .responseStatus(this.utility.getServiceResponse("Error while uploading image", HttpStatus.BAD_REQUEST.value())).build();
+            ServiceResponse serviceResponse = ServiceResponse.builder()
+                    .responseStatus(this.utility.getServiceResponse("Error while uploading image", HttpStatus.BAD_REQUEST.value()))
+                    .build();
             return ResponseEntity.badRequest().body(serviceResponse);
         }
-        return null;
     }
 
 
