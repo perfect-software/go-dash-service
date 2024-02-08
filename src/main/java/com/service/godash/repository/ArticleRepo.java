@@ -13,7 +13,7 @@ public interface ArticleRepo extends JpaRepository<Article, Integer> {
 
     @Query("SELECT a.articleName FROM Article a ORDER BY a.articleName")
     List<String> findAllArticleName();
-    @Query("SELECT a.articleName FROM Article a WHERE a.articleId=:articleid")
-    String findArticleName(int articleid);
+    @Query("SELECT a FROM Article a WHERE a.articleId=:articleid")
+    Article findByArticleId(int articleid);
 
 }

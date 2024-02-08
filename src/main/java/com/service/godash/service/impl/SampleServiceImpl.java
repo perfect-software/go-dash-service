@@ -1,6 +1,7 @@
 package com.service.godash.service.impl;
 
 import com.service.godash.Exception.DuplicationException;
+import com.service.godash.model.Article;
 import com.service.godash.model.Buyer;
 import com.service.godash.model.Sample;
 import com.service.godash.payload.SampleRequest;
@@ -70,7 +71,9 @@ public class SampleServiceImpl implements SampleService {
         List<Sample> resultList=sampleRequestRepo.findAllByOrderBySampleIdDesc();
         for(Sample item: resultList){
             SampleResponse sampleResponse=new SampleResponse();
-            String articleName=articleRepo.findArticleName(Integer.parseInt(item.getArticle_no()));
+            Article article=articleRepo.findByArticleId(Integer.parseInt(item.getArticle_no()));
+            String articleName=article.getArticleName();
+            String articleImageName=article.getImage_nm();
             sampleResponse.setSampleId(item.getSampleId());
             sampleResponse.setSampleRef(item.getSampleRef());
             sampleResponse.setArticleNo(item.getArticle_no());
@@ -100,6 +103,7 @@ public class SampleServiceImpl implements SampleService {
             sampleResponse.setSize(item.getSize());
             sampleResponse.setFinYear(item.getFinYear());
             sampleResponse.setImage_nm(item.getImage_nm());
+            sampleResponse.setArticle_image(articleImageName);
             sampleResponse.setSocks(item.getSocks());
             sampleResponse.setInternal_ref(item.getInternal_ref());
             sampleResponse.setLeather_remark(item.getLeather_remark());

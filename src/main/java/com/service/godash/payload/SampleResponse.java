@@ -67,6 +67,8 @@ public class SampleResponse {
 
     private String image_nm;
 
+    private String article_image;
+
     private String internal_ref;
 
     private String leather_remark;

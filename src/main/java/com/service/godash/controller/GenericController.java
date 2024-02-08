@@ -22,6 +22,7 @@ import java.io.File;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.sql.SQLException;
 
 @RestController
 @RequestMapping("/api/generic")
@@ -50,6 +51,16 @@ public class GenericController {
             String extension = originalName.substring(originalName.lastIndexOf("."));
             String newFileName = fileName.replaceAll("/", "_");
             String fileNameWithExtention = newFileName + extension;
+            if (type.equalsIgnoreCase("sample")) {
+                if(sampleRequestRepo.findBySrno(fileName)!=null) {
+                    Sample sample = sampleRequestRepo.findBySrno(fileName);
+                    sample.setImage_nm(fileNameWithExtention);
+                    sampleRequestRepo.save(sample);
+                }
+                else {
+                    throw new SQLException("No such SR NO exists!");
+                }
+            }
             if (type.equalsIgnoreCase("article")) {
                 imagePath = imagePathArticleDir;
             } else if (type.equalsIgnoreCase("sample")) {
@@ -62,17 +73,18 @@ public class GenericController {
             String filePath = imagePath + fileNameWithExtention;
             File dest = new File(filePath);
             file.transferTo(dest);
-            if (type.equalsIgnoreCase("sample")) {
-                Sample sample = sampleRequestRepo.findBySrno(fileName);
-                sample.setImage_nm(fileNameWithExtention);
-                sampleRequestRepo.save(sample);
-            }
             ServiceResponse serviceResponse = ServiceResponse.builder()
                     .responseStatus(this.utility.getServiceResponse("Image uploaded successfully", HttpStatus.CREATED.value()))
                     .response(fileNameWithExtention)
                     .build();
             return ResponseEntity.status(HttpStatus.CREATED).body(serviceResponse);
-        } catch (Exception e) {
+        }catch (SQLException ex){
+            ServiceResponse serviceResponse = ServiceResponse.builder()
+                    .responseStatus(this.utility.getServiceResponse(ex.getMessage(), HttpStatus.BAD_REQUEST.value()))
+                    .build();
+            return ResponseEntity.badRequest().body(serviceResponse);
+        }
+        catch (Exception e) {
             ServiceResponse serviceResponse = ServiceResponse.builder()
                     .responseStatus(this.utility.getServiceResponse("Error while uploading image", HttpStatus.BAD_REQUEST.value()))
                     .build();
