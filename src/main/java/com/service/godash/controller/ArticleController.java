@@ -12,9 +12,11 @@ import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/article")
@@ -26,7 +28,15 @@ public class ArticleController {
     Utility utility;
 
     @PostMapping("/create")
-    public ResponseEntity<ServiceResponse> createArticle(@Valid @RequestBody ArticleRequest request) throws Exception {
+    public ResponseEntity<ServiceResponse> createArticle(@Valid @RequestBody ArticleRequest request, BindingResult result) throws Exception {
+        if (result.hasErrors()) {
+            String errorMessage = result.getAllErrors().stream()
+                    .map(error -> error.getDefaultMessage())
+                    .collect(Collectors.joining(", "));
+            ServiceResponse serviceResponse=ServiceResponse.builder()
+                    .responseStatus(this.utility.getServiceResponse(errorMessage, HttpStatus.BAD_REQUEST.value())).build();
+            return ResponseEntity.badRequest().body(serviceResponse);
+        }
         try {
             String article_no=articleService.createArticle(request);
             ServiceResponse serviceResponse= ServiceResponse.builder()
@@ -73,4 +83,27 @@ public class ArticleController {
             throw new GenericException("Error while viewing article", 500);
         }
     }
+
+    @PutMapping("/update")
+    public ResponseEntity<ServiceResponse> updateArticle(@Valid @RequestBody ArticleRequest request, BindingResult result)throws Exception{
+        if (result.hasErrors()) {
+            String errorMessage = result.getAllErrors().stream()
+                    .map(error -> error.getDefaultMessage())
+                    .collect(Collectors.joining(", "));
+            ServiceResponse serviceResponse=ServiceResponse.builder()
+                    .responseStatus(this.utility.getServiceResponse(errorMessage, HttpStatus.BAD_REQUEST.value())).build();
+            return ResponseEntity.badRequest().body(serviceResponse);
+        }
+        try {
+            String article_no=articleService.updateArticle(request);
+            ServiceResponse serviceResponse= ServiceResponse.builder()
+                    .responseStatus(this.utility.getServiceResponse("Article Upated", HttpStatus.CREATED.value())).response(article_no).build();
+            return ResponseEntity.ok().body(serviceResponse);
+        } catch (Exception ex) {
+            ServiceResponse serviceResponse=ServiceResponse.builder()
+                    .responseStatus(this.utility.getServiceResponse("Error while updating Article", HttpStatus.BAD_REQUEST.value())).build();
+            return ResponseEntity.badRequest().body(serviceResponse);
+        }
+    }
+
 }

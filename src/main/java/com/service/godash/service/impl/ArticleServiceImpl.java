@@ -1,5 +1,6 @@
 package com.service.godash.service.impl;
 
+import com.service.godash.Exception.DuplicationException;
 import com.service.godash.model.Article;
 import com.service.godash.model.Sample;
 import com.service.godash.payload.ArticleRequest;
@@ -57,6 +58,40 @@ public class ArticleServiceImpl implements ArticleService {
         Page<Article> page = articleRepo.findAll(pageable);
         List<Article> resultList = page.getContent();
         return resultList;
+    }
+
+    @Override
+    public String updateArticle(ArticleRequest request) {
+        Article existingRequest= articleRepo.findById(request.getArticleId()).orElse(null);
+        if (existingRequest!= null) {
+            Article article=convertArticleToDTO(existingRequest,request);
+            articleRepo.save(article);
+            return article.getArticleName();
+        } else {
+            throw new DuplicationException("Article does not exist");
+        }
+    }
+
+    private Article convertArticleToDTO(Article article, ArticleRequest request) {
+        article.setArticleName(request.getArticleName());
+        article.setAnimal(request.getAnimal());
+        article.setColor(request.getColor());
+        article.setComment(request.getComment());
+        article.setCategory(request.getCategory());
+        article.setGender(request.getGender());
+        article.setImage_nm(request.getImage_nm());
+        article.setHeelHeight(request.getHeelHeight());
+        article.setHeelNo(request.getHeelNo());
+        article.setHeelType(request.getHeelType());
+        article.setLiningMaterial(request.getLiningMaterial());
+        article.setUsername(request.getUsername());
+        article.setPlatformNo(request.getPlatformNo());
+        article.setPlatformType(request.getPlatformType());
+        article.setToeShape(request.getToeShape());
+        article.setLastNo(request.getLastNo());
+        article.setSoleType(request.getSoleType());
+        article.setSocksMaterial(request.getSocksMaterial());
+        return article;
     }
 
 }

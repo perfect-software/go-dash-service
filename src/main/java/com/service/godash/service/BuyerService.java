@@ -12,7 +12,7 @@ public interface BuyerService {
 
     List<Buyer> getBuyerByName(int page_num);
 
-    ResponseEntity<?> createBuyer(BuyerRequest request);
+    String createBuyer(BuyerRequest request) throws Exception;
 
     List<Buyer> getAllBuyer();
 

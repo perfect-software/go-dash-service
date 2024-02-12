@@ -6,6 +6,7 @@ import com.service.godash.payload.SrGrp;
 import com.service.godash.payload.SrItem;
 import com.service.godash.payload.SrSubGrp;
 import com.service.godash.repository.BOMRepo;
+import com.service.godash.repository.SampleRequestRepo;
 import com.service.godash.service.BomService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -17,7 +18,10 @@ public class BomServiceImpl implements BomService {
     @Autowired
     BOMRepo bomRepo;
 
-    public ResponseEntity<?> createBom(SrBomRequest request){
+    @Autowired
+    SampleRequestRepo sampleRequestRepo;
+
+    public String createBom(SrBomRequest request){
         SrBom srBom = new SrBom();
         for (SrGrp group : request.getGroups()) {
             System.out.println("Group: " + group.getItemgrp());
@@ -42,7 +46,7 @@ public class BomServiceImpl implements BomService {
                 }
             }
         }
-
-        return ResponseEntity.ok("BOM Created");
+        String srno=sampleRequestRepo.findBySampleId(srBom.getSample_id());
+        return srno;
     }
 }

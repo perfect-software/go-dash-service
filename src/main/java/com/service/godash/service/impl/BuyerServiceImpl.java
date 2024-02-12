@@ -42,19 +42,16 @@ public class BuyerServiceImpl implements BuyerService {
     }
 
     @Override
-    public ResponseEntity<?> createBuyer(BuyerRequest request) {
-        Buyer buyer=new Buyer(request);
-
-//        BankAccount bankAccount=new BankAccount(request);
-//
-//        new Buyer(bankAccount);
-//        bankAccount.setBuyer(buyer);
-//        buyer.getBankAccounts().add(bankAccount);
-
-        buyerRepo.save(buyer);
-//        bsAccountRepo.save(bankAccount);
-        createBankAccount(request,buyer);
-        return ResponseEntity.ok(new MessageResponse("Buyer Created"));
+    public String createBuyer(BuyerRequest request) throws Exception {
+        try {
+            Buyer buyer = new Buyer(request);
+            buyerRepo.save(buyer);
+            createBankAccount(request, buyer);
+            return buyer.getBsName();
+        }
+        catch(Exception ex){
+           throw new Exception("Error creating buyer");
+        }
     }
 
     private void createBankAccount(BuyerRequest request,Buyer buyer){

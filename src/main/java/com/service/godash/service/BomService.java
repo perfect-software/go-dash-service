@@ -5,5 +5,5 @@ import org.springframework.http.ResponseEntity;
 
 public interface BomService {
 
-    ResponseEntity<?> createBom(SrBomRequest request);
+    String createBom(SrBomRequest request);
 }

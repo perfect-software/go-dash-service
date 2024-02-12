@@ -18,4 +18,6 @@ public interface ArticleService {
     List<Article> getArticle();
 
     List<Article> viewArticle(Integer page_num);
+
+    String updateArticle(ArticleRequest request);
 }
