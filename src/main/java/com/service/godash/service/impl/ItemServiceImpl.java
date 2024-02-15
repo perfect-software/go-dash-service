@@ -17,8 +17,6 @@ public class ItemServiceImpl implements ItemService {
     @Autowired
     ItemRepo itemRepo;
 
-    @Autowired
-    BOMRepo bomRepo;
 
     @Autowired
     SupplierRepo supplierRepo;

@@ -18,5 +18,7 @@ public interface SampleRequestRepo extends JpaRepository<Sample,Integer> {
 
     Sample findBySrno(String sr_no);
     @Query("SELECT s.srno FROM Sample s ORDER BY s.sampleId DESC")
-    String findBySampleId(Integer sampleId);
+    String findSRNOBySampleId(Integer sampleId);
+    @Query("SELECT s.srno FROM Sample s")
+    List<String> findSrno();
 }

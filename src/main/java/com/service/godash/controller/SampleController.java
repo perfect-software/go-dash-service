@@ -50,15 +50,6 @@ public class SampleController {
         }
     }
 
-//    @GetMapping("/view/{page_num}")
-//    public List<Sample> viewSample(@Valid @RequestParam int pageNum) throws Exception {
-//        try {
-//            return sampleService.viewSampleRequest(pageNum);
-//        } catch (Exception ex) {
-//            throw new Exception("Error while viewing sample");
-//        }
-//    }
-
     @GetMapping("/viewAllSample")
     public List<SampleResponse> viewAllSample() throws Exception {
         try {
@@ -126,6 +117,7 @@ public class SampleController {
     public List<String> getSRNO(@RequestParam String input,@RequestParam int bsId){
         return sampleService.getBuyerSrno(input,bsId);
     }
+
     @GetMapping("/getSampleType")
     public List<String>getAllSampleType(){
         return sampleService.getSampleType();

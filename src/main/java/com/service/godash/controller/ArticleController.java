@@ -84,7 +84,7 @@ public class ArticleController {
         }
     }
 
-    @PostMapping("/update")
+    @PutMapping("/update")
     public ResponseEntity<ServiceResponse> updateArticle(@Valid @RequestBody ArticleRequest request, BindingResult result)throws Exception{
         if (result.hasErrors()) {
             String errorMessage = result.getAllErrors().stream()
