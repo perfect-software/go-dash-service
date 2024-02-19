@@ -10,7 +10,6 @@ import com.service.godash.repository.SrBomDetailsRepo;
 import com.service.godash.repository.SrBomRepo;
 import com.service.godash.service.BomService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.relational.core.sql.In;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -45,7 +44,7 @@ public class BomServiceImpl implements BomService {
                 System.out.println("\tSubgroup: " + subgroup.getItemsubgrp());
                 for (SrItem item : subgroup.getItems()) {
                     SrBomDetails srBomDetails=new SrBomDetails();
-                    srBomDetails.setBom_id(bomId);
+                    srBomDetails.setBomId(bomId);
                     srBomDetails.setItem_id(item.getItemId());
                     srBomDetails.setUsedIn(item.getUsedIn());
                     srBomDetails.setBomQty(item.getBomQty());
@@ -87,6 +86,11 @@ public class BomServiceImpl implements BomService {
         srBomResponse.setArticleNo(articleNo);
         srBomResponse.setSampleId(sample.getSampleId());
         return srBomResponse;
+    }
+
+    @Override
+    public SrBomDetails getSrBomDetails(Integer bomId) {
+        return srBomDetailsRepo.findBybomId(bomId);
     }
 
 }

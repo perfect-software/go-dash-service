@@ -1,6 +1,7 @@
 package com.service.godash.controller;
 
 import com.service.godash.model.SrBom;
+import com.service.godash.model.SrBomDetails;
 import com.service.godash.payload.*;
 import com.service.godash.service.BomService;
 import com.service.godash.util.Utility;
@@ -57,6 +58,16 @@ public class BomController {
         }
         catch (Exception ex){
             throw new Exception("Error while viewing sample");
+        }
+    }
+
+    @GetMapping("/viewbomdetails")
+    public SrBomDetails viewAllBomDetails(Integer bomId) throws Exception{
+        try{
+            return bomService.getSrBomDetails(bomId);
+        }
+        catch (Exception ex){
+            throw new Exception("Error view bom details");
         }
     }
 }

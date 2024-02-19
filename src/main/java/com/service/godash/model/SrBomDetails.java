@@ -15,7 +15,7 @@ public class SrBomDetails {
     private Integer bomDetailsId;
 
     @Column(name = "bom_id")
-    private Integer bom_id;
+    private Integer bomId;
 
     @Column(name = "item_id")
     private Integer item_id;

@@ -6,4 +6,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface SrBomDetailsRepo extends JpaRepository<SrBomDetails,Integer> {
+
+    SrBomDetails findBybomId(Integer bomId);
 }

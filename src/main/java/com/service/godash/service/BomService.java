@@ -1,12 +1,12 @@
 package com.service.godash.service;
 
 import com.service.godash.model.SrBom;
-import com.service.godash.payload.SampleResponse;
+import com.service.godash.model.SrBomDetails;
 import com.service.godash.payload.SrBomRequest;
 import com.service.godash.payload.SrBomResponse;
-import org.springframework.http.ResponseEntity;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface BomService {
 
@@ -17,4 +17,6 @@ public interface BomService {
     List<SrBom> viewSRBOM();
 
     SrBomResponse getSamplebySrno(String srno);
+
+    SrBomDetails getSrBomDetails(Integer bomId);
 }
