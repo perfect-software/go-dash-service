@@ -173,37 +173,37 @@ public class SampleServiceImpl implements SampleService {
     }
 
     private Sample convertSampleToDTO(Sample sample,SampleRequest request){
-        sample.setSeason(request.getSeason());
-        sample.setSampleRef(request.getSampleRef());
-        sample.setSampleType(request.getSampleType());
-        sample.setSampleRef(request.getSampleRef());
-        sample.setArticle_no(request.getArticleNo());
-        sample.setComments(request.getComments());
-        sample.setBuyerArticle(request.getBuyerArticle());
-        sample.setSize(request.getSize());
-        sample.setQuantity(request.getQuantity());
-        sample.setPair(request.getPair());
-        sample.setUpperColor(request.getUpperColor());
-        sample.setLiningColor(request.getLiningColor());
-        sample.setLast(request.getLast());
-        sample.setInsole(request.getInsole());
-        sample.setSoleLabel(request.getSoleLabel());
-        sample.setSocks(request.getSocks());
-        sample.setHeel(request.getHeel());
-        sample.setPattern(request.getPattern());
-        sample.setBuyerRef(request.getBuyerRef());
-        sample.setInUpperLeather(request.getInUpperLeather());
-        sample.setInLining(request.getInLining());
-        sample.setInSocks(request.getInSocks());
-        sample.setInQuantity(request.getInQuantity());
+        sample.setSeason(request.getSeason().toUpperCase());
+        sample.setSampleRef(request.getSampleRef().toUpperCase());
+        sample.setSampleType(request.getSampleType().toUpperCase());
+        sample.setSampleRef(request.getSampleRef().toUpperCase());
+        sample.setArticle_no(request.getArticleNo().toUpperCase());
+        sample.setComments(request.getComments().toUpperCase());
+        sample.setBuyerArticle(request.getBuyerArticle().toUpperCase());
+        sample.setSize(request.getSize().toUpperCase());
+        sample.setQuantity(request.getQuantity().toUpperCase());
+        sample.setPair(request.getPair().toUpperCase());
+        sample.setUpperColor(request.getUpperColor().toUpperCase());
+        sample.setLiningColor(request.getLiningColor().toUpperCase());
+        sample.setLast(request.getLast().toUpperCase());
+        sample.setInsole(request.getInsole().toUpperCase());
+        sample.setSoleLabel(request.getSoleLabel().toUpperCase());
+        sample.setSocks(request.getSocks().toUpperCase());
+        sample.setHeel(request.getHeel().toUpperCase());
+        sample.setPattern(request.getPattern().toUpperCase());
+        sample.setBuyerRef(request.getBuyerRef().toUpperCase());
+        sample.setInUpperLeather(request.getInUpperLeather().toUpperCase());
+        sample.setInLining(request.getInLining().toUpperCase());
+        sample.setInSocks(request.getInSocks().toUpperCase());
+        sample.setInQuantity(request.getInQuantity().toUpperCase());
         sample.setDeliveryDate(request.getDeliveryDate());
         sample.setProdExDate(request.getProdExDate());
         sample.setDateOfOrder(request.getDateOfOrder());
         sample.setImage_nm(request.getImage_nm());
         sample.setFinYear(request.getFinYear());
         sample.setInternal_ref(request.getInternal_ref());
-        sample.setLeather_remark(request.getLeather_remark());
-        sample.setSole_remark(request.getSole_remark());
+        sample.setLeather_remark(request.getLeather_remark().toUpperCase());
+        sample.setSole_remark(request.getSole_remark().toUpperCase());
         return sample;
     }
 

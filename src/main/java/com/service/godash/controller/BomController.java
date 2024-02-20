@@ -62,7 +62,7 @@ public class BomController {
     }
 
     @GetMapping("/viewbomdetails")
-    public SrBomDetails viewAllBomDetails(Integer bomId) throws Exception{
+    public List<SrBomDetails> viewAllBomDetails(Integer bomId) throws Exception{
         try{
             return bomService.getSrBomDetails(bomId);
         }

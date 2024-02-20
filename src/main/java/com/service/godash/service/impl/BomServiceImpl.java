@@ -9,6 +9,7 @@ import com.service.godash.repository.SampleRequestRepo;
 import com.service.godash.repository.SrBomDetailsRepo;
 import com.service.godash.repository.SrBomRepo;
 import com.service.godash.service.BomService;
+import com.service.godash.util.Utility;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -29,13 +30,11 @@ public class BomServiceImpl implements BomService {
 
     @Autowired
     ArticleRepo articleRepo;
+    
 
     public String createBom(SrBomRequest request){
-        SrBom srBom=new SrBom();
-        srBom.setSrno(request.getSr_no());
-        srBom.setBomType(request.getBomType());
+        SrBom srBom=new SrBom(request);
         srBom.setBomStatus("S");
-        srBom.setCreatedBy(request.getCreatedBy());
         srBomRepo.save(srBom);
         Integer bomId=srBom.getBomId();
         for (SrGrp group : request.getGroups()) {
@@ -46,15 +45,15 @@ public class BomServiceImpl implements BomService {
                     SrBomDetails srBomDetails=new SrBomDetails();
                     srBomDetails.setBomId(bomId);
                     srBomDetails.setItem_id(item.getItemId());
-                    srBomDetails.setUsedIn(item.getUsedIn());
+                    srBomDetails.setUsedIn(item.getUsedIn().toUpperCase());
                     srBomDetails.setBomQty(item.getBomQty());
-                    srBomDetails.setPair(item.getPair());
-                    srBomDetails.setUnit(item.getUnit());
+                    srBomDetails.setPair(item.getPair().toUpperCase());
+                    srBomDetails.setUnit(item.getUnit().toUpperCase());
                     srBomDetails.setRate(item.getRate());
                     srBomDetails.setReqQty(item.getRequiredQty());
                     srBomDetails.setSupplier_id(item.getSupplierId());
-                    srBomDetails.setItemGrp(group.getItemgrp());
-                    srBomDetails.setItemSubGrp(subgroup.getItemsubgrp());
+                    srBomDetails.setItemGrp(group.getItemgrp().toUpperCase());
+                    srBomDetails.setItemSubGrp(subgroup.getItemsubgrp().toUpperCase());
                     srBomDetails.setStockConsumedQty(item.getStockConsumedQty());
                     srBomDetails.setEntDate(LocalDateTime.now());
                     srBomDetailsRepo.save(srBomDetails);
@@ -89,7 +88,8 @@ public class BomServiceImpl implements BomService {
     }
 
     @Override
-    public SrBomDetails getSrBomDetails(Integer bomId) {
+    public List<SrBomDetails> getSrBomDetails(Integer bomId) {
+
         return srBomDetailsRepo.findBybomId(bomId);
     }
 

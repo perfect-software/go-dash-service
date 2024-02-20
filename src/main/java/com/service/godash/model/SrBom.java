@@ -1,5 +1,6 @@
 package com.service.godash.model;
 
+import com.service.godash.payload.SrBomRequest;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -13,6 +14,13 @@ public class SrBom {
 
 
     public SrBom() {
+    }
+
+    public SrBom(SrBomRequest request){
+        this.srno=request.getSr_no().toUpperCase();
+        this.bomType=request.getBomType().toUpperCase();
+        this.createdBy="USER";
+        this.entDate=LocalDateTime.now();
     }
 
     @Id

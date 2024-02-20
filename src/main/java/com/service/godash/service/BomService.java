@@ -18,5 +18,5 @@ public interface BomService {
 
     SrBomResponse getSamplebySrno(String srno);
 
-    SrBomDetails getSrBomDetails(Integer bomId);
+    List<SrBomDetails> getSrBomDetails(Integer bomId);
 }
