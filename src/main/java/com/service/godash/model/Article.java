@@ -16,6 +16,10 @@ public class Article {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "article_id")
     private int articleId;
+    @Column(name = "articlemst_id")
+    private int articlemst_id;
+    @Column(name="article_no")
+    private String article_no;
     @Column(name = "article_nm")
     private String articleName;
     @Column(name ="image_nm")
@@ -56,6 +60,7 @@ public class Article {
     private Date entDate;
 
     public Article(ArticleRequest request){
+        this.article_no=StringUtils.upperCase(request.getArticleNo());
         this.articleName= StringUtils.upperCase(request.getArticleName());
         this.animal=StringUtils.upperCase(request.getAnimal());
         this.color=StringUtils.upperCase(request.getColor());

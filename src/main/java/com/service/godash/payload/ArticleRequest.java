@@ -6,6 +6,7 @@ import lombok.Data;
 public class ArticleRequest {
 
     private Integer articleId;
+    private String articleNo;
     private String articleName;
     private String animal;
     private String color;

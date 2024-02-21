@@ -2,8 +2,10 @@ package com.service.godash.service.impl;
 
 import com.service.godash.Exception.DuplicationException;
 import com.service.godash.model.Article;
+import com.service.godash.model.ArticleMST;
 import com.service.godash.model.Sample;
 import com.service.godash.payload.ArticleRequest;
+import com.service.godash.repository.ArticleMstRepo;
 import com.service.godash.repository.ArticleRepo;
 import com.service.godash.service.ArticleService;
 import jakarta.validation.Valid;
@@ -22,10 +24,18 @@ import java.util.List;
 public class ArticleServiceImpl implements ArticleService {
     @Autowired
     ArticleRepo articleRepo;
+
+    @Autowired
+    ArticleMstRepo articleMstRepo;
     @Override
     public String createArticle(ArticleRequest request) throws Exception {
         try {
+            ArticleMST articleMST=new ArticleMST();
+            articleMST.setArticle_no(request.getArticleNo());
+            articleMST.setLast_no(request.getLastNo());
+            articleMstRepo.save(articleMST);
             Article article=new Article(request);
+            article.setArticlemst_id(articleMST.getArticleMstId());
             articleRepo.save(article);
             return article.getArticleName();
         }
@@ -70,6 +80,11 @@ public class ArticleServiceImpl implements ArticleService {
         } else {
             throw new DuplicationException("Article does not exist");
         }
+    }
+
+    @Override
+    public List<ArticleMST> getArticleMst() {
+       return articleMstRepo.findAll();
     }
 
     private Article convertArticleToDTO(Article article, ArticleRequest request) {

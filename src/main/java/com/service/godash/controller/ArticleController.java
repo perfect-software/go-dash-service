@@ -2,6 +2,7 @@ package com.service.godash.controller;
 
 import com.service.godash.Exception.GenericException;
 import com.service.godash.model.Article;
+import com.service.godash.model.ArticleMST;
 import com.service.godash.model.Sample;
 import com.service.godash.payload.ArticleRequest;
 import com.service.godash.payload.MessageResponse;
@@ -106,4 +107,9 @@ public class ArticleController {
         }
     }
 
+    @GetMapping("/getArticleMst")
+    public List<ArticleMST> getArticleMst()
+    {
+        return articleService.getArticleMst();
+    }
 }

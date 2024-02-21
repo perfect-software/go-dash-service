@@ -30,7 +30,7 @@ public class BomServiceImpl implements BomService {
 
     @Autowired
     ArticleRepo articleRepo;
-    
+
 
     public String createBom(SrBomRequest request){
         SrBom srBom=new SrBom(request);
