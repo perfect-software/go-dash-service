@@ -20,13 +20,16 @@ public class SampleRequest {
     private String season;
     @Size(max=30,message = "sample ref exceeding char limit")
     private String sampleRef;
+
     @Size(max=10,message = "article no exceeding char limit")
     @NotBlank(message = "article cannot be blank")
     @NotNull(message = "article cannot be empty")
     private String articleNo;
+
     @Size(max=50,message = "buyer article exceeding char limit")
     private String buyerArticle;
-    @Size(max=5,message = "size exceeding char limit")
+
+    @Size(max=5,message = "buyer ref exceeding char limit")
     private String buyerRef;
     @Size(max=50,message = "inUpperLeather exceeding char limit")
     private String size;

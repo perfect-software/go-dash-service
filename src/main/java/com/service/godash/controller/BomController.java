@@ -1,8 +1,10 @@
 package com.service.godash.controller;
 
+import com.service.godash.model.Article;
 import com.service.godash.model.SrBom;
 import com.service.godash.model.SrBomDetails;
 import com.service.godash.payload.*;
+import com.service.godash.service.ArticleService;
 import com.service.godash.service.BomService;
 import com.service.godash.util.Utility;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +19,9 @@ import java.util.List;
 public class BomController {
     @Autowired
     BomService bomService;
+
+    @Autowired
+    ArticleService articleService;
 
     @Autowired
     Utility utility;
@@ -70,4 +75,16 @@ public class BomController {
             throw new Exception("Error view bom details");
         }
     }
+
+    @GetMapping("/getArticleWithArticleMstId")
+    public List<Article> getArticleWithArticleMstId(@RequestParam Integer articleMstId) throws Exception {
+       try {
+           return articleService.getArticleWithArticleMst(articleMstId);
+       }catch (Exception ex)
+       {
+           throw new Exception(ex.getMessage());
+       }
+
+    }
 }
+

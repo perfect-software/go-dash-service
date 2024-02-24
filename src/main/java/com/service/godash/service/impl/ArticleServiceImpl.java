@@ -3,21 +3,17 @@ package com.service.godash.service.impl;
 import com.service.godash.Exception.DuplicationException;
 import com.service.godash.model.Article;
 import com.service.godash.model.ArticleMST;
-import com.service.godash.model.Sample;
 import com.service.godash.payload.ArticleRequest;
+import com.service.godash.payload.MessageResponse;
 import com.service.godash.repository.ArticleMstRepo;
 import com.service.godash.repository.ArticleRepo;
 import com.service.godash.service.ArticleService;
-import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestParam;
 
-import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -30,14 +26,22 @@ public class ArticleServiceImpl implements ArticleService {
     @Override
     public String createArticle(ArticleRequest request) throws Exception {
         try {
-            ArticleMST articleMST=new ArticleMST();
-            articleMST.setArticle_no(request.getArticleNo());
-            articleMST.setLast_no(request.getLastNo());
-            articleMstRepo.save(articleMST);
-            Article article=new Article(request);
-            article.setArticlemst_id(articleMST.getArticleMstId());
-            articleRepo.save(article);
-            return article.getArticleName();
+            String articleNo=request.getArticleNo();
+            String lastNo=request.getLastNo();
+            ArticleMST articleMST = new ArticleMST();
+            if(articleMstRepo.findByArticleNoAndLastNo(articleNo,lastNo)==null) {
+                    articleMST.setArticleNo(request.getArticleNo());
+                    articleMST.setLastNo(request.getLastNo());
+                    articleMstRepo.save(articleMST);
+                }
+            else {
+                throw new Exception("Article already exists with same article number and last number combination");
+            }
+                Article article = new Article(request);
+                article.setArticleMstId(articleMST.getArticleMstId());
+                articleRepo.save(article);
+                return article.getArticleName();
+
         }
         catch (Exception ex){
             throw new Exception(ex.getMessage());
@@ -85,6 +89,11 @@ public class ArticleServiceImpl implements ArticleService {
     @Override
     public List<ArticleMST> getArticleMst() {
        return articleMstRepo.findAll();
+    }
+
+    @Override
+    public List<Article> getArticleWithArticleMst(Integer articleMstId) {
+        return articleRepo.findByArticleMstId(articleMstId);
     }
 
     private Article convertArticleToDTO(Article article, ArticleRequest request) {

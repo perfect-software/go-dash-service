@@ -23,4 +23,6 @@ public interface ArticleService {
     String updateArticle(ArticleRequest request);
 
     List<ArticleMST> getArticleMst();
+
+    List<Article> getArticleWithArticleMst(Integer articleMstId);
 }

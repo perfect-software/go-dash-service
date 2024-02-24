@@ -17,7 +17,7 @@ public class Article {
     @Column(name = "article_id")
     private int articleId;
     @Column(name = "articlemst_id")
-    private int articlemst_id;
+    private int articleMstId;
     @Column(name="article_no")
     private String article_no;
     @Column(name = "article_nm")

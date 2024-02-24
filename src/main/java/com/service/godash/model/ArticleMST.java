@@ -14,9 +14,9 @@ public class ArticleMST {
     private int articleMstId;
 
     @Column(name="article_no")
-    private String article_no;
+    private String articleNo;
 
     @Column(name="last_no")
-    private String last_no;
+    private String lastNo;
 
 }
