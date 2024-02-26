@@ -34,9 +34,6 @@ public class ArticleServiceImpl implements ArticleService {
                     articleMST.setLastNo(request.getLastNo());
                     articleMstRepo.save(articleMST);
                 }
-            else {
-                throw new Exception("Article already exists with same article number and last number combination");
-            }
                 Article article = new Article(request);
                 article.setArticleMstId(articleMST.getArticleMstId());
                 articleRepo.save(article);
