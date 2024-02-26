@@ -311,3 +311,34 @@ select * from ole.Supplier
 
 
 select b.bs_name,a.article_nm from ole.SampleRequest s,ole.Buyer b,ole.Article a where s.bs_id=b.bs_id and s.article_no=a.article_id and sr_no='SR123456'
+
+CREATE TABLE ole.Article (
+        article_id int IDENTITY(1,1) PRIMARY KEY NOT NULL,
+		articlemst_id int,
+		article_no varchar(20),
+    	article_nm varchar (50),
+    	animal varchar(10),
+		leather varchar(10),
+    	color varchar(50),
+		color_code varchar(20),
+    	gender varchar(5),
+		sole varchar(20),
+    	sole_type varchar(50),
+		insole varchar(50),
+    	toe_shape varchar(50),
+    	category varchar(50),
+		sub_category varchar(50),
+    	platform_type varchar(50),
+    	platform_no varchar(50),
+    	heel_type varchar(50),
+    	heel_no varchar(50),
+    	heel_height varchar(50),
+    	last_no varchar(50),
+		last_type varchar(50),
+    	lining_material varchar(50),
+    	socks_material varchar(50),
+    	comment varchar(255),
+		image_nm varchar(200),
+    	username varchar (10),
+    	entDate datetime DEFAULT getdate(),
+		);
