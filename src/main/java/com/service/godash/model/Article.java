@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import lombok.Data;
 import org.apache.commons.lang3.StringUtils;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Entity
@@ -96,7 +97,7 @@ public class Article {
     private String username;
 
     @Column(name = "entDate")
-    private Date entDate;
+    private LocalDateTime entDate;
 
     public Article(ArticleRequest request){
         this.article_no=StringUtils.upperCase(request.getArticleNo().trim());

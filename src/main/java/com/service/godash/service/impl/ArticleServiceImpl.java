@@ -14,6 +14,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -36,6 +37,7 @@ public class ArticleServiceImpl implements ArticleService {
                 }
                 Article article = new Article(request);
                 article.setArticleMstId(articleMST.getArticleMstId());
+                article.setEntDate(LocalDateTime.now());
                 articleRepo.save(article);
                 return article.getArticleName();
 
@@ -95,10 +97,13 @@ public class ArticleServiceImpl implements ArticleService {
 
     private Article convertArticleToDTO(Article article, ArticleRequest request) {
         article.setArticleName(request.getArticleName());
+        article.setLeather(request.getLeather());
         article.setAnimal(request.getAnimal());
         article.setColor(request.getColor());
+        article.setColorCode(request.getColorCode());
         article.setComment(request.getComment());
         article.setCategory(request.getCategory());
+        article.setSubcategory(request.getSubCategory());
         article.setGender(request.getGender());
         article.setImage_nm(request.getImage_nm());
         article.setHeelHeight(request.getHeelHeight());
@@ -110,8 +115,10 @@ public class ArticleServiceImpl implements ArticleService {
         article.setPlatformType(request.getPlatformType());
         article.setToeShape(request.getToeShape());
         article.setLastNo(request.getLastNo());
+        article.setSole(request.getSole());
         article.setSoleType(request.getSoleType());
         article.setSocksMaterial(request.getSocksMaterial());
+        article.setEntDate(LocalDateTime.now());
         return article;
     }
 
