@@ -4,7 +4,7 @@ import com.service.godash.Exception.DuplicationException;
 import com.service.godash.model.Article;
 import com.service.godash.model.ArticleMST;
 import com.service.godash.payload.ArticleRequest;
-import com.service.godash.payload.MessageResponse;
+import com.service.godash.payload.ArticleUpdateRequest;
 import com.service.godash.repository.ArticleMstRepo;
 import com.service.godash.repository.ArticleRepo;
 import com.service.godash.service.ArticleService;
@@ -74,7 +74,7 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     @Override
-    public String updateArticle(ArticleRequest request) {
+    public String updateArticle(ArticleUpdateRequest request) {
         Article existingRequest= articleRepo.findById(request.getArticleId()).orElse(null);
         if (existingRequest!= null) {
             Article article=convertArticleToDTO(existingRequest,request);
@@ -95,7 +95,7 @@ public class ArticleServiceImpl implements ArticleService {
         return articleRepo.findByArticleMstId(articleMstId);
     }
 
-    private Article convertArticleToDTO(Article article, ArticleRequest request) {
+    private Article convertArticleToDTO(Article article, ArticleUpdateRequest request) {
         article.setArticleName(request.getArticleName());
         article.setSeason(request.getSeason());
         article.setLeather(request.getLeather());

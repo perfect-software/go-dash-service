@@ -5,6 +5,7 @@ import com.service.godash.model.Article;
 import com.service.godash.model.ArticleMST;
 import com.service.godash.model.Sample;
 import com.service.godash.payload.ArticleRequest;
+import com.service.godash.payload.ArticleUpdateRequest;
 import com.service.godash.payload.MessageResponse;
 import com.service.godash.payload.ServiceResponse;
 import com.service.godash.service.ArticleService;
@@ -86,7 +87,7 @@ public class ArticleController {
     }
 
     @PutMapping("/update")
-    public ResponseEntity<ServiceResponse> updateArticle(@Valid @RequestBody ArticleRequest request, BindingResult result)throws Exception{
+    public ResponseEntity<ServiceResponse> updateArticle(@Valid @RequestBody ArticleUpdateRequest request, BindingResult result)throws Exception{
         if (result.hasErrors()) {
             String errorMessage = result.getAllErrors().stream()
                     .map(error -> error.getDefaultMessage())

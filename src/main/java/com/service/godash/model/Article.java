@@ -123,11 +123,12 @@ public class Article {
         this.heelNo=StringUtils.upperCase(request.getHeelNo().trim());
         this.heelType=StringUtils.upperCase(request.getHeelType().trim());
         this.lastNo=StringUtils.upperCase(request.getLastNo().trim());
+        this.lastType=StringUtils.upperCase(request.getLastType().trim());
         this.liningMaterial=StringUtils.upperCase(request.getLiningMaterial().trim());
         this.socksMaterial=StringUtils.upperCase(request.getSocksMaterial().trim());
         this.comment=StringUtils.upperCase(request.getComment().trim());
-        this.username=StringUtils.upperCase(request.getUsername().trim());
-        this.image_nm=request.getImage_nm().trim();
+//        this.username=StringUtils.upperCase(request.getUsername().trim());
+        this.image_nm=request.getImage_nm();
     }
 
     public Article() {
