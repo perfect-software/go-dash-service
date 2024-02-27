@@ -97,6 +97,7 @@ public class ArticleServiceImpl implements ArticleService {
 
     private Article convertArticleToDTO(Article article, ArticleRequest request) {
         article.setArticleName(request.getArticleName());
+        article.setSeason(request.getSeason());
         article.setLeather(request.getLeather());
         article.setAnimal(request.getAnimal());
         article.setColor(request.getColor());

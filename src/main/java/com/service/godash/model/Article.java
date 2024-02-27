@@ -33,6 +33,9 @@ public class Article {
     @Column(name = "animal")
     private String animal;
 
+    @Column(name = "season")
+    private String season;
+
     @Column(name = "leather")
     private String leather;
 
@@ -100,6 +103,7 @@ public class Article {
     private LocalDateTime entDate;
 
     public Article(ArticleRequest request){
+        this.season=StringUtils.upperCase(request.getSeason().trim());
         this.article_no=StringUtils.upperCase(request.getArticleNo().trim());
         this.articleName= StringUtils.upperCase(request.getArticleName().trim());
         this.animal=StringUtils.upperCase(request.getAnimal().trim());

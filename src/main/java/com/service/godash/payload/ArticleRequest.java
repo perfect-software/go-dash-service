@@ -15,6 +15,7 @@ public class ArticleRequest {
     private String gender;
     private String sole;
     private String insole;
+    private String season;
     private String soleType;
     private String toeShape;
     private String category;
