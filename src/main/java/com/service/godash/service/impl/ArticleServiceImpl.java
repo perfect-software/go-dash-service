@@ -35,8 +35,9 @@ public class ArticleServiceImpl implements ArticleService {
                     articleMST.setLastNo(request.getLastNo());
                     articleMstRepo.save(articleMST);
                 }
+                Integer articlemst=articleMstRepo.findArticleMsBytArticleNoAndLastNo(articleNo,lastNo);
                 Article article = new Article(request);
-                article.setArticleMstId(articleMST.getArticleMstId());
+                article.setArticleMstId(articlemst);
                 article.setEntDate(LocalDateTime.now());
                 articleRepo.save(article);
                 return article.getArticleName();

@@ -66,12 +66,15 @@ public class SampleServiceImpl implements SampleService {
     }
 
     @Override
-    public List<SampleResponse> viewAllSampleRequest() {
+    public List<SampleResponse> viewAllSampleRequest() throws Exception {
         List<SampleResponse> sampleResponseList=new ArrayList<>();
         List<Sample> resultList=sampleRequestRepo.findAllByOrderBySampleIdDesc();
         for(Sample item: resultList){
             SampleResponse sampleResponse=new SampleResponse();
             Article article=articleRepo.findByArticleId(Integer.parseInt(item.getArticle_no()));
+            if(article==null){
+                throw new Exception("Article Does not Exists");
+            }
             String articleName=article.getArticleName();
             String articleImageName=article.getImage_nm();
             sampleResponse.setSampleId(item.getSampleId());
