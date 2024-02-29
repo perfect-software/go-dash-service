@@ -1,21 +1,19 @@
 package com.service.godash.controller;
 
 import com.service.godash.model.Sample;
+import com.service.godash.payload.DocumentRequest;
 import com.service.godash.payload.ServiceResponse;
 import com.service.godash.repository.SampleRequestRepo;
+import com.service.godash.service.DocumentService;
 import com.service.godash.util.Utility;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+
 import static com.service.godash.constants.IConstants.imagePathArticleDir;
 import static com.service.godash.constants.IConstants.imagePathSampleRequestDir;
 import java.io.File;
@@ -32,6 +30,9 @@ public class GenericController {
 
     @Autowired
     private SampleRequestRepo sampleRequestRepo;
+
+    @Autowired
+    DocumentService documentService;
 
     @PostMapping("/upload")
     public ResponseEntity<ServiceResponse> handleImageUpload(@RequestParam("image") MultipartFile file, @RequestParam("fileName") String fileName, @RequestParam("type") String type) {
@@ -120,7 +121,11 @@ public class GenericController {
             return ResponseEntity.internalServerError().build();
         }
     }
-
+    @PostMapping("/generate-document")
+    public ResponseEntity<String> processDocument(@RequestBody DocumentRequest documentRequest, @RequestParam String type) throws Exception {
+        documentService.writeToHTMLContent(documentRequest,type);
+        return ResponseEntity.ok().body("FileCreated");
+    }
 
 
 
